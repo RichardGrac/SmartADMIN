@@ -1,0 +1,28 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Iluminación</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list no-border *ngFor="let item of ilumination; let i = index">
+
+    <ion-list-header>
+      {{ item.place }}
+    </ion-list-header>
+
+    <ion-item *ngFor="let light of item.lights; let j = index">
+      <ion-icon name='md-bulb' item-start color="none" *ngIf="!light.on" (click)="changeStatus(i, j)"></ion-icon>
+      <ion-icon name='md-bulb' item-start color="radiantYellow" *ngIf="light.on" (click)="changeStatus(i, j)"></ion-icon>
+      <p (click)="changeStatus(i, j)">{{ light.name }}</p>
+
+      <ion-icon name='md-options' item-end color="devilBlue"></ion-icon>
+      <!--<ion-toggle checked="true"></ion-toggle>-->
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

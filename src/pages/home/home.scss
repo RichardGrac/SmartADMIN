@@ -1,0 +1,22 @@
+page-home {
+  .rounded-borders{
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+
+  ion-icon{
+    font-size: 32px;
+  }
+
+  .text-center{
+    vertical-align: center;
+  }
+
+  .button-height{
+    height: 13%;
+  }
+
+  .text-down{
+    margin-top: 4%;
+  }
+}

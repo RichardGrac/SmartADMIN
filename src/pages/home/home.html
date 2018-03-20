@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="">
+    <ion-title text-center>
+      <img src="assets/imgs/logo.png" alt="logo" height="75" width="175">
+      <!--SmartADMIN-->
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="searchAppliances()">
+        <ion-icon name="md-add"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-button large block margin-bottom
+    color="primary2"
+    *ngFor="let option of options; let i = index"
+    class="rounded-borders button-height"
+    (click)="pushPage(i)">
+
+    <ion-grid class="text-down">
+      <ion-row>
+        <ion-col col-2>
+          <!-- Con iconos de color-->
+          <ion-icon item-start [name]="option.icon" [ngStyle]="{'color': option.color}"></ion-icon>
+          <!--<ion-icon item-start [name]="option.icon"></ion-icon>-->
+        </ion-col>
+        <ion-col text-left col-8>
+          <p class="text-down">
+            {{ option.name }}
+          </p>
+        </ion-col>
+        <ion-col col-2>
+          <ion-icon item-end name="ios-arrow-dropright-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </button>
+
+</ion-content>
