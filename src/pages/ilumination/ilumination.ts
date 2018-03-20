@@ -1,12 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the IluminationPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -19,47 +12,48 @@ export class IluminationPage {
     {
       place: 'Cocina',
       lights: [{
-        name: "Foco #1",
+        name: "Principal",
         on: true
       },
         {
-          name: "Foco #2",
+          name: "Cocineta",
           on: true
         },
         {
-          name: "Foco #3",
+          name: "Lavatrastes",
           on: true
         }]
     },
     {
       place: 'Comedor',
       lights: [{
-        name: "Foco #1",
+        name: "Central",
         on: false
       },
         {
-          name: "Foco #2",
+          name: "Secundario",
           on: true
         }]
     },
     {
       place: 'Sala',
       lights: [{
-        name: "Foco #1",
+        name: "General",
         on: true
         },
         {
-          name: "Foco #2",
+          name: "Tenúe",
           on: false
         },
         {
-          name: "Foco #3",
+          name: "Lámpara",
           on: false
         }]
     }
   ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
