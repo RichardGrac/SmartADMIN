@@ -1,69 +1,25 @@
-import { Component } from '@angular/core';
+import {Component,OnInit} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {LightsService} from "../../services/lights";
 
 @IonicPage()
 @Component({
   selector: 'page-ilumination',
   templateUrl: 'ilumination.html',
 })
-export class IluminationPage {
-
-  ilumination: Array<any> = [
-    {
-      place: 'Cocina',
-      lights: [{
-        name: "Principal",
-        on: true
-      },
-        {
-          name: "Cocineta",
-          on: true
-        },
-        {
-          name: "Lavatrastes",
-          on: true
-        }]
-    },
-    {
-      place: 'Comedor',
-      lights: [{
-        name: "Central",
-        on: false
-      },
-        {
-          name: "Secundario",
-          on: true
-        }]
-    },
-    {
-      place: 'Sala',
-      lights: [{
-        name: "General",
-        on: true
-        },
-        {
-          name: "Tenúe",
-          on: false
-        },
-        {
-          name: "Lámpara",
-          on: false
-        }]
-    }
-  ]
+export class IluminationPage implements OnInit{
+  ilumination: any[];
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams) {
+              public navParams: NavParams,
+              public lightsService: LightsService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad IluminationPage');
+  ngOnInit(): void {
+    this.ilumination = this.lightsService.getItems();
   }
 
-  changeStatus(id_place: number, id_light: number){
-    var status = this.ilumination[id_place].lights[id_light].on;
-    this.ilumination[id_place].lights[id_light].on = !(status);
-
-}
-
+  changeStatus(i, j){
+    this.lightsService.changeStatus(i, j);
+  }
 }

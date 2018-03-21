@@ -10,6 +10,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {ConfigurationPage} from "../pages/configuration/configuration";
 import {IluminationPage} from "../pages/ilumination/ilumination";
+import {LightsService} from "../services/lights";
+import {GroceryShoppingPage} from "../pages/grocery-shopping/grocery-shopping";
+import {GroceriesService} from "../services/groceries";
 
 @NgModule({
   declarations: [
@@ -17,7 +20,8 @@ import {IluminationPage} from "../pages/ilumination/ilumination";
     HomePage,
     TabsPage,
     ConfigurationPage,
-    IluminationPage
+    IluminationPage,
+    GroceryShoppingPage
   ],
   imports: [
     BrowserModule,
@@ -31,11 +35,14 @@ import {IluminationPage} from "../pages/ilumination/ilumination";
     HomePage,
     TabsPage,
     ConfigurationPage,
-    IluminationPage
+    IluminationPage,
+    GroceryShoppingPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    LightsService,
+    GroceriesService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

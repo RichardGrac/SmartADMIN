@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {LoadingController, NavController} from 'ionic-angular';
 import {IluminationPage} from "../ilumination/ilumination";
+import {GroceryShoppingPage} from "../grocery-shopping/grocery-shopping";
 
 @Component({
   selector: 'page-home',
@@ -14,21 +15,28 @@ export class HomePage {
       icon: "md-sunny",
       color: "#f1c40f"
     },
-    {
-      name: "Entretenimiento",
-      icon: "md-desktop",
-      color: "black"
-    },
+    // {
+    //   name: "Entretenimiento",
+    //   icon: "md-desktop",
+    //   color: "black"
+    // },
     {
       name: "Electrodomésticos",
       icon: "md-outlet",
-      color: "#f2f2f2"
+      color: "#CAD3C8"
       // color:"#636e72"
     },
     {
       name: "Calefacción",
       icon: "md-thermometer",
-      color: "#e69500"
+      color: "#fff200"
+      // color: "#e69500"
+    },
+    {
+      name: "Despensa",
+      icon: "md-cart",
+      // color: "#fff200"
+      color: "#e48b81"
     },
     {
       name: "Seguridad",
@@ -41,6 +49,12 @@ export class HomePage {
       color: "white"
       // color: "#2c3e50"
     }
+    // {
+    //   name: "Servicios",
+    //   icon: "md-card",
+    //   // color: "white"
+    //   color: "#ffa502"
+    // }
   ]
 
   constructor(public navCtrl: NavController,
@@ -58,10 +72,13 @@ export class HomePage {
 
   pushPage(index: number) {
     /* 0: Iluminación
-    *  1: Elect*/
+    *  3: Despensa */
     switch (index){
       case 0:
         this.navCtrl.push(IluminationPage);
+        break;
+      case 3:
+        this.navCtrl.push(GroceryShoppingPage);
         break;
     }
   }
