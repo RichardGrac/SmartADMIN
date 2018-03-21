@@ -21,7 +21,7 @@
   <ion-list>
     <ion-item-sliding *ngFor="let item of items; let i = index">
 
-      <button ion-item (click)="itemSelected(item)">
+      <button ion-item>
         <ion-grid>
           <ion-row>
             <ion-col col-2>
@@ -53,7 +53,7 @@
 </ion-content>
 
 <ion-footer text-center>
-  <button ion-button block class="buy-button" margin-left icon-end>
+  <button ion-button block class="buy-button" margin-left icon-end [navPush]="groceryStorePage">
     Seleccionar tienda
     <ion-icon name="ios-arrow-forward"></ion-icon>
   </button>

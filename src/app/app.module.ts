@@ -13,6 +13,8 @@ import {IluminationPage} from "../pages/ilumination/ilumination";
 import {LightsService} from "../services/lights";
 import {GroceryShoppingPage} from "../pages/grocery-shopping/grocery-shopping";
 import {GroceriesService} from "../services/groceries";
+import {GroceryStorePage} from "../pages/grocery-store/grocery-store";
+import {GroceryStoresService} from "../services/grocery-stores";
 
 @NgModule({
   declarations: [
@@ -22,7 +24,7 @@ import {GroceriesService} from "../services/groceries";
     ConfigurationPage,
     IluminationPage,
     GroceryShoppingPage,
-
+    GroceryStorePage
   ],
   imports: [
     BrowserModule,
@@ -37,13 +39,15 @@ import {GroceriesService} from "../services/groceries";
     TabsPage,
     ConfigurationPage,
     IluminationPage,
-    GroceryShoppingPage
+    GroceryShoppingPage,
+    GroceryStorePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     LightsService,
     GroceriesService,
+    GroceryStoresService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

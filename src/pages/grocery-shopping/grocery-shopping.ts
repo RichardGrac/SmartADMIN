@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {GroceriesService} from "../../services/groceries";
 import {Product} from "../../models/products";
+import {GroceryStorePage} from "../grocery-store/grocery-store";
 
 @IonicPage()
 @Component({
@@ -11,6 +12,7 @@ import {Product} from "../../models/products";
 export class GroceryShoppingPage implements OnInit{
 
   items: Product[];
+  groceryStorePage = GroceryStorePage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public groceriesService: GroceriesService,
