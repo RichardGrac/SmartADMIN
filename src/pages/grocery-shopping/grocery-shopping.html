@@ -1,0 +1,60 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Despensa</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openModal('Nuevo')">
+        <ion-icon name="md-add"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h3 text-left>Mandado a pedir:</h3>
+  <p *ngIf="items.length == 0" class="greyish">No hay elementos agregados.</p>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of items; let i = index">
+
+      <button ion-item (click)="itemSelected(item)">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-2>
+              {{ item.quantity }}
+            </ion-col>
+
+            <ion-col col-2>
+              {{ item.type }}
+            </ion-col>
+
+            <ion-col col-8>
+              {{ item.name }}
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+      </button>
+
+      <ion-item-options>
+        <button ion-button color="danger" (click)="onDeleteItem(i)">
+          <ion-icon name="trash"></ion-icon>
+          Eliminar
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer text-center>
+  <button ion-button block class="buy-button" margin-left icon-end>
+    Seleccionar tienda
+    <ion-icon name="ios-arrow-forward"></ion-icon>
+  </button>
+</ion-footer>
