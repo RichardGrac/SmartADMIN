@@ -1,0 +1,33 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Despensa</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h3 text-left>Seleccione su tienda de conveniencia:</h3>
+
+  <ion-list>
+    <button ion-item *ngFor="let store of stores">
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4>
+            <img src="{{store.img}}" width="100%" height="75%">
+          </ion-col>
+          <ion-col col-8>
+            <h4>{{ store.name }}</h4>
+            <p class="greyish">{{ store.slogan }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </button>
+
+
+  </ion-list>
+</ion-content>
