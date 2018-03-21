@@ -21,7 +21,8 @@ import {GroceriesService} from "../services/groceries";
     TabsPage,
     ConfigurationPage,
     IluminationPage,
-    GroceryShoppingPage
+    GroceryShoppingPage,
+
   ],
   imports: [
     BrowserModule,
