@@ -15,6 +15,8 @@ import {GroceryShoppingPage} from "../pages/grocery-shopping/grocery-shopping";
 import {GroceriesService} from "../services/groceries";
 import {GroceryStorePage} from "../pages/grocery-store/grocery-store";
 import {GroceryStoresService} from "../services/grocery-stores";
+import {PopoverInfoComponent} from "../components/more-info.popover";
+import {IluminationConfPage} from "../pages/ilumination-conf/ilumination-conf";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import {GroceryStoresService} from "../services/grocery-stores";
     ConfigurationPage,
     IluminationPage,
     GroceryShoppingPage,
-    GroceryStorePage
+    GroceryStorePage,
+    PopoverInfoComponent,
+    IluminationConfPage
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,9 @@ import {GroceryStoresService} from "../services/grocery-stores";
     ConfigurationPage,
     IluminationPage,
     GroceryShoppingPage,
-    GroceryStorePage
+    GroceryStorePage,
+    PopoverInfoComponent,
+    IluminationConfPage
   ],
   providers: [
     StatusBar,

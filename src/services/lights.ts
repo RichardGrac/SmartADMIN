@@ -4,14 +4,17 @@ export class LightsService{
     {
       place: 'Cocina',
       lights: [{
+        id: 1,
         name: "Principal",
         on: true
       },
         {
+          id: 2,
           name: "Cocineta",
           on: true
         },
         {
+          id: 3,
           name: "Lavatrastes",
           on: true
         }]
@@ -19,10 +22,12 @@ export class LightsService{
     {
       place: 'Comedor',
       lights: [{
+        id: 4,
         name: "Central",
         on: false
       },
         {
+          id: 5,
           name: "Secundario",
           on: true
         }]
@@ -30,19 +35,22 @@ export class LightsService{
     {
       place: 'Sala',
       lights: [{
+        id: 6,
         name: "General",
         on: true
       },
         {
+          id: 7,
           name: "Tenúe",
           on: false
         },
         {
+          id: 8,
           name: "Lámpara",
           on: false
         }]
     }
-  ]
+  ];
 
   getItems(){
     return this.ilumination.slice();

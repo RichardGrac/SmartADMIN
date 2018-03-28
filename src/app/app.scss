@@ -14,3 +14,14 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+.popover-border{
+  border-radius: 10px;
+  border: 1px solid;
+  background-color: #ecf0f1;
+
+  h3{
+    color: #2980b9;
+  }
+}

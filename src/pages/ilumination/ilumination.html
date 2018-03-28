@@ -4,7 +4,7 @@
     <ion-title>Iluminación</ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="presentPopover($event)">
         <ion-icon name="md-information-circle"></ion-icon>
       </button>
     </ion-buttons>
@@ -23,7 +23,8 @@
     <ion-item *ngFor="let light of item.lights; let j = index">
       <ion-icon name='md-bulb' item-start color="none" *ngIf="!light.on" (click)="changeStatus(i, j)"></ion-icon>
       <ion-icon name='md-bulb' item-start color="radiantYellow" *ngIf="light.on" (click)="changeStatus(i, j)"></ion-icon>
-      <p (click)="changeStatus(i, j)" class="bigger-font">{{ light.name }}</p>
+      <p (click)="changeStatus(i, j)"  *ngIf="light.on" class="font-bolded bigger-font">{{ light.name }}</p>
+      <p (click)="changeStatus(i, j)"  *ngIf="!light.on" class="bigger-font">{{ light.name }}</p>
 
       <ion-icon name='md-options' item-end color="devilBlue"></ion-icon>
       <!--<ion-toggle checked="true"></ion-toggle>-->
