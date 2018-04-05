@@ -2,7 +2,7 @@ import {Component,OnInit} from '@angular/core';
 import {IonicPage, NavController, NavParams, PopoverController, ModalController} from 'ionic-angular';
 import {LightsService} from "../../services/lights";
 import {PopoverInfoComponent} from "../../components/more-info.popover";
-import {IluminationConfPage} from "../ilumination-conf/ilumination-conf";
+import {IluminationConfigPage} from "../ilumination-config/ilumination-config";
 
 @IonicPage()
 @Component({
@@ -12,12 +12,12 @@ import {IluminationConfPage} from "../ilumination-conf/ilumination-conf";
 export class IluminationPage implements OnInit{
   ilumination: any[];
 
-
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public lightsService: LightsService,
               public popoverCtrl: PopoverController,
               public modalCtrl: ModalController) {
+
   }
 
   ngOnInit(): void {
@@ -35,8 +35,8 @@ export class IluminationPage implements OnInit{
     });
   }
 
-  presentModal(index: number){
-    let modal = this.modalCtrl.create(IluminationConfPage);
+  presentModal(id_place: number, id_light: number){
+    let modal = this.modalCtrl.create(IluminationConfigPage, {id_place: id_place, id_light: id_light});
     modal.present();
   }
 }

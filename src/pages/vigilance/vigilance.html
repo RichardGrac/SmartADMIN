@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Vigilancia</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list no-border *ngFor="let item of vigilance; let i = index">
+
+    <ion-list-header>
+      {{ item.place }}
+    </ion-list-header>
+
+    <button ion-item *ngFor="let camera of item.cameras; let j = index">
+      <ion-icon name='md-warning' item-start color="danger" *ngIf="!camera.on"></ion-icon>
+      <ion-icon name='ios-videocam' item-start color="dark" *ngIf="camera.on"></ion-icon>
+      <p *ngIf="camera.on" class="font-bolded bigger-font">{{ camera.name }}</p>
+      <p *ngIf="!camera.on" class="bigger-font caution">{{ camera.name }}</p>
+
+      <ion-note *ngIf="camera.on">
+        <ion-icon name="ios-radio-button-on" color="greenish" small></ion-icon>
+        En linea
+      </ion-note>
+      <ion-note *ngIf="!camera.on" class="caution">
+        No disponible
+      </ion-note>
+
+      <!--<ion-icon name='md-options' item-end color="devilBlue"></ion-icon>-->
+    </button>
+
+  </ion-list>
+
+
+</ion-content>

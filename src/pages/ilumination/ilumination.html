@@ -26,8 +26,7 @@
       <p (click)="changeStatus(i, j)"  *ngIf="light.on" class="font-bolded bigger-font">{{ light.name }}</p>
       <p (click)="changeStatus(i, j)"  *ngIf="!light.on" class="bigger-font">{{ light.name }}</p>
 
-      <ion-icon name='md-options' item-end color="devilBlue"></ion-icon>
-      <!--<ion-toggle checked="true"></ion-toggle>-->
+      <ion-icon name='md-options' item-end color="devilBlue" (click)="presentModal(i, j)"></ion-icon>
     </ion-item>
 
   </ion-list>

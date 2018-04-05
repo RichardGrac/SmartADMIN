@@ -1,0 +1,14 @@
+page-ilumination-config {
+  hr{
+    border-top: 1px solid color($colors, primary);
+  }
+
+  h2{
+    color: color($colors, primary2);
+  }
+
+  .background-greyish{
+    background-color: #f1f2f6;
+    border-radius: 5px;
+  }
+}

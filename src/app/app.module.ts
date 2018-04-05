@@ -16,7 +16,9 @@ import {GroceriesService} from "../services/groceries";
 import {GroceryStorePage} from "../pages/grocery-store/grocery-store";
 import {GroceryStoresService} from "../services/grocery-stores";
 import {PopoverInfoComponent} from "../components/more-info.popover";
-import {IluminationConfPage} from "../pages/ilumination-conf/ilumination-conf";
+import {VigilancePage} from "../pages/vigilance/vigilance";
+import {CamerasService} from "../services/cameras";
+import {IluminationConfigPage} from "../pages/ilumination-config/ilumination-config";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import {IluminationConfPage} from "../pages/ilumination-conf/ilumination-conf";
     GroceryShoppingPage,
     GroceryStorePage,
     PopoverInfoComponent,
-    IluminationConfPage
+    IluminationConfigPage,
+    VigilancePage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import {IluminationConfPage} from "../pages/ilumination-conf/ilumination-conf";
     GroceryShoppingPage,
     GroceryStorePage,
     PopoverInfoComponent,
-    IluminationConfPage
+    IluminationConfigPage,
+    VigilancePage
   ],
   providers: [
     StatusBar,
@@ -54,6 +58,7 @@ import {IluminationConfPage} from "../pages/ilumination-conf/ilumination-conf";
     LightsService,
     GroceriesService,
     GroceryStoresService,
+    CamerasService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

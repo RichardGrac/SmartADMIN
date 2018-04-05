@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {LoadingController, NavController} from 'ionic-angular';
 import {IluminationPage} from "../ilumination/ilumination";
 import {GroceryShoppingPage} from "../grocery-shopping/grocery-shopping";
+import {VigilancePage} from "../vigilance/vigilance";
 
 @Component({
   selector: 'page-home',
@@ -80,6 +81,8 @@ export class HomePage {
       case 3:
         this.navCtrl.push(GroceryShoppingPage);
         break;
+      case 5:
+        this.navCtrl.push(VigilancePage);
     }
   }
 }
