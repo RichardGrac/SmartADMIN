@@ -27,4 +27,12 @@ export class CamerasService{
   getVigilanceItems(){
     return this.vigilance.slice();
   }
+
+  getCamera(id_place: number, id_camera: number){
+    return this.vigilance[id_place].cameras[id_camera];
+  }
+
+  setName(id_place: number, id_camera: number, name: string){
+    this.vigilance[id_place].cameras[id_camera].name = name;
+  }
 }

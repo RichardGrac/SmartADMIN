@@ -15,7 +15,7 @@
       {{ item.place }}
     </ion-list-header>
 
-    <button ion-item *ngFor="let camera of item.cameras; let j = index">
+    <button ion-item *ngFor="let camera of item.cameras; let j = index" (click)="openCamera(item.place, i, j)">
       <ion-icon name='md-warning' item-start color="danger" *ngIf="!camera.on"></ion-icon>
       <ion-icon name='ios-videocam' item-start color="dark" *ngIf="camera.on"></ion-icon>
       <p *ngIf="camera.on" class="font-bolded bigger-font">{{ camera.name }}</p>

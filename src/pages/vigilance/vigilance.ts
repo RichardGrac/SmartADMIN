@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {CamerasService} from "../../services/cameras";
+import {CameraPage} from "../camera/camera";
 
 @IonicPage()
 @Component({
@@ -10,11 +11,6 @@ import {CamerasService} from "../../services/cameras";
 export class VigilancePage implements OnInit{
 
   vigilance: any[];
-  brightness: number = 20;
-  contrast: number = 0;
-  warmth: number = 1300;
-  structure: any = { lower: 33, upper: 60 };
-  text: number = 0;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -25,6 +21,8 @@ export class VigilancePage implements OnInit{
     this.vigilance = this.vigilanceService.getVigilanceItems();
   }
 
-
+  openCamera(place: string, id_place: number, id_camera: number){
+     this.navCtrl.push(CameraPage, {place: place, id_place: id_place, id_camera: id_camera});
+  }
 
 }

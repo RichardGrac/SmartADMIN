@@ -1,0 +1,50 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>{{ camera.name }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div class="video">
+    <img src="assets\\imgs\\play.png">
+  </div>
+
+  <ion-list no-lines>
+
+    <ion-item margin-top>
+      Lugar
+      <ion-note item-end>{{ place_name }}</ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="camera.on" item-end>
+      Estado
+      <ion-note item-end>
+        <ion-icon name="ios-radio-button-on" color="greenish" small></ion-icon>
+        En linea
+      </ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="!camera.on" class="caution" item-end>
+      Estado
+      <ion-note item-end>
+        <ion-icon name="ios-radio-button-on" class="caution" small></ion-icon>
+        No disponible
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      Editar nombre
+      <ion-icon name="md-create" item-end (click)="editCameraName()"></ion-icon>
+    </ion-item>
+
+  </ion-list>
+
+  <div *ngIf="!camera.on" class="caution" text-center>
+    La camara no se encuentra funcionando correctamente. Por favor, verifique físicamente el dispositivo.
+  </div>
+
+</ion-content>

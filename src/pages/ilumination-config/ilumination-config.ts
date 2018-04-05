@@ -56,7 +56,7 @@ export class IluminationConfigPage implements OnInit{
   changeLightName(){
     let prompt = this.alertCtrl.create({
       title: 'Editar nombre',
-      message: "Introduzca el nuevo nombre nombre",
+      message: "Introduzca el nuevo nombre",
       inputs: [
         {
           name: 'name',

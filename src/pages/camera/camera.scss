@@ -1,0 +1,25 @@
+page-camera {
+  .video{
+    height: 280px;
+    width: 100%;
+    border: black solid;
+    background-color: #333333;
+    color: white;
+    border-radius: 8px;
+
+    img{
+      height: 45%;
+      width: 35%;
+      margin-left: 33%;
+      margin-top: 22%;
+    }
+  }
+
+  .caution{
+    color: #dd8888;
+  }
+
+  .statusOk{
+    color: #27ae60;
+  }
+}

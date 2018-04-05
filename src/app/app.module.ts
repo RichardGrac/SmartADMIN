@@ -19,6 +19,7 @@ import {PopoverInfoComponent} from "../components/more-info.popover";
 import {VigilancePage} from "../pages/vigilance/vigilance";
 import {CamerasService} from "../services/cameras";
 import {IluminationConfigPage} from "../pages/ilumination-config/ilumination-config";
+import {CameraPage} from "../pages/camera/camera";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {IluminationConfigPage} from "../pages/ilumination-config/ilumination-con
     GroceryStorePage,
     PopoverInfoComponent,
     IluminationConfigPage,
-    VigilancePage
+    VigilancePage,
+    CameraPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,8 @@ import {IluminationConfigPage} from "../pages/ilumination-config/ilumination-con
     GroceryStorePage,
     PopoverInfoComponent,
     IluminationConfigPage,
-    VigilancePage
+    VigilancePage,
+    CameraPage
   ],
   providers: [
     StatusBar,
