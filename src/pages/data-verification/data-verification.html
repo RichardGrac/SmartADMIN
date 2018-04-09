@@ -1,0 +1,60 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Pago</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <h3 text-left>Verifique sus datos</h3>
+
+  <ion-grid>
+
+    <ion-row align-items-center margin-bottom margin-left margin-right>
+      <ion-col>
+        <b>Tipo: </b>
+      </ion-col>
+      <ion-col>
+        <img *ngIf="card_type=='MasterCard'" src="assets/imgs/mastercard-logo.png" alt="mastercard-logo.png" height="85"
+             width="95">
+        <img *ngIf="card_type=='Visa'" src="assets/imgs/visa-logo.png" alt="mastercard-logo.png" height="80"
+             width="90">
+      </ion-col>
+    </ion-row>
+
+    <ion-row margin align-items-center justify-content-center >
+      <ion-col><b>Tarjeta:</b></ion-col>
+      <ion-col>*** *** *** * {{ termination }}</ion-col>
+    </ion-row>
+
+    <ion-row margin align-items-center justify-content-center >
+      <ion-col><b>Vencimiento:</b></ion-col>
+      <ion-col>{{ date }}</ion-col>
+    </ion-row>
+
+    <ion-row margin-left margin-right align-items-center justify-content-center >
+      <ion-col><b>Titular:</b></ion-col>
+      <ion-col>{{ owner }}</ion-col>
+    </ion-row>
+
+    <ion-row class="without-border" margin-bottom>
+      <ion-col>
+        <button ion-button clear text-uppercase>Cambiar datos de Pago</button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+</ion-content>
+
+<ion-footer text-center margin-bottom>
+  <button ion-button class="finish-button" color="greenish" (click)="openModal(true)"
+          margin-left icon-end block>
+    FINALIZAR
+    <ion-icon name="card"></ion-icon>
+  </button>
+</ion-footer>

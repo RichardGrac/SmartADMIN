@@ -1,0 +1,28 @@
+page-data-verification {
+
+  h3{
+    color: #0080ff;
+  }
+
+  ion-col{
+    font-size: 12pt;
+
+    b{
+      text-transform: uppercase;
+    }
+  }
+
+  ion-row{
+    border-bottom: #cccccc solid 1px;
+  }
+
+  .without-border{
+    border-bottom: none;
+  }
+
+  .finish-button{
+    background-color: #27ae60;
+    width: 90%;
+    alignment: center;
+  }
+}

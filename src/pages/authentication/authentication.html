@@ -1,0 +1,59 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Autentificación</ion-title>
+
+    <ion-buttons item-start>
+      <button ion-button (click)="closeModal()">Cancelar</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h5 margin-top  margin-bottom text-center>Introduzca su código de autentificación para realizar la compra.</h5>
+
+  <form #f="ngForm" (ngSubmit)="verifyAuth(f)">
+
+    <ion-grid style="height: 40%">
+      <ion-row justify-content-center align-items-center style="height: 100%">
+        <ion-col justify-content-center margin-top>
+          <ion-list>
+            <ion-item>
+              <ion-label text-center color="primary" fixed class="font-bigger">CÓDIGO</ion-label>
+              <ion-input text-center type="password" required minlength="4" maxlength="4" placeholder="* * * *"
+                         class="font-bigger" ngModel name="code" style="-webkit-text-security:disc"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="error-message" *ngIf="error_code">
+        <ion-col justify-content-center align-items-center>
+          <div class="error-box" padding>
+            <h5 text-uppercase>Autentificación erronea, por favor reintente.</h5>
+            <p>(Error #{{ try_number }})</p>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <button type="submit" ion-button block class="continue-button" icon-end [disabled]="!f.valid">
+            Continuar
+            <ion-icon name="ios-arrow-forward"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <!--<ion-footer text-center margin-bottom>-->
+      <!---->
+    <!--</ion-footer>-->
+
+  </form>
+
+</ion-content>
+

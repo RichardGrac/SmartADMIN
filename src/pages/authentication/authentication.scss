@@ -1,0 +1,20 @@
+page-authentication {
+  .continue-button{
+    background-color: #e67e22;
+    //width: 90%;
+    alignment: center;
+  }
+
+  .error-message{
+    color: #ff1a1a;
+    text-align: center;
+  }
+
+  .error-box{
+    border: #ff1a1a 1px dotted;
+  }
+
+  .font-bigger{
+    font-size: 13pt;
+  }
+}

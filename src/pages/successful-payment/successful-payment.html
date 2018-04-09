@@ -1,0 +1,39 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title *ngIf="success">¡Exito!</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <h1 class="greenish" margin-bottom>¡Compra exitosa!</h1>
+
+  <ion-grid text-center>
+    <ion-row>
+      <ion-col>
+        <img src="assets/imgs/check.png" alt="check.png">
+      </ion-col>
+    </ion-row>
+
+    <ion-row margin-top>
+      <ion-col>
+        <h4>Verifica tu correo para detalles de tu compra.</h4>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+</ion-content>
+
+<ion-footer text-center margin-bottom>
+
+  <button ion-button clear block color="primary" class="home-button" icon-start large (click)="closeModal()">
+    <ion-icon name="home"></ion-icon>
+    Ir a Menú Principal
+  </button>
+
+</ion-footer>

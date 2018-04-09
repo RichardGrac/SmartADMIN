@@ -12,7 +12,7 @@
   <h3 text-left>Seleccione su tienda de conveniencia:</h3>
 
   <ion-list>
-    <button ion-item *ngFor="let store of stores">
+    <button ion-item *ngFor="let store of stores" (click)="openAuthenticationModal()">
 
       <ion-grid>
         <ion-row>
