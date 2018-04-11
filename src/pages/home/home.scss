@@ -1,7 +1,8 @@
 page-home {
   .rounded-borders{
-    border-top-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 12px 12px 12px 12px;
+    //border-top-left-radius: 12px;
+    //border-bottom-right-radius: 12px;
   }
 
   ion-icon{
@@ -13,7 +14,7 @@ page-home {
   }
 
   .button-height{
-    height: 13%;
+    height: 14%;
   }
 
   .text-down{
@@ -22,5 +23,19 @@ page-home {
 
   .back-color{
     background-color: #e6f2ff;
+  }
+
+  .icons{
+    width: 85%;
+    margin-bottom: 15%;
+  }
+
+  .smaller{
+    width: 95%;
+    margin-left: 3%;
+  }
+
+  .dark{
+    color:black;
   }
 }

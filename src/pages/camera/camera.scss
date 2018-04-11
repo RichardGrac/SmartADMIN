@@ -2,16 +2,23 @@ page-camera {
   .video{
     height: 280px;
     width: 100%;
-    border: black solid;
-    background-color: #333333;
+    border: #a6a6a6 solid 2px;
+    background-color: #f2f2f2;
     color: white;
-    border-radius: 8px;
+    border-radius: 10px;
 
-    img{
-      height: 45%;
-      width: 35%;
-      margin-left: 33%;
-      margin-top: 22%;
+    .img1{
+      height: 70%;
+      width: 58%;
+      margin-left: 21%;
+      margin-top: 12%;
+    }
+
+    .img2{
+      height: 70%;
+      width: 70%;
+      margin-left: 16%;
+      margin-top: 12%;
     }
   }
 

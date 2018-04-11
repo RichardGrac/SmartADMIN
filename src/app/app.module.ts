@@ -23,6 +23,8 @@ import {CameraPage} from "../pages/camera/camera";
 import {DataVerificationPage} from "../pages/data-verification/data-verification";
 import {SuccessfulPaymentPage} from "../pages/successful-payment/successful-payment";
 
+import {ScreenOrientation} from "@ionic-native/screen-orientation";
+
 @NgModule({
   declarations: [
     MyApp,
@@ -68,6 +70,7 @@ import {SuccessfulPaymentPage} from "../pages/successful-payment/successful-paym
     GroceriesService,
     GroceryStoresService,
     CamerasService,
+    ScreenOrientation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -1,40 +1,32 @@
 <ion-header>
-  <ion-toolbar color="">
+  <ion-toolbar color="primary">
     <ion-title text-center>
-      <img src="assets/imgs/logo.png" alt="logo" height="75" width="175">
-      <!--SmartADMIN-->
+      <img src="assets/imgs/logo3.png" alt="logo" height="75" width="185">
+      <!--<h3>Smart<b class="dark">ADMIN</b></h3>-->
     </ion-title>
-
-    <ion-buttons end>
-      <button ion-button icon-only (click)="searchAppliances()">
-        <ion-icon name="md-add"></ion-icon>
-      </button>
-    </ion-buttons>
 
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding class="back-color">
   <button ion-button large block margin-bottom
-    color="primary2"
+    color="primary3"
     *ngFor="let option of options; let i = index"
-    class="rounded-borders button-height"
+    class="rounded-borders button-height smaller"
     (click)="pushPage(i)">
 
     <ion-grid class="text-down">
-      <ion-row>
-        <ion-col col-2>
+      <ion-row justify-content-center align-items-center>
+        <ion-col col-3>
           <!-- Con iconos de color-->
-          <ion-icon item-start [name]="option.icon" [ngStyle]="{'color': option.color}"></ion-icon>
+          <!--<ion-icon item-start [name]="option.icon" [ngStyle]="{'color': option.color}"></ion-icon>-->
           <!--<ion-icon item-start [name]="option.icon"></ion-icon>-->
+          <img [src]="option.img" alt="image" class="icons"/>
         </ion-col>
-        <ion-col text-left col-8>
-          <p class="text-down">
+        <ion-col text-left col-9>
+          <h5 class="text-down font-size" text-uppercase>
             {{ option.name }}
-          </p>
-        </ion-col>
-        <ion-col col-2>
-          <ion-icon item-end name="ios-arrow-dropright-outline"></ion-icon>
+          </h5>
         </ion-col>
       </ion-row>
     </ion-grid>

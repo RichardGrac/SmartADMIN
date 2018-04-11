@@ -3,6 +3,7 @@ import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angula
 import {GroceriesService} from "../../services/groceries";
 import {Product} from "../../models/products";
 import {GroceryStorePage} from "../grocery-store/grocery-store";
+import {DataVerificationPage} from "../data-verification/data-verification";
 
 @IonicPage()
 @Component({
@@ -36,13 +37,30 @@ export class GroceryShoppingPage implements OnInit{
     this.items = this.groceriesService.getProducts();
   }
 
-  openModal(type: string){
-    let modal = this.modalCtrl.create('GroceryModalPage', {type: type});
-    modal.onDidDismiss(() =>
-      this.onLoadItems()
-    );
+  openModal(type: string, id_product: number){
+    let modal = this.modalCtrl.create('GroceryModalPage', {type: type, id_product: id_product});
+    modal.onDidDismiss(() => {
+      this.onLoadItems();
+    });
+    modal.present();
+  }
+
+  openAuthenticationModal(){
+    let modal = this.modalCtrl.create('AuthenticationPage');
     modal.present();
 
+    modal.onDidDismiss(data => {
+      if(data.code == true){
+        this.verificationPage();
+      }else{
+        console.log(data.code);
+      }
+    });
+    // this.verificationPage();
+  }
+
+  verificationPage(){
+    this.navCtrl.push(DataVerificationPage);
   }
 
 }

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {TabsPage} from "../tabs/tabs";
+import {GroceriesService} from "../../services/groceries";
 
 
 @IonicPage()
@@ -15,11 +16,15 @@ export class SuccessfulPaymentPage implements OnInit {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
-              public loadingCtrl: LoadingController) {
+              public loadingCtrl: LoadingController,
+              public groceriesService: GroceriesService) {
   }
 
   ngOnInit(): void {
     this.success = this.navParams.get('success');
+    if (this.success){
+      this.groceriesService.deleteAll();
+    }
   }
 
   closeModal() {

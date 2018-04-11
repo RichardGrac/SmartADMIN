@@ -12,14 +12,14 @@
 
 
 <ion-content padding>
-  <h5 margin-top  margin-bottom text-center>Introduzca su código de autentificación para realizar la compra.</h5>
+  <h5 text-center>Por favor, introduzca su código de autentificación.</h5>
 
   <form #f="ngForm" (ngSubmit)="verifyAuth(f)">
 
-    <ion-grid style="height: 40%">
-      <ion-row justify-content-center align-items-center style="height: 100%">
-        <ion-col justify-content-center margin-top>
-          <ion-list>
+    <ion-grid style="margin-top: -2%;">
+      <ion-row justify-content-center align-items-center no-margin>
+        <ion-col justify-content-center class="no-margin-top">
+          <ion-list no-margin>
             <ion-item>
               <ion-label text-center color="primary" fixed class="font-bigger">CÓDIGO</ion-label>
               <ion-input text-center type="password" required minlength="4" maxlength="4" placeholder="* * * *"
@@ -29,18 +29,48 @@
         </ion-col>
       </ion-row>
 
-      <ion-row class="error-message" *ngIf="error_code">
-        <ion-col justify-content-center align-items-center>
-          <div class="error-box" padding>
-            <h5 text-uppercase>Autentificación erronea, por favor reintente.</h5>
-            <p>(Error #{{ try_number }})</p>
+      <ion-row no-margin class="error-message" *ngIf="error_code">
+        <ion-col justify-content-center align-items-center no-margin>
+          <div class="error-box">
+            <p text-uppercase>Código erroneo, reintente.</p>
           </div>
         </ion-col>
       </ion-row>
 
+      <ion-grid text-center class="keyboard" no-margin>
+        <ion-row>
+          <ion-col no-margin col-4><button block large type="button" ion-button style="border-top-left-radius: 10px;">1</button></ion-col>
+          <ion-col no-margin col-4><button block large type="button" ion-button>2</button></ion-col>
+          <ion-col no-margin col-4><button block large type="button" ion-button style="border-top-right-radius: 10px;">3</button></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col no-margin col-4><button block large type="button" ion-button>4</button></ion-col>
+          <ion-col no-margin col-4><button block large type="button" ion-button>5</button></ion-col>
+          <ion-col no-margin col-4><button block large type="button" ion-button>6</button></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col no-margin col-4><button block large type="button" ion-button>7</button></ion-col>
+          <ion-col no-margin col-4><button block large type="button" ion-button>8</button></ion-col>
+          <ion-col no-margin col-4><button block large type="button" ion-button>9</button></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <!--<ion-col no-margin col-4></ion-col>-->
+          <ion-col no-margin col-8><button block large type="button" ion-button>0</button></ion-col>
+          <ion-col no-margin col-4>
+            <button block large type="button" ion-button icon-only>
+              <ion-icon name="backspace"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
       <ion-row>
         <ion-col>
-          <button type="submit" ion-button block class="continue-button" icon-end [disabled]="!f.valid">
+          <button type="submit" ion-button block class="continue-button" icon-end [disabled]="!f.valid"
+                  style="border-bottom-right-radius: 10px;">
             Continuar
             <ion-icon name="ios-arrow-forward"></ion-icon>
           </button>

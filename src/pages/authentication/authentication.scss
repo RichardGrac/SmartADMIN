@@ -17,4 +17,20 @@ page-authentication {
   .font-bigger{
     font-size: 13pt;
   }
+
+  .keyboard{
+    height: 50%;
+    width: 95%;
+    border-radius: 10px;
+
+    ion-row{
+      button{
+        background-color: color($colors, devilBlue);
+      }
+    }
+  }
+
+  .no-margin-top{
+    margin-top: 0;
+  }
 }

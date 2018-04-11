@@ -4,7 +4,7 @@
     <ion-title>Despensa</ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only (click)="openModal('Nuevo')">
+      <button ion-button icon-only (click)="openModal('Nuevo', -1)">
         <ion-icon name="md-add"></ion-icon>
       </button>
     </ion-buttons>
@@ -15,13 +15,20 @@
 
 
 <ion-content padding>
+
+  <!--<ion-fab right top edge>-->
+    <!--<button ion-fab color="danger2" (click)="openModal('Nuevo', -1)" style="zoom: 1.0;">-->
+      <!--<ion-icon name="add" style="zoom: 1.7;"></ion-icon>-->
+    <!--</button>-->
+  <!--</ion-fab>-->
+
   <h3 text-left>Mandado a pedir:</h3>
   <p *ngIf="items.length == 0" class="greyish">No hay elementos agregados.</p>
 
   <ion-list>
     <ion-item-sliding *ngFor="let item of items; let i = index">
 
-      <button ion-item>
+      <button ion-item (click)="openModal('Modificar', item.id)">
         <ion-grid>
           <ion-row>
             <ion-col col-2>
@@ -41,7 +48,7 @@
       </button>
 
       <ion-item-options>
-        <button ion-button color="danger" (click)="onDeleteItem(i)">
+        <button ion-button color="danger" (click)="onDeleteItem(item.id)">
           <ion-icon name="trash"></ion-icon>
           Eliminar
         </button>
@@ -53,8 +60,16 @@
 </ion-content>
 
 <ion-footer text-center>
-  <button ion-button block class="buy-button" margin-left icon-end [navPush]="groceryStorePage">
-    Seleccionar tienda
+  <button ion-button block class="buy-button" margin-left icon-end (click)="openAuthenticationModal()"
+          *ngIf="items.length != 0">
+    Ir a los detalles
     <ion-icon name="ios-arrow-forward"></ion-icon>
   </button>
+
+  <button ion-button block class="buy-button" margin-left icon-end  (click)="openAuthenticationModal()"
+          *ngIf="items.length == 0" disabled>
+    Ir a los detalles
+    <ion-icon name="ios-arrow-forward"></ion-icon>
+  </button>
+
 </ion-footer>

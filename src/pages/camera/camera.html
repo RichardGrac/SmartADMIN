@@ -9,8 +9,12 @@
 
 <ion-content padding>
 
-  <div class="video">
-    <img src="assets\\imgs\\play.png">
+  <div class="video" *ngIf="camera.on">
+    <img class="img1" src="assets\\imgs\\play.png">
+  </div>
+
+  <div class="video" *ngIf="!camera.on">
+    <img class="img2" src="assets\\imgs\\warning.png">
   </div>
 
   <ion-list no-lines>
