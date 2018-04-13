@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import {NavController, Platform} from 'ionic-angular';
+import {NavController} from 'ionic-angular';
 import {IluminationPage} from "../ilumination/ilumination";
 import {VigilancePage} from "../vigilance/vigilance";
-import {ScreenOrientation} from "@ionic-native/screen-orientation";
+// import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {GroceryStorePage} from "../grocery-store/grocery-store";
 
 
@@ -67,14 +67,14 @@ export class HomePage {
   ];
 
   constructor(public navCtrl: NavController
-              ,private screenOrientation: ScreenOrientation,
-              private platform: Platform
+              // ,private screenOrientation: ScreenOrientation,
+              // private platform: Platform
   ) {
-    if (!this.platform.is('core') && (!this.platform.is('mobileweb'))){
-      //If type of platform is different of the Browser (ionic-lab) and serve (...:8100)
-      console.log('Orientation locked!');
-      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-    }
+    // if (!this.platform.is('core') && (!this.platform.is('mobileweb'))){
+    //   //If type of platform is different of the Browser (ionic-lab) and serve (...:8100)
+    //   console.log('Orientation locked!');
+    //   this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+    // }
   }
 
   pushPage(index: number) {

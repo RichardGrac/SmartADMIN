@@ -12,4 +12,15 @@ page-grocery-shopping {
   h3{
     color: #0080ff;
   }
+
+  .less-margin-bottom{
+    margin-bottom: -5%;
+  }
+
+  .backgroud-color{
+    background-color: #cce4ff;
+    ion-card{
+      background-color: #f0f7ff;
+    }
+  }
 }
