@@ -6,47 +6,69 @@
     <ion-buttons item-start>
       <button ion-button (click)="closeModal()">Cancelar</button>
     </ion-buttons>
+
+
+    <ion-searchbar no-margin color="primary"
+                   *ngIf="id_sl==-1"
+                   (ionInput)="getItems($event)"
+                   placeholder="Filtrar producto"
+                   showCancelButton="true"
+                   animated="true">
+    </ion-searchbar>
+
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="back-color">
+
   <form #f="ngForm" (ngSubmit)="onRegisterItem(f)">
-
-    <ion-list>
+    <ion-list no-lines>
 
       <ion-item>
-        <ion-label stacked>Nombre</ion-label>
+        <ion-label stacked color="primary2">NOMBRE</ion-label>
         <ion-input type="text" name="p_name" placeholder="Pan Bimbo Blanco Grande..."
-                   clearInput [ngModel]="product.name" required></ion-input>
+                   class="borders" text-center
+                   [ngModel]="product.name" required readonly="true"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label stacked>Tipo</ion-label>
-        <ion-select [(ngModel)]="p_type" name="p_type" placeholder="Unidades, Kgs., Lts."
-                    required>
-          <ion-option value="Pzs.">Unidades</ion-option>
-          <ion-option value="Kgs.">Kilogramos</ion-option>
-          <ion-option value="Lts.">Litros</ion-option>
-        </ion-select>
-      </ion-item>
+        <ion-grid class="no-margin-bottom">
+          <ion-row>
+            <ion-col col-8>
+              <ion-item>
+                <ion-label stacked color="primary2">TIPO</ion-label>
+                <ion-input type="text" name="p_type" placeholder="Unidades, Kilogramos, Litros..."
+                           class="borders" text-center
+                           [ngModel]="product.type" required readonly="true"></ion-input>
+              </ion-item>
+            </ion-col>
 
-      <ion-item>
-        <ion-label stacked>Cantidad</ion-label>
-        <ion-input type="number" min="1" [ngModel]="product.quantity" placeholder="1, 2, 3..." name="p_quantity"
-                   clearInput ngModel required></ion-input>
-      </ion-item>
+            <ion-col col-4>
+              <ion-item>
+                <ion-label stacked color="primary2">CANTIDAD</ion-label>
+                <ion-input text-center type="number" min="1"
+                           [ngModel]="product_q.quantity"
+                           placeholder="1, 2, 3..."
+                           name="p_quantity"
+                           class="borders"
+                           clearInput ngModel required></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
 
     </ion-list>
 
-    <button *ngIf="id_product==-1" ion-button block margin-bottom outline icon-start class="buy-button"
+    <button *ngIf="id_sl==-1" ion-button block margin-bottom outline icon-start class="buy-button"
             [disabled]="!f.valid">
       <ion-icon name="md-add-circle"></ion-icon>
       Agregar
     </button>
 
-  <button *ngIf="id_product!=-1" ion-button block margin-bottom outline icon-start class="buy-button"
+  <button *ngIf="id_sl!=-1" ion-button block margin-bottom outline icon-start class="buy-button"
           [disabled]="!f.valid">
     <ion-icon name="md-checkmark"></ion-icon>
     Aceptar modificaciones
@@ -54,27 +76,40 @@
 
   </form>
 
-  <button ion-button block margin-top icon-start
-          color="greenSea" class="buy-button"
-          (click)="closeModal()">
-    <ion-icon name="ios-arrow-back-outline"></ion-icon>
-    Regresar
-  </button>
+  <!--<button ion-button block margin-top icon-start-->
+          <!--color="greenSea" class="buy-button"-->
+          <!--(click)="closeModal()">-->
+    <!--<ion-icon name="ios-arrow-back-outline"></ion-icon>-->
+    <!--Regresar-->
+  <!--</button>-->
 
   <!-- -1 because is a new product creation -->
-  <button *ngIf="id_product==-1" ion-button block icon-end
-          class="buy-button"
-          (click)="closeModal()">
-    Terminar
-    <ion-icon name="md-checkmark"></ion-icon>
-  </button>
+  <!--<button *ngIf="id_sl==-1" ion-button block icon-end-->
+          <!--class="buy-button"-->
+          <!--(click)="closeModal()">-->
+    <!--Terminar-->
+    <!--<ion-icon name="md-checkmark"></ion-icon>-->
+  <!--</button>-->
 
-  <button *ngIf="id_product!=-1" ion-button block icon-start
+  <button *ngIf="id_sl!=-1" ion-button block icon-start
           color="danger" class="buy-button"
-          (click)="onDeleteProduct(id_product)">
+          (click)="onDeleteProduct(id_sl)">
     <ion-icon name="trash"></ion-icon>
     Eliminar
   </button>
+
+  <ion-list *ngIf="id_sl==-1">
+    <ion-item *ngFor="let product of products" (click)="productSelected(product)">
+      {{ product.name }}
+      <ion-note item-end> $ {{ product.price | number : '1.2-2' }}</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <!--<ion-list>-->
+    <!--<button ion-item *ngFor="let product of products">-->
+      <!--{{ product.name }}-->
+    <!--</button>-->
+  <!--</ion-list>-->
 
 
 </ion-content>

@@ -1,25 +1,20 @@
-import {Product} from "../models/products";
+import {ShoppingList} from "../models/ShoppingList";
 
 export class GroceriesService {
 
-  items: Array<Product> = [];
+  items: Array<ShoppingList> = [];
 
   constructor() {
-    this.items.push(new Product(0, 'Barra Pan Bimbo Blanco', 2, 'Pzs.'));
-    this.items.push(new Product(1, 'Jamon de Pavo FUD', 0.5, 'Kgs.'));
-    this.items.push(new Product(2, 'Coca Cola 2LT', 1, 'Pzs.'));
-    this.items.push(new Product(3, 'Aguacates', 6, 'Kgs.'));
-    this.items.push(new Product(4, 'Leche San Marcos', 6, 'Lts.'));
-    this.items.push(new Product(5, 'Desodorante AXE Dark', 1, 'Pzs.'));
+    // this.items.push(new ShoppingList(0, 0,1));
+    // this.items.push(new ShoppingList(1, 1,2));
+    // this.items.push(new ShoppingList(2, 2,3));
+    // this.items.push(new ShoppingList(3, 3,4));
   }
 
-  addProduct(name: string, quantity: number, type: string) {
-    this.items = this.getProducts();
-    if (this.items.length > 0) {
-      this.items.push(new Product((this.items[this.items.length - 1].id) + 1, name, quantity, type));
-    } else {
-      this.items.push(new Product(0, name, quantity, type));
-    }
+  addProduct(id_product: string, quantity: number) {
+    console.log("addProduct() --id_product: " + id_product);
+    // this.items = this.getProducts();
+    this.items.push(new ShoppingList(this.getShoppingListId(), id_product, quantity));
     console.log(this.items);
   }
 
@@ -27,28 +22,41 @@ export class GroceriesService {
     return this.items.slice();
   }
 
-  getProduct(id_product: number) {
+  getProduct(id_sl: number) {
     // var index_product = this.findProductById(id_product);
-    return this.items.find(x => x.id == id_product);
+    return this.items.find(x => x.id_sl == id_sl);
     // return this.items[index_product];
   }
 
-  deleteProduct(id_product: number) {
-    var index_product = this.findProductIndexById(id_product);
+  deleteProduct(id_sl: number) {
+    var index_product = this.findProductIndexById(id_sl);
     this.items.splice(index_product, 1);
   }
 
+  /*
+  * It's used when the Shopping Process ends. The Shopping List is cleaned.
+  * */
   deleteAll() {
     this.items = [];
   }
 
-  modifyProduct(id_product: number, p_name: string, p_quantity: number, p_type: string) {
-    console.log('id_p: ' + id_product);
-    var index_product = this.findProductIndexById(id_product);
-    this.items[index_product].setAll(p_name, p_quantity, p_type);
+  modifyQuantity(id_sl: number, p_quantity: number) {
+    var index_product = this.findProductIndexById(id_sl);
+    this.items[index_product].quantity = p_quantity;
   }
 
-  findProductIndexById(id_product: number) {
-    return this.items.findIndex(x => x.id == id_product);
+  findProductIndexById(id_sl: number) {
+    return this.items.findIndex(x => x.id_sl == id_sl);
+  }
+
+  /*
+  * Returns the 'id_sl' for the new Row
+  * */
+  private getShoppingListId() {
+    if(this.items.length == 0){
+      return 0;
+    }else{
+      return this.items.length;
+    }
   }
 }

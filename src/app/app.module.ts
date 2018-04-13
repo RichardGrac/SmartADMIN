@@ -24,6 +24,9 @@ import {DataVerificationPage} from "../pages/data-verification/data-verification
 import {SuccessfulPaymentPage} from "../pages/successful-payment/successful-payment";
 
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
+import {ProductsService} from "../services/products";
+import { ProductsApiProvider } from '../providers/products-api/products-api';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -43,6 +46,7 @@ import {ScreenOrientation} from "@ionic-native/screen-orientation";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp,{
       backButtonText: 'Atrás'
     })
@@ -71,7 +75,9 @@ import {ScreenOrientation} from "@ionic-native/screen-orientation";
     GroceryStoresService,
     CamerasService,
     ScreenOrientation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    ProductsService,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ProductsApiProvider
   ]
 })
 export class AppModule {}

@@ -25,22 +25,46 @@
   <h3 text-left>Mandado a pedir:</h3>
   <p *ngIf="items.length == 0" class="greyish">No hay elementos agregados.</p>
 
-  <ion-list>
+  <ion-grid class="less-margin-bottom">
+
+    <ion-row>
+      <ion-col col-3>
+        <p class="greyish" text-center>Precio Unitario</p>
+      </ion-col>
+      <ion-col col-3>
+        <p class="greyish">Cantidad</p>
+      </ion-col>
+      <ion-col col-6>
+        <p class="greyish">Producto</p>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-list class="no-margin-top">
     <ion-item-sliding *ngFor="let item of items; let i = index">
 
-      <button ion-item (click)="openModal('Modificar', item.id)">
+      <button ion-item (click)="openModal('Modificar', item.id_sl)">
         <ion-grid>
+
           <ion-row>
-            <ion-col col-2>
-              {{ item.quantity }}
+
+            <ion-col col-3>
+              $ {{ products[i].price | number : '1.2-2' }}
             </ion-col>
 
-            <ion-col col-2>
-              {{ item.type }}
-            </ion-col>
+            <!--<ion-col col-2 *ngIf="products[i].type == 'Unidades'">-->
+              <!--Pzs.-->
+            <!--</ion-col>-->
+            <!--<ion-col col-2 *ngIf="products[i].type == 'Litros'">-->
+              <!--Lts.-->
+            <!--</ion-col>-->
+            <!--<ion-col col-2 *ngIf="products[i].type == 'Kilogramos'">-->
+              <!--Kgs.-->
+            <!--</ion-col>-->
 
-            <ion-col col-8>
-              {{ item.name }}
+            <ion-col col-9>
+              ({{ item.quantity }}) {{ products[i].name }}
             </ion-col>
 
           </ion-row>
@@ -48,7 +72,7 @@
       </button>
 
       <ion-item-options>
-        <button ion-button color="danger" (click)="onDeleteItem(item.id)">
+        <button ion-button color="danger" (click)="onDeleteItem(item.id_sl)">
           <ion-icon name="trash"></ion-icon>
           Eliminar
         </button>
@@ -59,7 +83,21 @@
 
 </ion-content>
 
-<ion-footer text-center>
+<ion-footer text-center class="backgroud-color">
+
+  <ion-card>
+
+    <ion-card-header>
+      <b>TOTAL:</b> $ {{ total | number : '1.2-2' }}
+    </ion-card-header>
+
+    <ion-card-content>
+      <b>Subtotal: </b> $ {{ subtotal | number : '1.2-2'  }}
+      <b>IVA 16%: </b>  $ {{ iva | number : '1.2-2'  }}
+    </ion-card-content>
+
+  </ion-card>
+
   <button ion-button block class="buy-button" margin-left icon-end (click)="openAuthenticationModal()"
           *ngIf="items.length != 0">
     Ir a los detalles
