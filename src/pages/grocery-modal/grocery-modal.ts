@@ -24,6 +24,7 @@ export class GroceryModalPage implements OnInit{
   product: any;
 
   products;
+  colored: string = "";
 
   constructor(private viewCtrl: ViewController,
               private navParams: NavParams,
@@ -34,11 +35,6 @@ export class GroceryModalPage implements OnInit{
 
     this.product_q = new ShoppingList(0, "", 1);
     this.product = new Product("", "", 0, "", "Unidad");
-    // this.product.id = -1;
-    // this.product.name = "";
-    // this.product.price = 0;
-    // this.product.type = "Unidad";
-
     this.initializeItems();
   }
 
@@ -71,10 +67,7 @@ export class GroceryModalPage implements OnInit{
       form.reset();
       this.product = new Product("", "", 0, "", "");
       this.product_q.quantity = 0;
-      // this.product.id = -1;
-      // this.product.name = "";
-      // this.product.price = 0;
-      // this.product.type = "Unidad";
+      this.colored = "";
     } else {
       /* When is a modification of a Product */
       this.groceryService.modifyQuantity(this.id_sl, form.value.p_quantity);
@@ -124,5 +117,14 @@ export class GroceryModalPage implements OnInit{
     this.product_q.quantity = 1;
     this.product = item;
     this.product.type = item.type;
+    this.colored = item.name;
+  }
+
+  changeQuantity(band: string) {
+    if(band == '+'){
+      this.product_q.quantity = this.product_q.quantity + 1;
+    }else if (band == '-' && this.product_q.quantity > 1){
+      this.product_q.quantity = this.product_q.quantity - 1;
+    }
   }
 }

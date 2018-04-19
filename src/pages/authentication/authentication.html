@@ -12,6 +12,9 @@
 
 
 <ion-content padding>
+
+
+
   <h5 text-center>Por favor, introduzca su código de autentificación.</h5>
 
   <form #f="ngForm" (ngSubmit)="verifyAuth(f)">
@@ -23,7 +26,8 @@
             <ion-item>
               <ion-label text-center color="primary" fixed class="font-bigger">CÓDIGO</ion-label>
               <ion-input text-center type="password" required minlength="4" maxlength="4" placeholder="* * * *"
-                         class="font-bigger" ngModel name="code" style="-webkit-text-security:disc"></ion-input>
+                         class="font-bigger" ngModel name="code" style="-webkit-text-security:disc"
+                         [ngModel]="code"></ion-input>
             </ion-item>
           </ion-list>
         </ion-col>
@@ -39,28 +43,59 @@
 
       <ion-grid text-center class="keyboard" no-margin>
         <ion-row>
-          <ion-col no-margin col-4><button block large type="button" ion-button style="border-top-left-radius: 10px;">1</button></ion-col>
-          <ion-col no-margin col-4><button block large type="button" ion-button>2</button></ion-col>
-          <ion-col no-margin col-4><button block large type="button" ion-button style="border-top-right-radius: 10px;">3</button></ion-col>
+          <ion-col no-margin col-4>
+            <button block large type="button" ion-button style="border-top-left-radius: 10px;"
+            (click)="appendNumber('1')">1</button>
+          </ion-col>
+          <ion-col no-margin col-4>
+            <button block large type="button" ion-button
+                    (click)="appendNumber('2')">2</button>
+          </ion-col>
+          <ion-col no-margin col-4>
+            <button block large type="button" ion-button style="border-top-right-radius: 10px;"
+            (click)="appendNumber('3')">3</button>
+          </ion-col>
         </ion-row>
 
         <ion-row>
-          <ion-col no-margin col-4><button block large type="button" ion-button>4</button></ion-col>
-          <ion-col no-margin col-4><button block large type="button" ion-button>5</button></ion-col>
-          <ion-col no-margin col-4><button block large type="button" ion-button>6</button></ion-col>
+          <ion-col no-margin col-4>
+            <button block large type="button" ion-button
+            (click)="appendNumber('4')">4</button>
+          </ion-col>
+          <ion-col no-margin col-4>
+            <button block large type="button" ion-button
+            (click)="appendNumber('5')">5</button>
+          </ion-col>
+          <ion-col no-margin col-4>
+            <button block large type="button" ion-button
+            (click)="appendNumber('6')">6</button>
+          </ion-col>
         </ion-row>
 
         <ion-row>
-          <ion-col no-margin col-4><button block large type="button" ion-button>7</button></ion-col>
-          <ion-col no-margin col-4><button block large type="button" ion-button>8</button></ion-col>
-          <ion-col no-margin col-4><button block large type="button" ion-button>9</button></ion-col>
+          <ion-col no-margin col-4>
+            <button block large type="button" ion-button
+            (click)="appendNumber('7')">7</button>
+          </ion-col>
+          <ion-col no-margin col-4>
+            <button block large type="button" ion-button
+            (click)="appendNumber('8')">8</button>
+          </ion-col>
+          <ion-col no-margin col-4>
+            <button block large type="button" ion-button
+            (click)="appendNumber('9')">9</button>
+          </ion-col>
         </ion-row>
 
         <ion-row>
           <!--<ion-col no-margin col-4></ion-col>-->
-          <ion-col no-margin col-8><button block large type="button" ion-button>0</button></ion-col>
+          <ion-col no-margin col-8>
+            <button block large type="button" ion-button
+            (click)="appendNumber('0')">0</button>
+          </ion-col>
           <ion-col no-margin col-4>
-            <button block large type="button" ion-button icon-only>
+            <button block large type="button" ion-button icon-only
+                    (click)="appendNumber('backspace')">
               <ion-icon name="backspace"></ion-icon>
             </button>
           </ion-col>
@@ -78,12 +113,12 @@
       </ion-row>
     </ion-grid>
 
-
     <!--<ion-footer text-center margin-bottom>-->
       <!---->
     <!--</ion-footer>-->
 
   </form>
+
 
 </ion-content>
 

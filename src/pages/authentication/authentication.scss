@@ -18,19 +18,14 @@ page-authentication {
     font-size: 13pt;
   }
 
-  .keyboard{
+  .no-margin-top{
+    margin-top: 0;
+  }
+
+  .keyboard {
     height: 50%;
     width: 95%;
     border-radius: 10px;
-
-    ion-row{
-      button{
-        background-color: color($colors, devilBlue);
-      }
-    }
-  }
-
-  .no-margin-top{
-    margin-top: 0;
+    ion-row { button { background-color: color($colors, devilBlue); } }
   }
 }

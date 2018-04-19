@@ -24,10 +24,17 @@ export class HomePage {
     //   icon: "md-desktop",
     //   color: "black"
     // },
+    // {
+    //   name: "Electrodomésticos",
+    //   icon: "md-outlet",
+    //   img: "assets\\imgs\\Home\\fridge.png",
+    //   color: "#CAD3C8"
+    //   // color:"#636e72"
+    // },
     {
-      name: "Electrodomésticos",
+      name: "Sistema de Riego",
       icon: "md-outlet",
-      img: "assets\\imgs\\Home\\fridge.png",
+      img: "assets\\imgs\\Home\\irrigation.png",
       color: "#CAD3C8"
       // color:"#636e72"
     },

@@ -23,7 +23,7 @@
   <!--</ion-fab>-->
 
   <h3 text-left>Mandado a pedir:</h3>
-  <p *ngIf="items.length == 0" class="greyish">No hay elementos agregados.</p>
+  <p *ngIf="products.length == 0" class="greyish">No hay elementos agregados.</p>
 
   <ion-grid class="less-margin-bottom">
 
@@ -42,15 +42,15 @@
   </ion-grid>
 
   <ion-list class="no-margin-top">
-    <ion-item-sliding *ngFor="let item of items; let i = index">
+    <ion-item-sliding *ngFor="let product of products; let i = index">
 
-      <button ion-item (click)="openModal('Modificar', item.id_sl)">
+      <button ion-item (click)="openModal('Modificar', items[i].id_sl)">
         <ion-grid>
 
           <ion-row>
 
             <ion-col col-3>
-              $ {{ products[i].price | number : '1.2-2' }}
+              $ {{ product.price | number : '1.2-2' }}
             </ion-col>
 
             <!--<ion-col col-2 *ngIf="products[i].type == 'Unidades'">-->
@@ -64,7 +64,7 @@
             <!--</ion-col>-->
 
             <ion-col col-9>
-              ({{ item.quantity }}) {{ products[i].name }}
+              ({{ items[i].quantity }}) {{ product.name }}
             </ion-col>
 
           </ion-row>
@@ -72,7 +72,7 @@
       </button>
 
       <ion-item-options>
-        <button ion-button color="danger" (click)="onDeleteItem(item.id_sl)">
+        <button ion-button color="danger" (click)="onDeleteItem(items[i].id_sl)">
           <ion-icon name="trash"></ion-icon>
           Eliminar
         </button>
@@ -99,13 +99,13 @@
   </ion-card>
 
   <button ion-button block class="buy-button" margin-left icon-end (click)="openAuthenticationModal()"
-          *ngIf="items.length != 0">
+          *ngIf="products.length != 0">
     Ir a los detalles
     <ion-icon name="ios-arrow-forward"></ion-icon>
   </button>
 
   <button ion-button block class="buy-button" margin-left icon-end  (click)="openAuthenticationModal()"
-          *ngIf="items.length == 0" disabled>
+          *ngIf="products.length == 0" disabled>
     Ir a los detalles
     <ion-icon name="ios-arrow-forward"></ion-icon>
   </button>

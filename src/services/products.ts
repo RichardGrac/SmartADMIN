@@ -10,22 +10,32 @@ export class ProductsService {
   products;
 
   constructor(public productsProvicer: ProductsApiProvider) {
+    this.doingRequest();
+  }
 
+  getApiProducts(){
+    this.doingRequest();
+    if (this.products != null){
+      return this.products;
+    }
+  }
+
+  getApiProduct(id_product: string){
+    console.log("getProduct()  --id_prod:" + id_product);
+    this.doingRequest();
+    if (this.products != null) {
+      console.log('Product[0]: ' + this.products[0].id);
+      return this.products.find(x => x.id == id_product);
+    }
+  }
+
+  doingRequest(){
+    console.log('DoingRequest()');
     this.productsProvicer.getProducts()
       .subscribe(
         (data) => {this.products = data;},
         (error) => {console.log('[API] Error getting products: ' + error);}
       );
-
-  }
-
-  getApiProducts(){
-    return this.products.slice();
-  }
-
-  getApiProduct(id_product: string){
-    console.log("getProduct()  --id_prod:" + id_product);
-    return this.products.find(x => x.id == id_product);
   }
 
   // getProducts() {

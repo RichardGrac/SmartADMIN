@@ -35,7 +35,7 @@
 
         <ion-grid class="no-margin-bottom">
           <ion-row>
-            <ion-col col-8>
+            <ion-col col-5>
               <ion-item>
                 <ion-label stacked color="primary2">TIPO</ion-label>
                 <ion-input type="text" name="p_type" placeholder="Unidades, Kilogramos, Litros..."
@@ -55,10 +55,24 @@
                            clearInput ngModel required></ion-input>
               </ion-item>
             </ion-col>
+
+            <ion-col col-3 margin-top>
+              <button type="button" small block ion-button color="primary3" (click)="changeQuantity('+')">
+                <ion-icon name="md-add" large></ion-icon>
+              </button>
+              <button type="button" small block ion-button color="primary3" (click)="changeQuantity('-')">
+                <ion-icon name="md-remove" large></ion-icon>
+              </button>
+            </ion-col>
+
+            <!--<ion-col col-1>-->
+              <!--<button type="button" ion-button color="primary3" class="margin-top">-->
+              <!--<ion-icon name="md-remove" large></ion-icon>-->
+              <!--</button>-->
+            <!--</ion-col>-->
+
           </ion-row>
         </ion-grid>
-
-
 
     </ion-list>
 
@@ -99,10 +113,19 @@
   </button>
 
   <ion-list *ngIf="id_sl==-1">
-    <ion-item *ngFor="let product of products" (click)="productSelected(product)">
+    <div *ngFor="let product of products">
+
+    <ion-item (click)="productSelected(product)" *ngIf="product.name == colored" color="primary3">
       {{ product.name }}
       <ion-note item-end> $ {{ product.price | number : '1.2-2' }}</ion-note>
     </ion-item>
+
+    <ion-item (click)="productSelected(product)" *ngIf="product.name != colored">
+      {{ product.name }}
+      <ion-note item-end> $ {{ product.price | number : '1.2-2' }}</ion-note>
+    </ion-item>
+
+    </div>
   </ion-list>
 
   <!--<ion-list>-->

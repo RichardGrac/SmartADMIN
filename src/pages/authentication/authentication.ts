@@ -11,7 +11,10 @@ export class AuthenticationPage {
 
   try_number: number = 0;
   error_code: boolean = false;
-  code: boolean = false;
+  code: string = "";
+
+  /* When the page will be dismissed, if true: the user will can continue. */
+  successful_code: boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -21,7 +24,7 @@ export class AuthenticationPage {
   }
 
   closeModal() {
-    this.viewCtrl.dismiss({code: this.code});
+    this.viewCtrl.dismiss({successful_code: this.successful_code});
   }
 
   verifyAuth(form: NgForm) {
@@ -33,11 +36,13 @@ export class AuthenticationPage {
     loading.onDidDismiss(() => {
 
       if (form.value.code == '1234') {
-        this.code = true;
+        this.error_code = false;
+        this.successful_code = true;
         this.closeModal();
 
       } else {
-        console.log('Código erroneo');
+        console.log('Código erroneo. Codigo: ' + this.code);
+        this.code = '';
         form.reset();
         this.try_number += 1;
         this.error_code = true;
@@ -46,5 +51,18 @@ export class AuthenticationPage {
 
     loading.present();
 
+  }
+
+  /*
+  * This function will append the numbers clicked from the 'Screen Keyboard' to the -Input:text-
+  * */
+  appendNumber(number: string){
+    if (number == 'backspace'){
+      if (this.code.length > 0){
+        this.code = this.code.substring(0, this.code.length-1);
+      }
+    }else if (this.code.length < 4){
+      this.code += number;
+    }
   }
 }

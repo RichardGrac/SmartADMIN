@@ -5,10 +5,8 @@ export class GroceriesService {
   items: Array<ShoppingList> = [];
 
   constructor() {
-    // this.items.push(new ShoppingList(0, 0,1));
-    // this.items.push(new ShoppingList(1, 1,2));
-    // this.items.push(new ShoppingList(2, 2,3));
-    // this.items.push(new ShoppingList(3, 3,4));
+    this.items.push(new ShoppingList(0, "13MmYMBEy3po6Gb1S43c",2));
+    this.items.push(new ShoppingList(1, "1wmikpFxxxLq8RHpQ6yv",1));
   }
 
   addProduct(id_product: string, quantity: number) {
