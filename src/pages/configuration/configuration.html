@@ -1,18 +1,117 @@
-<!--
-  Generated template for the ConfigurationPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Configuración</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>
+      <h4 margin>
+        <b>Configuración</b>
+      </h4>
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
 
+<ion-content class="grey-backgnd global-bigger-font">
 
-<ion-content padding>
+  <ion-list no-border>
+
+    <ion-list-header>
+      <p text-uppercase>Pago</p>
+    </ion-list-header>
+
+    <button ion-item no-border>
+
+      <ion-grid>
+        <ion-row>
+
+          <ion-col col-3 no-padding>
+            <img src="assets/imgs/user.png">
+          </ion-col>
+
+          <ion-col col-7>
+            <ion-row>
+              <h2><b>RICARDO GARCÍA N.</b></h2>
+            </ion-row>
+
+            <ion-row no-margin>
+              <ion-col col-4 class="no-margin-bottom">
+                <img src="assets/imgs/visa-logo.png">
+              </ion-col>
+
+              <ion-col col-8 margin-top class="no-margin-bottom">
+                <p>Terminación *321</p>
+              </ion-col>
+
+            </ion-row>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+      <!--<p>I've had a pretty messed up day. If we just...</p>-->
+
+    </button>
+  </ion-list>
+
+  <ion-list no-border>
+
+    <ion-list-header>
+      <p text-uppercase>Accesibilidad</p>
+    </ion-list-header>
+
+    <button ion-item>
+      <ion-icon name='resize' color="deepRose" item-start></ion-icon>
+      Tamaño de letra
+      <ion-note item-end>
+        Estandar
+      </ion-note>
+    </button>
+
+    <ion-item>
+      <ion-toggle checked="false"></ion-toggle>
+      <ion-label>
+        Fondo Secundario
+      </ion-label>
+      <ion-icon name='color-palette' color="greenSea" item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle checked="true"></ion-toggle>
+      <ion-label>
+        Guía por voz
+      </ion-label>
+      <ion-icon name='megaphone' color="devilBlue" item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle checked="true"></ion-toggle>
+      <ion-label>
+        Notificaciones
+      </ion-label>
+      <ion-icon name='notifications' color="androidGreen" item-start></ion-icon>
+    </ion-item>
+
+    <button ion-item>
+      <ion-icon name='text' color="tigerlily" item-start></ion-icon>
+      Idioma
+      <ion-note item-end>
+        Español
+      </ion-note>
+    </button>
+
+  </ion-list>
+
+
+  <ion-list no-border>
+
+    <ion-list-header>
+      <p text-uppercase>Código de acceso</p>
+    </ion-list-header>
+
+    <button ion-item>
+      <ion-icon name='grid' color="dark2" item-start></ion-icon>
+      Cambiar código
+    </button>
+
+  </ion-list>
+
 
 </ion-content>

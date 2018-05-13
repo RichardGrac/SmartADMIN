@@ -13,7 +13,9 @@ import {ProductsService} from "../../services/products";
 })
 export class GroceryShoppingPage{
 
+  /* It'll contain just the references to the products that will be searched */
   items: ShoppingList[];
+  /* Products info for each items.id_prod */
   products: Array<any> = [];
 
   total: number;
@@ -30,8 +32,10 @@ export class GroceryShoppingPage{
   ionViewWillEnter(){
     this.onLoadItems();
     console.log("ionViewWillEnter --items: " + this.items);
-    for (var i = 0; i < this.items.length; i++){
-      console.log("--item: " + this.items[i].id_product + " quantity: " + this.items[i].quantity);
+    if(this.items.length != 0){
+      for (var i = 0; i < this.items.length; i++){
+        console.log("--item: " + this.items[i].id_product + " quantity: " + this.items[i].quantity);
+      }
     }
   }
 
@@ -110,8 +114,10 @@ export class GroceryShoppingPage{
   calculateTotal(){
     console.log("calculateTotal()");
     this.total = 0;
-    for(var i = 0; i < this.products.length; i++){
-      this.total += (this.products[i].price * this.items[i].quantity);
+    if(this.items.length != 0 || this.items != null){
+      for(var i = 0; i < this.products.length; i++){
+        this.total += (this.products[i].price * this.items[i].quantity);
+      }
     }
     this.subtotal = (this.total * 0.84);
     this.iva = (this.total - this.subtotal);

@@ -25,7 +25,6 @@ $app-direction: ltr;
 $font-family-base: 'Quicksand', 'Karla', sans-serif;
 
 
-
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -56,7 +55,12 @@ $colors: (
   marineBlue: #0652DD,
   radiantYellow:#FFC312,
   slightlyGrey:#f2f2f2,
-  greenish: #27ae60
+  greenish: #27ae60,
+  grey1:    #f2f2f2,
+  redish:   #eb3b5a,
+  deepRose: #c44569,
+  tigerlily: #e15f41,
+  androidGreen:#A3CB38
 );
 
 
