@@ -1,4 +1,4 @@
-// import {Product} from "../models/Product";
+import {Product} from "../models/Product";
 import {ProductsApiProvider} from "../providers/products-api/products-api";
 import { Component } from '@angular/core';
 
@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
 
 export class ProductsService {
 
-  // items: Array<Product> = [];
-  products;
+  products: Array<Product> = [];
+  // products;
 
   constructor(public productsProvicer: ProductsApiProvider) {
     this.doingRequest();
@@ -24,8 +24,7 @@ export class ProductsService {
     console.log("getProduct()  --id_prod:" + id_product);
     this.doingRequest();
     if (this.products != null) {
-      console.log('Product[0]: ' + this.products[0].id);
-      return this.products.find(x => x.id == id_product);
+      return this.products.find(x => x.id_product == id_product);
     }
   }
 
@@ -33,9 +32,17 @@ export class ProductsService {
     console.log('DoingRequest()');
     this.productsProvicer.getProducts()
       .subscribe(
-        (data) => {this.products = data;},
+        (data) => {this.convertDataToProducts(data);},
         (error) => {console.log('[API] Error getting products: ' + error);}
       );
+  }
+
+  convertDataToProducts(data: any){
+    this.products = [];
+    for (var i = 0; i < data.length; i++){
+      this.products.push(new Product(data[i].id, data[i].category, data[i].price, data[i].name, data[i].type));
+      console.log("Product added")
+    }
   }
 
   // getProducts() {

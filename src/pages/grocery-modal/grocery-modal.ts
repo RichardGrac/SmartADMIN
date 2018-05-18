@@ -21,9 +21,9 @@ export class GroceryModalPage implements OnInit{
   items: Array<Product> = [];
   /* One product-quantity & one product */
   product_q: ShoppingList;
-  product: any;
+  product: Product;
 
-  products;
+  products: Array<Product> = [];
   colored: string = "";
 
   constructor(private viewCtrl: ViewController,
@@ -62,7 +62,7 @@ export class GroceryModalPage implements OnInit{
     console.log("onRegisterItem()");
     /* When a New Item is going to be added to the Shopping List of the User */
     if (this.id_sl == -1){
-      this.groceryService.addProduct(this.product.id, form.value.p_quantity);
+      this.groceryService.addProduct(this.product.id_product, form.value.p_quantity);
       this.presentToast('Producto agregado satisfactoriamente');
       form.reset();
       this.product = new Product("", "", 0, "", "");
@@ -112,11 +112,10 @@ export class GroceryModalPage implements OnInit{
     }
   }
 
-  productSelected(item: any) {
-    console.log("productSelected() --Product.name: " + item.name + " --Product.id: " + item.id);
+  productSelected(item: Product) {
+    console.log("productSelected() --Product.name: " + item.name + " --Product.id: " + item.id_product);
     this.product_q.quantity = 1;
     this.product = item;
-    this.product.type = item.type;
     this.colored = item.name;
   }
 
