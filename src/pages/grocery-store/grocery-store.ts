@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {GroceryStoresService} from "../../services/grocery-stores";
+import {StoresService} from "../../services/stores";
 import {Store} from "../../models/stores";
 import {GroceryShoppingPage} from "../grocery-shopping/grocery-shopping";
 
@@ -15,7 +15,7 @@ export class GroceryStorePage implements OnInit{
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public groceryStoreService: GroceryStoresService) {
+              public groceryStoreService: StoresService) {
   }
 
   ngOnInit(): void {

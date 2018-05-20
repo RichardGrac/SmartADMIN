@@ -4,6 +4,8 @@ import {IluminationPage} from "../ilumination/ilumination";
 import {VigilancePage} from "../vigilance/vigilance";
 // import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {GroceryStorePage} from "../grocery-store/grocery-store";
+import {ProductsService} from "../../services/products";
+import {ServicesPage} from "../services/services";
 
 
 @Component({
@@ -52,10 +54,16 @@ export class HomePage {
       // color: "#fff200"
       color: "#e48b81"
     },
+    // {
+    //   name: "Seguridad",
+    //   icon: "md-lock",
+    //   img: "assets\\imgs\\Home\\security.png",
+    //   color: "black"
+    // },
     {
-      name: "Seguridad",
+      name: "Pago de Servicios",
       icon: "md-lock",
-      img: "assets\\imgs\\Home\\security.png",
+      img: "assets\\imgs\\Home\\services.png",
       color: "black"
     },
     {
@@ -73,7 +81,9 @@ export class HomePage {
     // }
   ];
 
-  constructor(public navCtrl: NavController
+  /* I'm declaring productsService in order to start requesting the products from the API */
+  constructor(public navCtrl: NavController,
+              public productsService:ProductsService
               // ,private screenOrientation: ScreenOrientation,
               // private platform: Platform
   ) {
@@ -93,6 +103,9 @@ export class HomePage {
         break;
       case 3:
         this.navCtrl.push(GroceryStorePage);
+        break;
+      case 4:
+        this.navCtrl.push(ServicesPage);
         break;
       case 5:
         this.navCtrl.push(VigilancePage);

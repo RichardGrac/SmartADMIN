@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Pago de Servicios</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h3 text-left>Servicios disponibles:</h3>
+  <p class="global-font-16px">Selecciona el servicio a leer su código de barras</p>
+
+  <ion-list>
+    <button ion-item *ngFor="let company of companies" (click)="onOpenBarcodeLecture(company.name)">
+
+      <ion-grid>
+        <ion-row>
+          <ion-col text-center>
+            <img src="{{company.img}}" width="83%">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </button>
+
+
+  </ion-list>
+</ion-content>

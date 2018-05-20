@@ -39,7 +39,7 @@ export class ProductsService {
     this.products = [];
     for (var i = 0; i < data.length; i++){
       this.products.push(new Product(data[i].id, data[i].category, data[i].price, data[i].name, data[i].type));
-      console.log("Product added")
     }
+    console.log("Products added: " + this.products.length);
   }
 }

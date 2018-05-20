@@ -14,7 +14,7 @@ import {LightsService} from "../services/lights";
 import {GroceryShoppingPage} from "../pages/grocery-shopping/grocery-shopping";
 import {GroceriesService} from "../services/groceries";
 import {GroceryStorePage} from "../pages/grocery-store/grocery-store";
-import {GroceryStoresService} from "../services/grocery-stores";
+import {StoresService} from "../services/stores";
 import {PopoverInfoComponent} from "../components/more-info.popover";
 import {VigilancePage} from "../pages/vigilance/vigilance";
 import {CamerasService} from "../services/cameras";
@@ -28,6 +28,8 @@ import {ProductsService} from "../services/products";
 import { ProductsApiProvider } from '../providers/products-api/products-api';
 import {HttpClientModule} from "@angular/common/http";
 import {ServicePaymentsService} from "../services/servicePayments";
+import {ServicesPage} from "../pages/services/services";
+import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import {ServicePaymentsService} from "../services/servicePayments";
     VigilancePage,
     CameraPage,
     DataVerificationPage,
-    SuccessfulPaymentPage
+    SuccessfulPaymentPage,
+    ServicesPage
   ],
   imports: [
     BrowserModule,
@@ -66,20 +69,22 @@ import {ServicePaymentsService} from "../services/servicePayments";
     VigilancePage,
     CameraPage,
     DataVerificationPage,
-    SuccessfulPaymentPage
+    SuccessfulPaymentPage,
+    ServicesPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     LightsService,
     GroceriesService,
-    GroceryStoresService,
+    StoresService,
     CamerasService,
     ScreenOrientation,
     ProductsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProductsApiProvider,
-    ServicePaymentsService
+    ServicePaymentsService,
+    BarcodeScanner
   ]
 })
 export class AppModule {}

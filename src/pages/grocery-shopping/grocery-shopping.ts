@@ -4,9 +4,7 @@ import {GroceriesService} from "../../services/groceries";
 import {DataVerificationPage} from "../data-verification/data-verification";
 import {ShoppingList} from "../../models/ShoppingList";
 import {ProductsService} from "../../services/products";
-import {Payment} from "../../models/Payment";
 import {ServicePaymentsService} from "../../services/servicePayments";
-// import {Product} from "../../models/Product";
 
 @IonicPage()
 @Component({
