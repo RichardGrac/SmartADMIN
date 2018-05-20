@@ -27,6 +27,7 @@ import {ScreenOrientation} from "@ionic-native/screen-orientation";
 import {ProductsService} from "../services/products";
 import { ProductsApiProvider } from '../providers/products-api/products-api';
 import {HttpClientModule} from "@angular/common/http";
+import {ServicePaymentsService} from "../services/servicePayments";
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import {HttpClientModule} from "@angular/common/http";
     ScreenOrientation,
     ProductsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProductsApiProvider
+    ProductsApiProvider,
+    ServicePaymentsService
   ]
 })
 export class AppModule {}

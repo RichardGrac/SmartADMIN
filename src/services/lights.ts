@@ -8,7 +8,7 @@ export class LightsService{
       new Light(2, 'Lavatrastes', true, false, '00:00', false, '23:59')
   ];
 
-  DinningR_Lights: Array<Light> = [
+  Garden_Lights: Array<Light> = [
     new Light(0, "Central", false, false, '00:00', false, '23:59'),
     new Light(1, "Secundario", true, false, '00:00', false, '23:59')
   ];
@@ -21,7 +21,7 @@ export class LightsService{
 
   ilumination: Array<Light_Place> = [
     new Light_Place(0, 'Cocina', this.Kitchen_Lights),
-    new Light_Place(1, 'Comedor', this.DinningR_Lights),
+    new Light_Place(1, 'Jardín', this.Garden_Lights),
     new Light_Place(2, 'Sala', this.LivingR_Lights)
   ];
 

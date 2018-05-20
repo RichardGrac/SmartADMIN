@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 export class ProductsService {
 
   products: Array<Product> = [];
-  // products;
 
   constructor(public productsProvicer: ProductsApiProvider) {
     this.doingRequest();
@@ -22,7 +21,6 @@ export class ProductsService {
 
   getApiProduct(id_product: string){
     console.log("getProduct()  --id_prod:" + id_product);
-    this.doingRequest();
     if (this.products != null) {
       return this.products.find(x => x.id_product == id_product);
     }
@@ -44,14 +42,4 @@ export class ProductsService {
       console.log("Product added")
     }
   }
-
-  // getProducts() {
-  //   return this.items.slice();
-  // }
-
-  // getProduct(id_product: number){
-  //   // console.log(this.productsApiProvider.getProducts());
-  //   console.log("getProduct()  --id_prod:" + id_product);
-  //   return this.items.find(x => x.id_product == id_product);
-  // }
 }

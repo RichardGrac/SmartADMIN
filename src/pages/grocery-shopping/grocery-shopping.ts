@@ -4,6 +4,8 @@ import {GroceriesService} from "../../services/groceries";
 import {DataVerificationPage} from "../data-verification/data-verification";
 import {ShoppingList} from "../../models/ShoppingList";
 import {ProductsService} from "../../services/products";
+import {Payment} from "../../models/Payment";
+import {ServicePaymentsService} from "../../services/servicePayments";
 // import {Product} from "../../models/Product";
 
 @IonicPage()
@@ -15,18 +17,21 @@ export class GroceryShoppingPage{
 
   /* It'll contain just the references to the products that will be searched */
   items: ShoppingList[];
-  /* Products info for each items.id_prod */
+  /* Products info for each items.id_prod <-- Obtained by Products API */
   products: Array<any> = [];
+  company: string; // Company you selected to buy your groceries
 
   total: number;
   subtotal: number;
   iva: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
               public groceriesService: GroceriesService,
               public modalCtrl: ModalController,
               public productsService: ProductsService,
-              public loadingCtrl: LoadingController) {
+              public loadingCtrl: LoadingController,
+              public servicePayment: ServicePaymentsService) {
   }
 
   ionViewWillEnter(){
@@ -42,6 +47,7 @@ export class GroceryShoppingPage{
   ionViewDidEnter(){
     console.log("ionViewDidEnter");
     this.onLoadProducts();
+    this.company = this.navParams.get("company");
   }
 
   onDeleteItem(index: number){
@@ -79,6 +85,7 @@ export class GroceryShoppingPage{
 
     modal.onDidDismiss(data => {
       if(data.successful_code == true){
+        this.createPaymentInfo();
         this.verificationPage();
       }else{
         console.log(data.error_code);
@@ -123,6 +130,11 @@ export class GroceryShoppingPage{
     this.iva = (this.total - this.subtotal);
 
     console.log("calculateTotal() --ended");
+  }
+
+  private createPaymentInfo() {
+    console.log("Creating payment info...");
+    this.servicePayment.addService("Compra de despensa", this.total, "**** *321", this.company)
   }
 }
 

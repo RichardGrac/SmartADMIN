@@ -1,25 +1,79 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title *ngIf="success">¡Exito!</ion-title>
+    <ion-title *ngIf="success">{{payment.operation_name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding text-center>
 
-  <h1 class="greenish" margin-bottom>¡Compra exitosa!</h1>
+  <h1 class="greenish" margin-bottom>¡Operación exitosa!</h1>
 
-  <ion-grid text-center>
-    <ion-row>
+  <img src="assets/imgs/check.png" alt="check.png" height="30%" no-margin>
+
+  <ion-grid>
+
+    <ion-row no-margin>
       <ion-col>
-        <img src="assets/imgs/check.png" alt="check.png">
+        <p><b>IMPORTE:</b>  ${{payment.amount | number : '1.2-2'}} </p>
       </ion-col>
     </ion-row>
 
-    <ion-row margin-top>
-      <ion-col>
+    <ion-grid class="bluish" padding-left padding-right>
+      <ion-row>
+        <ion-col text-left col-7>
+          <b>Cuenta de retiro:</b>
+        </ion-col>
+        <ion-col text-right col-5>
+          {{payment.card_number}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col text-left col-7>
+          <b>Compañia:</b>
+        </ion-col>
+        <ion-col text-right col-5>
+          {{payment.company}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col text-left col-7>
+          <b>Fecha de operación:</b>
+        </ion-col>
+        <ion-col text-right col-5>
+          {{payment.date.toLocaleDateString()}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col text-left col-7>
+          <b>Hora de operación:</b>
+        </ion-col>
+        <ion-col text-right col-5>
+          {{payment.date.toLocaleTimeString()}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!--<ion-row class="bluish" padding-left padding-right>-->
+      <!--<ion-col text-left col-7>-->
+        <!--<p><b>Cuenta de retiro:</b></p>-->
+        <!--<p><b>Fecha de operación:</b></p>-->
+        <!--<p><b>Hora de operación:</b></p>-->
+      <!--</ion-col>-->
+      <!--<ion-col text-right col-5>-->
+        <!--<p>{{payment.card_number}}</p>-->
+        <!--<p>{{payment.date.toLocaleDateString()}}</p>-->
+        <!--<p>{{payment.date.toLocaleTimeString()}}</p>-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+
+    <ion-row>
+      <ion-col margin-top>
         <h4>Verifica tu correo para detalles de tu compra.</h4>
       </ion-col>
     </ion-row>

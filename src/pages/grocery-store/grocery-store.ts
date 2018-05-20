@@ -22,7 +22,7 @@ export class GroceryStorePage implements OnInit{
     this.stores = this.groceryStoreService.getStores();
   }
 
-  openShoppingList(){
-    this.navCtrl.push(GroceryShoppingPage);
+  openShoppingList(company: string){
+    this.navCtrl.push(GroceryShoppingPage, {"company": company});
   }
 }

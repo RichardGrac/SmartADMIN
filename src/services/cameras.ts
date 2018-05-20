@@ -20,7 +20,7 @@ export class CamerasService{
 
   vigilance: Array<Camera_Place> = [
     new Camera_Place(0, 'Exterior', this.out_cameras),
-    new Camera_Place(1, 'Garden', this.garden_cameras),
+    new Camera_Place(1, 'Jardín', this.garden_cameras),
     new Camera_Place(2, 'Garage', this.garage_cameras),
   ];
 
