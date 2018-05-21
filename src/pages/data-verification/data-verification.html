@@ -42,7 +42,7 @@
 
     <ion-row class="without-border" margin-bottom>
       <ion-col>
-        <button ion-button clear text-uppercase>Cambiar datos de Pago</button>
+        <button ion-button clear text-uppercase (click)="onChangePayMethod()">Cambiar datos de Pago</button>
       </ion-col>
     </ion-row>
 
@@ -52,7 +52,13 @@
 </ion-content>
 
 <ion-footer text-center margin-bottom>
-  <button ion-button class="finish-button" color="greenish" (click)="openModal(true)"
+  <button *ngIf="kind_operation=='isPayingAService'" ion-button class="finish-button" color="greenish" (click)="openModal(true)"
+          margin-left icon-end block>
+    FINALIZAR
+    <ion-icon name="card"></ion-icon>
+  </button>
+
+  <button *ngIf="kind_operation=='isShopping'" ion-button class="finish-button" color="greenish" (click)="showAddressConfirmation(true)"
           margin-left icon-end block>
     FINALIZAR
     <ion-icon name="card"></ion-icon>

@@ -20,7 +20,8 @@ export class StoresService{
     this.companies.push(new Store('Axtel', 'Comunícate mejor', 'assets/imgs/Services/axtel.png'));
     this.companies.push(new Store('Telmex', 'Está contigo', 'assets/imgs/Services/telmex.png'));
     this.companies.push(new Store('Telcel', 'La Red en tus manos', 'assets/imgs/Services/telcel.png'));
-    this.companies.push(new Store('Dish', 'Dish', 'assets/imgs/Services/dish.png'));
+    this.companies.push(new Store('VeTV', 'VeTV por SKY', 'assets/imgs/Services/vetv.png'));
+    // this.companies.push(new Store('Dish', 'Dish', 'assets/imgs/Services/dish.png'));
   }
 
   getStores(){

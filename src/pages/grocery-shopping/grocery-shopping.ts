@@ -93,7 +93,7 @@ export class GroceryShoppingPage{
   }
 
   verificationPage(){
-    this.navCtrl.push(DataVerificationPage);
+    this.navCtrl.push(DataVerificationPage, {"operation": "isShopping"});
   }
 
   /* We load the array of products for each id_product that are in the ShoppingList[] */

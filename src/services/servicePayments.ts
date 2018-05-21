@@ -10,6 +10,12 @@ export class ServicePaymentsService {
     this.printServices();
   }
 
+  addServiceByObject(payment: Payment){
+    this.services = [];
+    this.services.push(payment);
+    this.printServices();
+  }
+
   getLastService(){
     var aux = this.services[this.services.length-1];
     /* We've to return the Time of the Payment Conclusion, so We modify that */
