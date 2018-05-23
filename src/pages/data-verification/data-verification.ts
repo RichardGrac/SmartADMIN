@@ -9,6 +9,8 @@ import {
   ViewController
 } from 'ionic-angular';
 import {SuccessfulPaymentPage} from "../successful-payment/successful-payment";
+import {ServicesApiProvider} from '../../providers/services-api/services-api';
+import {ServicePaymentsService} from "../../services/servicePayments";
 
 
 @IonicPage()
@@ -16,7 +18,7 @@ import {SuccessfulPaymentPage} from "../successful-payment/successful-payment";
   selector: 'page-data-verification',
   templateUrl: 'data-verification.html',
 })
-export class DataVerificationPage implements OnInit{
+export class  DataVerificationPage implements OnInit{
   termination: number = 321;
   card_type: string = 'Visa';
   date: string = '02/19';
@@ -29,7 +31,9 @@ export class DataVerificationPage implements OnInit{
               public modalCtrl: ModalController,
               public viewCtrl: ViewController,
               public loadingCtrl: LoadingController,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              public servicesApiProvider: ServicesApiProvider,
+              public servicePaymentsService: ServicePaymentsService) {
   }
 
 
@@ -39,28 +43,39 @@ export class DataVerificationPage implements OnInit{
   }
 
   openModal(success: boolean) {
-
+    console.log("openModal()");
+    let status;
     const loading1 = this.loadingCtrl.create({
-      content: 'Paso 1: Verificando Datos',
-      duration: 6000,
+      content: 'Realizando pago...',
+      // duration: 6000,
     });
 
     loading1.setSpinner('dots');
     loading1.present().then(() => {
+      console.log("presenting loader...");
 
-      setTimeout(function () {
-        loading1.setContent('Paso 2: Realizando Pedido');
-      }, 2600);
-
-    }).then(() => {
-      setTimeout(function () {
-        loading1.setContent('Paso 3: Esperando Respuesta');
-      }, 4000);
-    });
-
-    loading1.onDidDismiss(() => {
-      let modal = this.modalCtrl.create(SuccessfulPaymentPage, {success: success});
-      modal.present();
+      if (this.kind_operation == "isPayingAService"){
+        // Last Service added.
+        let ls = this.servicePaymentsService.getLastService();
+        this.servicesApiProvider.registerPayment
+        (ls.card_number, 'Ricardo Daniel Garcia Navarro', ls.amount, ls.operation_name, ls.company)
+          .subscribe(
+            (data) => {
+              status = data.status;
+              // console.log(data.status);
+              console.log('API Payments done: ', status);
+              loading1.dismiss();
+              this.requestDone(status, success);
+            },
+            (error) => {console.log('[API] Error registering payment ' + error);}
+          )
+        ;
+        //
+      }else{
+        loading1.dismiss();
+        let modal = this.modalCtrl.create(SuccessfulPaymentPage, {success: success});
+        modal.present();
+      }
     });
   }
 
@@ -92,5 +107,15 @@ export class DataVerificationPage implements OnInit{
   /* To change the method of payment */
   onChangePayMethod() {
     this.navCtrl.parent.select(1);
+  }
+
+  private requestDone(status: boolean, success: boolean) {
+    if(status){
+      let modal = this.modalCtrl.create(SuccessfulPaymentPage, {success: success});
+      modal.present();
+    }else{
+      console.log("Error registering payment on data-verification.ts");
+      this.navCtrl.popToRoot();
+    }
   }
 }

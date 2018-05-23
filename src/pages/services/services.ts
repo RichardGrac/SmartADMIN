@@ -4,9 +4,10 @@ import {Store} from "../../models/stores";
 import {StoresService} from "../../services/stores";
 import {BarcodeScanner, BarcodeScannerOptions} from "@ionic-native/barcode-scanner";
 import {Payment} from "../../models/Payment";
-import {AuthenticationPage} from "../authentication/authentication";
+// import {AuthenticationPage} from "../authentication/authentication";
 import {ServicePaymentsService} from "../../services/servicePayments";
 import {DataVerificationPage} from "../data-verification/data-verification";
+import {ServicesApiProvider} from "../../providers/services-api/services-api";
 
 @IonicPage()
 @Component({
@@ -25,15 +26,20 @@ export class ServicesPage {
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
               public servicePaymentsService:ServicePaymentsService,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController,
+              public servicesApiProvider:ServicesApiProvider) {
   }
 
   ngOnInit(): void {
     this.companies = this.companiesService.getServicesCompanies();
   }
 
-  onOpenBarcodeLecture(name: string) {
+  /*
+  * type_company: CFE=0, CAASA=1,...
+  * */
+  onOpenBarcodeLecture(type_company: number) {
     console.log("Reading barcode...");
+    console.log("index: ", type_company);
     var options: BarcodeScannerOptions = {
       prompt: 'Escanea tu código de barras',
       showTorchButton: true
@@ -44,51 +50,47 @@ export class ServicesPage {
       console.log('Barcode data text: ', barcodeData.text, " - barcode.format: ", barcodeData.format,
         " - barcode.cancelled: ", barcodeData.cancelled);
 
-      // 'false' means that the User clicked on 'Cancel' button
+      // 'false' means that the User didn't click on 'Cancel' button
       if (barcodeData.cancelled == false){
         let loader = this.loadingCtrl.create({
-          content: "Verificando código...",
-          duration: 1000
+          content: "Verificando código..."
         });
-        loader.present();
-        loader.onDidDismiss(()=>{
+        loader.present().then(() =>{
 
-          this.payment = this.validateBarcodeData(barcodeData.text, name);
-          console.log(this.payment);
-          if (this.payment != null) {
-            this.showConfirm();
-          } else {
-            this.showAlert();
-          }
+          this.servicesApiProvider.verify_barcode(barcodeData.text, type_company.toString())
+            .subscribe(
+              (data) => {
+                loader.dismiss();
+                console.log("Code verified in Barcode's API: ", JSON.stringify(data));
+                if (data.success == true) {
+                  this.showConfirm(data);
+                } else {
+                  this.showAlert();
+                }
+                // console.log(data.status);
+                // console.log('API Payments done: ', status);
+              },
+              (error) => {console.log('[API] Error registering payment ' + error);}
+            )
+          ;
 
         });
       }
-
-
     }).catch(err => {
       console.log('Error', err);
     });
   }
 
-  validateBarcodeData(barcodeData: string, name: string) {
-    var payment = null;
-    if (barcodeData == "0078980000000034500" && name == "CAASA") {
-      // Water service
-      payment = new Payment("Cobro servicio de agua parcial abril-mayo", 345.00, "*** *321",
-        "PROACTIVA MEDIOAMBIENTE (CAASA)", new Date());
-    } else if (barcodeData == "010980808076191712180000001240" && name == "CFE") {
-      // Electrical service
-      payment = new Payment("Cobro luz eléctrica periodo enero-marzo", 124.00, "*** *321",
-        "COMISIÓN FEDERAL DE ELECTRICIDAD (CFE)", new Date());
-    }
-    return payment;
+  savePayment(data:any){
+    this.servicePaymentsService.addServiceByObject(
+      new Payment(data.operation_name, data.amount, "**** *321", data.company, new Date())) ;
   }
 
-  showConfirm() {
+  showConfirm(data: any) {
     let confirm = this.alertCtrl.create({
-      title: this.payment.company,
+      title: data.company,
       enableBackdropDismiss: false,
-      subTitle: 'Operación: \"' + this.payment.operation_name + '\" ($' + this.payment.amount + ' MXN)',
+      subTitle: data.name + '. Operación: \"' + data.operation_name + '\" ($' + data.amount + ' MXN)',
       message: '¿DESEAS PAGAR EL SERVICIO IDENTIFICADO?',
       buttons: [
         {
@@ -100,7 +102,8 @@ export class ServicesPage {
         {
           text: 'Aceptar pago',
           handler: () => {
-            console.log('Acept clicked');
+            console.log('Accept clicked');
+            this.savePayment(data);
             this.openAuthenticationModal();
             // this.showPayMode();
           }
@@ -125,7 +128,7 @@ export class ServicesPage {
 
     modal.onDidDismiss(data => {
       if(data.successful_code == true){
-        this.createPaymentInfo();
+        // this.createPaymentInfo();
         this.verificationPage();
       }else{
         console.log(data.error_code);
@@ -133,10 +136,10 @@ export class ServicesPage {
     });
   }
 
-  private createPaymentInfo() {
-    console.log("Creating payment info...");
-    this.servicePaymentsService.addServiceByObject(this.payment);
-  }
+  // private createPaymentInfo() {
+  //   console.log("Creating payment info...");
+  //   this.servicePaymentsService.addServiceByObject(this.payment);
+  // }
 
   verificationPage(){
     this.navCtrl.push(DataVerificationPage, {"operation": "isPayingAService"});

@@ -12,7 +12,7 @@
   <p class="global-font-16px">Selecciona el servicio a leer su código de barras</p>
 
   <ion-list>
-    <button ion-item *ngFor="let company of companies" (click)="onOpenBarcodeLecture(company.name)">
+    <button ion-item *ngFor="let company of companies; let i = index" (click)="onOpenBarcodeLecture(i)">
 
       <ion-grid>
         <ion-row>
