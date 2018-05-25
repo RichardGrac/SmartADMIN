@@ -59,7 +59,7 @@ export class ServicesPage {
 
           this.servicesApiProvider.verify_barcode(barcodeData.text, type_company.toString())
             .subscribe(
-              (data) => {
+              (data: any) => {
                 loader.dismiss();
                 console.log("Code verified in Barcode's API: ", JSON.stringify(data));
                 if (data.success == true) {

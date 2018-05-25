@@ -60,7 +60,7 @@ export class  DataVerificationPage implements OnInit{
         this.servicesApiProvider.registerPayment
         (ls.card_number, 'Ricardo Daniel Garcia Navarro', ls.amount, ls.operation_name, ls.company)
           .subscribe(
-            (data) => {
+            (data: any) => {
               status = data.status;
               // console.log(data.status);
               console.log('API Payments done: ', status);
