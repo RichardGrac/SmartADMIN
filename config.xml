@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="richard.grac.ionic.app05" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>SmartADMIN</name>
-    <description>An app about IoT</description>
+    <description>IoT App</description>
     <author email="richard_grac@hotmail.com" href="https://github.com/RichardGrac">Richard Grac</author>
     <content src="index.html" />
     <access origin="*" />
