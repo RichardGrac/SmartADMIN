@@ -1,5 +1,13 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {
+  AlertController,
+  IonicPage,
+  LoadingController,
+  ModalController,
+  NavController,
+  NavParams,
+  Platform
+} from 'ionic-angular';
 import {Store} from "../../models/stores";
 import {StoresService} from "../../services/stores";
 import {BarcodeScanner, BarcodeScannerOptions} from "@ionic-native/barcode-scanner";
@@ -25,9 +33,10 @@ export class ServicesPage {
               private barcodeScanner: BarcodeScanner,
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
-              public servicePaymentsService:ServicePaymentsService,
+              public servicePaymentsService: ServicePaymentsService,
               public modalCtrl: ModalController,
-              public servicesApiProvider:ServicesApiProvider) {
+              public servicesApiProvider: ServicesApiProvider,
+              private platform: Platform) {
   }
 
   ngOnInit(): void {
@@ -40,50 +49,55 @@ export class ServicesPage {
   onOpenBarcodeLecture(type_company: number) {
     console.log("Reading barcode...");
     console.log("index: ", type_company);
-    var options: BarcodeScannerOptions = {
-      prompt: 'Escanea tu código de barras',
-      showTorchButton: true
 
-    };
+    this.platform.ready().then(() => {
+      var options: BarcodeScannerOptions = {
+        prompt: 'Escanea tu código de barras',
+        showTorchButton: true
 
-    this.barcodeScanner.scan(options).then(barcodeData => {
-      console.log('Barcode data text: ', barcodeData.text, " - barcode.format: ", barcodeData.format,
-        " - barcode.cancelled: ", barcodeData.cancelled);
+      };
 
-      // 'false' means that the User didn't click on 'Cancel' button
-      if (barcodeData.cancelled == false){
-        let loader = this.loadingCtrl.create({
-          content: "Verificando código..."
-        });
-        loader.present().then(() =>{
+      this.barcodeScanner.scan(options).then(barcodeData => {
+        console.log('Barcode data text: ', barcodeData.text, " - barcode.format: ", barcodeData.format,
+          " - barcode.cancelled: ", barcodeData.cancelled);
 
-          this.servicesApiProvider.verify_barcode(barcodeData.text, type_company.toString())
-            .subscribe(
-              (data: any) => {
-                loader.dismiss();
-                console.log("Code verified in Barcode's API: ", JSON.stringify(data));
-                if (data.success == true) {
-                  this.showConfirm(data);
-                } else {
-                  this.showAlert();
+        // 'false' means that the User didn't click on 'Cancel' button
+        if (barcodeData.cancelled == false) {
+          let loader = this.loadingCtrl.create({
+            content: "Verificando código..."
+          });
+          loader.present().then(() => {
+
+            this.servicesApiProvider.verify_barcode(barcodeData.text, type_company.toString())
+              .subscribe(
+                (data: any) => {
+                  loader.dismiss();
+                  console.log("Code verified in Barcode's API: ", JSON.stringify(data));
+                  if (data.success == true) {
+                    this.showConfirm(data);
+                  } else {
+                    this.showAlert();
+                  }
+                  // console.log(data.status);
+                  // console.log('API Payments done: ', status);
+                },
+                (error) => {
+                  console.log('[API] Error registering payment ' + error);
                 }
-                // console.log(data.status);
-                // console.log('API Payments done: ', status);
-              },
-              (error) => {console.log('[API] Error registering payment ' + error);}
-            )
-          ;
+              )
+            ;
 
-        });
-      }
-    }).catch(err => {
-      console.log('Error', err);
+          });
+        }
+      }).catch(err => {
+        console.log('Error', err);
+      });
     });
   }
 
-  savePayment(data:any){
+  savePayment(data: any) {
     this.servicePaymentsService.addServiceByObject(
-      new Payment(data.operation_name, data.amount, "**** *321", data.company, new Date())) ;
+      new Payment(data.operation_name, data.amount, "**** *321", data.company, new Date()));
   }
 
   showConfirm(data: any) {
@@ -122,15 +136,15 @@ export class ServicesPage {
     alert.present();
   }
 
-  openAuthenticationModal(){
+  openAuthenticationModal() {
     let modal = this.modalCtrl.create('AuthenticationPage');
     modal.present();
 
     modal.onDidDismiss(data => {
-      if(data.successful_code == true){
+      if (data.successful_code == true) {
         // this.createPaymentInfo();
         this.verificationPage();
-      }else{
+      } else {
         console.log(data.error_code);
       }
     });
@@ -141,7 +155,7 @@ export class ServicesPage {
   //   this.servicePaymentsService.addServiceByObject(this.payment);
   // }
 
-  verificationPage(){
+  verificationPage() {
     this.navCtrl.push(DataVerificationPage, {"operation": "isPayingAService"});
   }
 
