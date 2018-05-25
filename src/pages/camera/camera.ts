@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {CamerasService} from "../../services/cameras";
 import {Camera} from "../../models/camera_place";
+import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
 
 @IonicPage()
 @Component({
@@ -17,7 +18,8 @@ export class CameraPage implements OnInit{
               public navParams: NavParams,
               public cameraService: CamerasService,
               public toastCtrl: ToastController,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              private streamingMedia: StreamingMedia) {
   }
 
   ngOnInit(): void {
@@ -68,5 +70,15 @@ export class CameraPage implements OnInit{
       position: 'bottom',
       cssClass: 'font-black',
     }).present();
+  }
+
+  onPlayingVideo(){
+    console.log("OnPlayingVideo()");
+    let options: StreamingVideoOptions = {
+      successCallback: () => { console.log('Video played') },
+      errorCallback: (e) => { console.log('Error streaming') },
+      orientation: 'landscape'
+    };
+    this.streamingMedia.playVideo('rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov', options);
   }
 }

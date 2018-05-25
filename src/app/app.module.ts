@@ -31,6 +31,7 @@ import {ServicePaymentsService} from "../services/servicePayments";
 import {ServicesPage} from "../pages/services/services";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 import { ServicesApiProvider } from '../providers/services-api/services-api';
+import { StreamingMedia } from '@ionic-native/streaming-media';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { ServicesApiProvider } from '../providers/services-api/services-api';
     ProductsApiProvider,
     ServicePaymentsService,
     BarcodeScanner,
-    ServicesApiProvider
+    ServicesApiProvider,
+    StreamingMedia
   ]
 })
 export class AppModule {}

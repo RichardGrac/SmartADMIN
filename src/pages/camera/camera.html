@@ -10,7 +10,7 @@
 <ion-content padding>
 
   <div class="video" *ngIf="camera.on">
-    <img class="img1" src="assets\\imgs\\play.png">
+    <img class="img1" src="assets\\imgs\\play.png" (click)="onPlayingVideo()">
   </div>
 
   <div class="video" *ngIf="!camera.on" text-center>
