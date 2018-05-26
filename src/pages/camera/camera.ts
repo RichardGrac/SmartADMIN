@@ -2,16 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import {CamerasService} from "../../services/cameras";
 import {Camera} from "../../models/camera_place";
-import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
-
-declare var cordova:any;
 
 @IonicPage()
 @Component({
   selector: 'page-camera',
   templateUrl: 'camera.html',
 })
-export class CameraPage implements OnInit{
+export class CameraPage implements OnInit {
 
   place_name: string;
   camera: Camera;
@@ -21,7 +18,6 @@ export class CameraPage implements OnInit{
               public cameraService: CamerasService,
               public toastCtrl: ToastController,
               public alertCtrl: AlertController,
-              private streamingMedia: StreamingMedia,
               private platform: Platform) {
   }
 
@@ -30,7 +26,7 @@ export class CameraPage implements OnInit{
     this.getCameraObject();
   }
 
-  editCameraName(){
+  editCameraName() {
     let prompt = this.alertCtrl.create({
       title: 'Editar nombre',
       message: "Introduzca el nuevo nombre",
@@ -50,9 +46,9 @@ export class CameraPage implements OnInit{
         {
           text: 'Guardar',
           handler: data => {
-            if(data.name.trim() == '' || data.name == null){
+            if (data.name.trim() == '' || data.name == null) {
               this.showToastMessage('Por favor ingrese un valor valido');
-            }else{
+            } else {
               this.cameraService.setName(this.navParams.get('id_place'), this.camera.id_camera, data.name);
             }
           }
@@ -66,7 +62,7 @@ export class CameraPage implements OnInit{
     this.camera = this.cameraService.getCamera(this.navParams.get('id_place'), this.navParams.get('id_camera'));
   }
 
-  showToastMessage(message: string){
+  showToastMessage(message: string) {
     this.toastCtrl.create({
       message: message,
       duration: 3000,
@@ -75,9 +71,18 @@ export class CameraPage implements OnInit{
     }).present();
   }
 
-  onPlayingVideo(){
+  onPlayingVideo() {
     console.log("OnPlayingVideo()");
-    cordova.plugins.rtspPlayer.watch("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov");
+    this.platform.ready().then(() => {
+      (<any>window).PYB.vlcStreamPlayer.openPlayerForStreamURL("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov").then(
+        done => {
+          console.log("Video is playing!")
+        },
+        error => {
+          console.log("ERROR: ", error)
+        }
+      );
+    });
     console.log("OnPlayingVideo() --ended");
   }
 
