@@ -47,8 +47,7 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-screen-orientation": {},
-      "phonegap-plugin-barcodescanner": {},
-      "com.hutchind.cordova.plugins.streamingmedia": {}
+      "phonegap-plugin-barcodescanner": {}
     }
   }
 }

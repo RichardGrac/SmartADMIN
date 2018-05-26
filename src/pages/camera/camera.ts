@@ -4,6 +4,8 @@ import {CamerasService} from "../../services/cameras";
 import {Camera} from "../../models/camera_place";
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
 
+declare var cordova:any;
+
 @IonicPage()
 @Component({
   selector: 'page-camera',
@@ -75,14 +77,8 @@ export class CameraPage implements OnInit{
 
   onPlayingVideo(){
     console.log("OnPlayingVideo()");
-    this.platform.ready().then(() => {
-    let options: StreamingVideoOptions = {
-      successCallback: () => { console.log('Video played') },
-      errorCallback: (e) => { console.log('Error streaming') },
-      orientation: 'landscape'
-    };
-    this.streamingMedia.playVideo('rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov', options);
-    });
+    cordova.plugins.rtspPlayer.watch("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov");
+    console.log("OnPlayingVideo() --ended");
   }
 
 }
