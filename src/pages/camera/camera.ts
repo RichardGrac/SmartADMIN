@@ -71,12 +71,13 @@ export class CameraPage implements OnInit {
     }).present();
   }
 
+  // https://github.com/dride/cordova-plugin-rtsp-vlc to Reproduce RTCP
   onPlayingVideo() {
     console.log("OnPlayingVideo()");
     this.platform.ready().then(() => {
       (<any>window).PYB.vlcStreamPlayer.openPlayerForStreamURL("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov").then(
         done => {
-          console.log("Video is playing!")
+          console.log("Video played!")
         },
         error => {
           console.log("ERROR: ", error)
@@ -85,5 +86,4 @@ export class CameraPage implements OnInit {
     });
     console.log("OnPlayingVideo() --ended");
   }
-
 }

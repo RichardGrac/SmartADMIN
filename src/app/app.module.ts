@@ -29,7 +29,6 @@ import { ProductsApiProvider } from '../providers/products-api/products-api';
 import {HttpClientModule} from "@angular/common/http";
 import {ServicePaymentsService} from "../services/servicePayments";
 import {ServicesPage} from "../pages/services/services";
-import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 import { ServicesApiProvider } from '../providers/services-api/services-api';
 
 @NgModule({
@@ -85,7 +84,6 @@ import { ServicesApiProvider } from '../providers/services-api/services-api';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProductsApiProvider,
     ServicePaymentsService,
-    BarcodeScanner,
     ServicesApiProvider
   ]
 })

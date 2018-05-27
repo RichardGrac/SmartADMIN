@@ -10,9 +10,7 @@ import {
 } from 'ionic-angular';
 import {Store} from "../../models/stores";
 import {StoresService} from "../../services/stores";
-import {BarcodeScanner, BarcodeScannerOptions} from "@ionic-native/barcode-scanner";
 import {Payment} from "../../models/Payment";
-// import {AuthenticationPage} from "../authentication/authentication";
 import {ServicePaymentsService} from "../../services/servicePayments";
 import {DataVerificationPage} from "../data-verification/data-verification";
 import {ServicesApiProvider} from "../../providers/services-api/services-api";
@@ -30,7 +28,6 @@ export class ServicesPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public companiesService: StoresService,
-              private barcodeScanner: BarcodeScanner,
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
               public servicePaymentsService: ServicePaymentsService,
@@ -45,19 +42,17 @@ export class ServicesPage {
 
   /*
   * type_company: CFE=0, CAASA=1,...
+  * $ cordova plugin add phonegap-plugin-barcodescanner
+  * https://ionicframework.com/docs/native/barcode-scanner/ (NOT the 'npm install...')
   * */
   onOpenBarcodeLecture(type_company: number) {
     console.log("Reading barcode...");
     console.log("index: ", type_company);
 
     this.platform.ready().then(() => {
-      var options: BarcodeScannerOptions = {
-        prompt: 'Escanea tu código de barras',
-        showTorchButton: true
 
-      };
-
-      this.barcodeScanner.scan(options).then(barcodeData => {
+      (<any>window).plugins.barcodeScanner.scan({showTorchButton: true, prompt: 'Escanea tu código de barras'}).
+      then(barcodeData => {
         console.log('Barcode data text: ', barcodeData.text, " - barcode.format: ", barcodeData.format,
           " - barcode.cancelled: ", barcodeData.cancelled);
 
@@ -150,34 +145,6 @@ export class ServicesPage {
     });
   }
 
-  // private createPaymentInfo() {
-  //   console.log("Creating payment info...");
-  //   this.servicePaymentsService.addServiceByObject(this.payment);
-  // }
-
   verificationPage() {
     this.navCtrl.push(DataVerificationPage, {"operation": "isPayingAService"});
-  }
-
-  // private showPayMode  () {
-  //   let confirm = this.alertCtrl.create({
-  //     title: 'Tipo de pago',
-  //     message: 'Por favor, eliga su modo de pago.',
-  //     buttons: [
-  //       {
-  //         text: 'Pago parcial',
-  //         handler: () => {
-  //
-  //         }
-  //       },
-  //       {
-  //         text: 'Pago total',
-  //         handler: () => {
-  //           this.navCtrl.push(AuthenticationPage);
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   confirm.present();
-  // }
-}
+  }}
