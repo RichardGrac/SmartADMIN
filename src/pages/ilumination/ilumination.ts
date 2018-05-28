@@ -3,25 +3,30 @@ import {IonicPage, NavController, NavParams, PopoverController, ModalController}
 import {LightsService} from "../../services/lights";
 import {PopoverInfoComponent} from "../../components/more-info.popover";
 import {IluminationConfigPage} from "../ilumination-config/ilumination-config";
+import { Observable } from 'rxjs/Observable';
+import { FirestoreProvider } from '../../providers/firestore/firestore';
+import {Place} from "../../models/Place";
 
 @IonicPage()
 @Component({
   selector: 'page-ilumination',
   templateUrl: 'ilumination.html',
 })
-export class IluminationPage implements OnInit{
+export class IluminationPage {
   ilumination: any[];
+  public places: Observable<Place[]>;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public lightsService: LightsService,
               public popoverCtrl: PopoverController,
+              public firestoreProvider: FirestoreProvider,
               public modalCtrl: ModalController) {
 
   }
 
-  ngOnInit(): void {
-    this.ilumination = this.lightsService.getItems();
+  ionViewDidLoad() {
+    this.places = this.firestoreProvider.getSongList().valueChanges();
   }
 
   changeStatus(i, j){

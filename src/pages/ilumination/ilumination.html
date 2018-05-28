@@ -14,7 +14,10 @@
 
 
 <ion-content class="grey-backgnd" >
-  <ion-list *ngFor="let item of ilumination; let i = index">
+  <ion-list *ngFor="let item of places | async">
+    <pre>
+      {{item}}
+    </pre>
 
     <ion-list-header>
       {{ item.place }}
@@ -22,7 +25,8 @@
 
     <ion-item *ngFor="let light of item.lights; let j = index">
       <ion-icon name='md-bulb' item-start color="none" *ngIf="!light.on" (click)="changeStatus(i, j)"></ion-icon>
-      <ion-icon name='md-bulb' item-start color="radiantYellow" *ngIf="light.on" (click)="changeStatus(i, j)"></ion-icon>
+      <ion-icon name='md-bulb' item-start color="radiantYellow" *ngIf="light.on" (click)="changeStatus(i, j)
+"></ion-icon>
       <p (click)="changeStatus(i, j)"  *ngIf="light.on" class="font-bolded bigger-font">{{ light.name }}</p>
       <p (click)="changeStatus(i, j)"  *ngIf="!light.on" class="bigger-font">{{ light.name }}</p>
 
