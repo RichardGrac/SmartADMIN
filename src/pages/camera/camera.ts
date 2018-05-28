@@ -76,8 +76,8 @@ export class CameraPage implements OnInit{
     console.log("OnPlayingVideo()");
     let options: StreamingVideoOptions = {
       successCallback: () => { console.log('Video played') },
-      errorCallback: (e) => { console.log('Error streaming') },
-      orientation: 'landscape'
+      errorCallback: (e) => {this.showToastMessage('Error al inicializar...') },
+      orientation: 'portrait'
     };
     this.streamingMedia.playVideo('rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov', options);
   }
