@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {CamerasService} from "../../services/cameras";
 import {Camera} from "../../models/camera_place";
+import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
 
 @IonicPage()
 @Component({
@@ -18,7 +19,7 @@ export class CameraPage implements OnInit {
               public cameraService: CamerasService,
               public toastCtrl: ToastController,
               public alertCtrl: AlertController,
-              private platform: Platform) {
+              private streamingMedia: StreamingMedia) {
   }
 
   ngOnInit(): void {
@@ -71,19 +72,13 @@ export class CameraPage implements OnInit {
     }).present();
   }
 
-  // https://github.com/dride/cordova-plugin-rtsp-vlc to Reproduce RTCP
-  onPlayingVideo() {
+  onPlayingVideo(){
     console.log("OnPlayingVideo()");
-    this.platform.ready().then(() => {
-      (<any>window).PYB.vlcStreamPlayer.openPlayerForStreamURL("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov").then(
-        done => {
-          console.log("Video played!")
-        },
-        error => {
-          console.log("ERROR: ", error)
-        }
-      );
-    });
-    console.log("OnPlayingVideo() --ended");
+    let options: StreamingVideoOptions = {
+      successCallback: () => { console.log('Video played') },
+      errorCallback: (e) => {this.showToastMessage('Error al inicializar...') },
+      orientation: 'portrait'
+    };
+    this.streamingMedia.playVideo('rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov', options);
   }
 }
