@@ -1,7 +1,8 @@
 export interface Place {
   id_place: number,
   place: string,
-  lights: Light[]
+  lights: Light[],
+  id: string
 }
 
 export interface Light {

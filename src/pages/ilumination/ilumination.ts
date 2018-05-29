@@ -26,11 +26,16 @@ export class IluminationPage {
   }
 
   ionViewDidLoad() {
-    this.places = this.firestoreProvider.getSongList().valueChanges();
+    this.places = this.firestoreProvider.getPlaceList().valueChanges();
   }
 
-  changeStatus(i, j){
-    this.lightsService.changeStatus(i, j);
+  changeStatus(_data){
+    // let data = {
+    //   idlight: j,
+    //   idplace: i
+    // }
+    this.firestoreProvider.setStatus(_data)
+    // this.lightsService.changeStatus(i, j);
   }
 
   presentPopover(ev){
