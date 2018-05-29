@@ -14,7 +14,3 @@ export interface Light {
   id_light: number,
   timeStarts: string
 }
-
-export interface PlaceId extends Place{
-  id: string
-}

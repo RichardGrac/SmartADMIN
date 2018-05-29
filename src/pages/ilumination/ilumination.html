@@ -14,19 +14,18 @@
 
 
 <ion-content class="grey-backgnd" >
-  <ion-list *ngFor="let place of shirts | async">
+  <ion-list *ngFor="let place of places | async">
     <ion-list-header>
       {{ place.place }}
     </ion-list-header>
 
     <ion-item *ngFor="let light of place.lights;">
-      <ion-icon name='md-bulb' item-start color="none" *ngIf="!light.on" (click)="changeStatus(place.id, light)"></ion-icon>
-      <ion-icon name='md-bulb' item-start color="radiantYellow" *ngIf="light.on" (click)="changeStatus(place, light)
-"></ion-icon>
-      <p (click)="changeStatus(place, light)"  *ngIf="light.on" class="font-bolded bigger-font">{{ light.name }}</p>
-      <p (click)="changeStatus(place, light)"  *ngIf="!light.on" class="bigger-font">{{ light.name }}</p>
+      <ion-icon name='md-bulb' item-start color="none" *ngIf="!light.on" (click)="changeStatus(place.id_place, light.id_light)"></ion-icon>
+      <ion-icon name='md-bulb' item-start color="radiantYellow" *ngIf="light.on" (click)="changeStatus(place.id_place, light.id_light)"></ion-icon>
+      <p (click)="changeStatus(place.id_place, light.id_light)"  *ngIf="light.on" class="font-bolded bigger-font">{{ light.name }}</p>
+      <p (click)="changeStatus(place.id_place, light.id_light)"  *ngIf="!light.on" class="bigger-font">{{ light.name }}</p>
 
-      <!--<ion-icon name='md-options' item-end color="devilBlue" (click)="presentModal(i, j)"></ion-icon>-->
+      <ion-icon name='md-options' item-end color="devilBlue" (click)="presentModal(place.id_place, light.id_light, place)"></ion-icon>
     </ion-item>
 
   </ion-list>

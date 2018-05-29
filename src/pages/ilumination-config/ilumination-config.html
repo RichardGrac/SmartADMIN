@@ -18,8 +18,9 @@
       <p>Información</p>
     </ion-list-header>
 
-    <ion-item (click)="changeStatus(light.id_place, index_light)">
-      <ion-avatar item-start>
+    <!--<ion-item (click)="changeStatus(light.id_place, index_light)">-->
+    <ion-item>
+    <ion-avatar item-start>
         <img *ngIf="light.lights[index_light].on" src="assets\\imgs\\light-bulb-on.png">
         <img *ngIf="!light.lights[index_light].on" src="assets\\imgs\\light-bulb.png">
       </ion-avatar>
