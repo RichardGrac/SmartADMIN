@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import {CamerasService} from "../../services/cameras";
 import {Camera} from "../../models/camera_place";
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
@@ -13,13 +13,16 @@ export class CameraPage implements OnInit {
 
   place_name: string;
   camera: Camera;
+  url: string = 'rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov';
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public cameraService: CamerasService,
               public toastCtrl: ToastController,
               public alertCtrl: AlertController,
-              private streamingMedia: StreamingMedia) {
+              private streamingMedia: StreamingMedia,
+              private platform: Platform
+              ) {
   }
 
   ngOnInit(): void {
@@ -72,13 +75,48 @@ export class CameraPage implements OnInit {
     }).present();
   }
 
+  onConectToVideo(){
+    let prompt = this.alertCtrl.create({
+      title: 'URL Streaming',
+      message: 'Introduzca la URL para reproducir el streaming',
+      inputs: [
+        {
+          name: 'URL',
+          placeholder: 'rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov',
+          value: this.url
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Cancel Clicked');
+          }
+        },
+        {
+          text: 'Conectar',
+          handler: (data) => {
+            this.url = data.URL;
+            console.log('Conectando a: ', this.url);
+            this.onPlayingVideo();
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
   onPlayingVideo(){
     console.log("OnPlayingVideo()");
+
+    this.platform.ready().then(() => {
     let options: StreamingVideoOptions = {
       successCallback: () => { console.log('Video played') },
       errorCallback: (e) => {this.showToastMessage('Error al inicializar...') },
       orientation: 'portrait'
     };
-    this.streamingMedia.playVideo('rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov', options);
+    this.streamingMedia.playVideo(this.url, options);
+    });
   }
+
 }
