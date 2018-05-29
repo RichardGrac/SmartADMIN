@@ -10,6 +10,7 @@ import {
 } from 'ionic-angular';
 import {Store} from "../../models/stores";
 import {StoresService} from "../../services/stores";
+import {BarcodeScanner, BarcodeScannerOptions} from "@ionic-native/barcode-scanner";
 import {Payment} from "../../models/Payment";
 import {ServicePaymentsService} from "../../services/servicePayments";
 import {DataVerificationPage} from "../data-verification/data-verification";
@@ -28,6 +29,7 @@ export class ServicesPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public companiesService: StoresService,
+              private barcodeScanner: BarcodeScanner,
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
               public servicePaymentsService: ServicePaymentsService,
@@ -50,9 +52,13 @@ export class ServicesPage {
     console.log("index: ", type_company);
 
     this.platform.ready().then(() => {
+      var options: BarcodeScannerOptions = {
+        prompt: 'Escanea tu código de barras',
+        showTorchButton: true
 
-      (<any>window).plugins.barcodeScanner.scan({showTorchButton: true, prompt: 'Escanea tu código de barras'}).
-      then(barcodeData => {
+      };
+
+      this.barcodeScanner.scan(options).then(barcodeData => {
         console.log('Barcode data text: ', barcodeData.text, " - barcode.format: ", barcodeData.format,
           " - barcode.cancelled: ", barcodeData.cancelled);
 
