@@ -14,13 +14,13 @@
 
 
 <ion-content class="grey-backgnd" >
-  <ion-list *ngFor="let place of places | async">
+  <ion-list *ngFor="let place of shirts | async">
     <ion-list-header>
       {{ place.place }}
     </ion-list-header>
 
     <ion-item *ngFor="let light of place.lights;">
-      <ion-icon name='md-bulb' item-start color="none" *ngIf="!light.on" (click)="changeStatus(place, light)"></ion-icon>
+      <ion-icon name='md-bulb' item-start color="none" *ngIf="!light.on" (click)="changeStatus(place.id, light)"></ion-icon>
       <ion-icon name='md-bulb' item-start color="radiantYellow" *ngIf="light.on" (click)="changeStatus(place, light)
 "></ion-icon>
       <p (click)="changeStatus(place, light)"  *ngIf="light.on" class="font-bolded bigger-font">{{ light.name }}</p>

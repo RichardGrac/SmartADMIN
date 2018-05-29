@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
-import {Place} from "../../models/Place";
+import {Place, PlaceId} from "../../models/Place";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 export class FirestoreProvider {
+
+  private shirtCollection: AngularFirestoreCollection<Place>;
 
   constructor(
     public firestore: AngularFirestore,

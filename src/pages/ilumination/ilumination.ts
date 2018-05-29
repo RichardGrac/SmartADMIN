@@ -5,7 +5,9 @@ import {PopoverInfoComponent} from "../../components/more-info.popover";
 import {IluminationConfigPage} from "../ilumination-config/ilumination-config";
 import { Observable } from 'rxjs/Observable';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
-import {Place} from "../../models/Place";
+import {Place, PlaceId} from "../../models/Place";
+import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
+import { map } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -14,14 +16,27 @@ import {Place} from "../../models/Place";
 })
 export class IluminationPage {
   ilumination: any[];
-  public places: Observable<Place[]>;
+  public places: Observable<PlaceId[]>;
+
+  shirts: Observable<PlaceId[]>;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public lightsService: LightsService,
               public popoverCtrl: PopoverController,
               public firestoreProvider: FirestoreProvider,
+              private readonly afs: AngularFirestore,
               public modalCtrl: ModalController) {
+    // .snapshotChanges() returns a DocumentChangeAction[], which contains
+    // a lot of information about "what happened" with each change. If you want to
+    // get the data and the id use the map operator.
+    this.places = this.shirtCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Place;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
 
   }
 
