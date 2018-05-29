@@ -33,6 +33,7 @@ import { ServicesApiProvider } from '../providers/services-api/services-api';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from "angularfire2/auth";
 import { FirestoreProvider } from '../providers/firestore/firestore';
 
 import { StreamingMedia } from "@ionic-native/streaming-media";
@@ -72,6 +73,7 @@ export const config = {
     }),
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
