@@ -35,6 +35,9 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { FirestoreProvider } from '../providers/firestore/firestore';
 
+import { StreamingMedia } from "@ionic-native/streaming-media";
+import { BarcodeScanner } from "@ionic-native/barcode-scanner";
+
 export const config = {
   apiKey: "AIzaSyBe3wyrUzTphqwc4FfpaVmXeoPHVV4U8Vw",
   authDomain: "smart-admin-8de18.firebaseapp.com",
@@ -100,7 +103,9 @@ export const config = {
     ProductsApiProvider,
     ServicePaymentsService,
     ServicesApiProvider,
-    FirestoreProvider
+    FirestoreProvider,
+    StreamingMedia,
+    BarcodeScanner
   ]
 })
 export class AppModule {}
