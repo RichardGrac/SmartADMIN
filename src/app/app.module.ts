@@ -30,6 +30,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {ServicePaymentsService} from "../services/servicePayments";
 import {ServicesPage} from "../pages/services/services";
 import { ServicesApiProvider } from '../providers/services-api/services-api';
+import {StreamingMedia} from '@ionic-native/streaming-media';
+
 
 @NgModule({
   declarations: [
@@ -84,7 +86,8 @@ import { ServicesApiProvider } from '../providers/services-api/services-api';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProductsApiProvider,
     ServicePaymentsService,
-    ServicesApiProvider
+    ServicesApiProvider,
+    StreamingMedia
   ]
 })
 export class AppModule {}
