@@ -33,77 +33,58 @@
                    [ngModel]="product.name" required readonly="true"></ion-input>
       </ion-item>
 
-        <ion-grid class="no-margin-bottom">
-          <ion-row>
-            <ion-col col-5>
-              <ion-item>
-                <ion-label stacked color="primary2">TIPO</ion-label>
-                <ion-input type="text" name="p_type" placeholder="Unidades, Kilogramos, Litros..."
-                           class="borders" text-center
-                           [ngModel]="product.type" required readonly="true"></ion-input>
-              </ion-item>
-            </ion-col>
+      <ion-grid class="no-margin-bottom">
+        <ion-row>
+          <ion-col col-5>
+            <ion-item>
+              <ion-label stacked color="primary2">TIPO</ion-label>
+              <ion-input type="text" name="p_type" placeholder="Unidades, Kilogramos, Litros..."
+                         class="borders" text-center
+                         [ngModel]="product.type" required readonly="true"></ion-input>
+            </ion-item>
+          </ion-col>
 
-            <ion-col col-4>
-              <ion-item>
-                <ion-label stacked color="primary2">CANTIDAD</ion-label>
-                <ion-input text-center type="number" min="1"
-                           [ngModel]="product_q.quantity"
-                           placeholder="1, 2, 3..."
-                           name="p_quantity"
-                           class="borders"
-                           clearInput ngModel required></ion-input>
-              </ion-item>
-            </ion-col>
+          <ion-col col-4>
+            <ion-item>
+              <ion-label stacked color="primary2">CANTIDAD</ion-label>
+              <ion-input text-center type="number" min="1"
+                         [ngModel]="product_q.quantity"
+                         placeholder="1, 2, 3..."
+                         name="p_quantity"
+                         class="borders"
+                         clearInput ngModel required></ion-input>
+            </ion-item>
+          </ion-col>
 
-            <ion-col col-3 margin-top>
-              <button type="button" small block ion-button color="primary3" (click)="changeQuantity('+')">
-                <ion-icon name="md-add" large></ion-icon>
-              </button>
-              <button type="button" small block ion-button color="primary3" (click)="changeQuantity('-')">
-                <ion-icon name="md-remove" large></ion-icon>
-              </button>
-            </ion-col>
+          <ion-col col-3 margin-top>
+            <button type="button" small block ion-button color="primary3" (click)="changeQuantity('+')">
+              <ion-icon name="md-add" large></ion-icon>
+            </button>
+            <button type="button" small block ion-button color="primary3" (click)="changeQuantity('-')">
+              <ion-icon name="md-remove" large></ion-icon>
+            </button>
+          </ion-col>
 
-            <!--<ion-col col-1>-->
-              <!--<button type="button" ion-button color="primary3" class="margin-top">-->
-              <!--<ion-icon name="md-remove" large></ion-icon>-->
-              <!--</button>-->
-            <!--</ion-col>-->
-
-          </ion-row>
-        </ion-grid>
+        </ion-row>
+      </ion-grid>
 
     </ion-list>
 
     <button *ngIf="id_sl==-1" ion-button block margin-bottom outline icon-start class="buy-button"
-            [disabled]="!f.valid">
+            [disabled]="!f.valid" fixed>
       <ion-icon name="md-add-circle"></ion-icon>
-      Agregar
+      Agregar producto
     </button>
 
-  <button *ngIf="id_sl!=-1" ion-button block margin-bottom outline icon-start class="buy-button"
-          [disabled]="!f.valid">
-    <ion-icon name="md-checkmark"></ion-icon>
-    Aceptar modificaciones
-  </button>
+
+
+    <button *ngIf="id_sl!=-1" ion-button block margin-bottom outline icon-start class="buy-button"
+            [disabled]="!f.valid">
+      <ion-icon name="md-checkmark"></ion-icon>
+      Aceptar modificaciones
+    </button>
 
   </form>
-
-  <!--<button ion-button block margin-top icon-start-->
-          <!--color="greenSea" class="buy-button"-->
-          <!--(click)="closeModal()">-->
-    <!--<ion-icon name="ios-arrow-back-outline"></ion-icon>-->
-    <!--Regresar-->
-  <!--</button>-->
-
-  <!-- -1 because is a new product creation -->
-  <!--<button *ngIf="id_sl==-1" ion-button block icon-end-->
-          <!--class="buy-button"-->
-          <!--(click)="closeModal()">-->
-    <!--Terminar-->
-    <!--<ion-icon name="md-checkmark"></ion-icon>-->
-  <!--</button>-->
 
   <button *ngIf="id_sl!=-1" ion-button block icon-start
           color="danger" class="buy-button"
@@ -115,24 +96,21 @@
   <ion-list *ngIf="id_sl==-1">
     <div *ngFor="let product of products">
 
-    <ion-item (click)="productSelected(product)" *ngIf="product.name == colored" color="primary3">
-      {{ product.name }}
-      <ion-note item-end> $ {{ product.price | number : '1.2-2' }}</ion-note>
-    </ion-item>
+      <ion-item (click)="productSelected(product)" *ngIf="product.name == colored" color="primary3">
+        {{ product.name }}
+        <ion-note item-end> $ {{ product.price | number : '1.2-2' }}</ion-note>
+      </ion-item>
 
-    <ion-item (click)="productSelected(product)" *ngIf="product.name != colored">
-      {{ product.name }}
-      <ion-note item-end> $ {{ product.price | number : '1.2-2' }}</ion-note>
-    </ion-item>
+      <ion-item (click)="productSelected(product)" *ngIf="product.name != colored">
+        {{ product.name }}
+        <ion-note item-end> $ {{ product.price | number : '1.2-2' }}</ion-note>
+      </ion-item>
 
     </div>
   </ion-list>
 
-  <!--<ion-list>-->
-    <!--<button ion-item *ngFor="let product of products">-->
-      <!--{{ product.name }}-->
-    <!--</button>-->
-  <!--</ion-list>-->
-
-
 </ion-content>
+
+<ion-footer>
+  <button ion-button block margin-left class="footer-button" (click)="closeModal()">Terminar de agregar</button>
+</ion-footer>

@@ -1,0 +1,17 @@
+page-temperature {
+  ion-icon{
+    font-size: 48px;
+  }
+
+  .temp-button{
+    padding: 5px 5px 10px 5px;
+    height: 90px;
+    border-radius: 52px 52px 52px 52px;
+
+    p{
+      margin: 5px 5px 5px 5px;
+      font-size: 50px;
+      color: white;
+    }
+  }
+}

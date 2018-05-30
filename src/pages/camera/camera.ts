@@ -113,7 +113,7 @@ export class CameraPage implements OnInit {
     let options: StreamingVideoOptions = {
       successCallback: () => { console.log('Video played') },
       errorCallback: (e) => {this.showToastMessage('Error al inicializar...') },
-      orientation: 'portrait'
+      orientation: 'landscape'
     };
     this.streamingMedia.playVideo(this.url, options);
     });

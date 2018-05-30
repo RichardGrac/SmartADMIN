@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {IonicPage, NavParams, ToastController, ViewController} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {GroceriesService} from "../../services/groceries";
 import {Product} from "../../models/Product";
 import {ShoppingList} from "../../models/ShoppingList";
 import {ProductsService} from "../../services/products";
+import { Content } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -12,9 +13,10 @@ import {ProductsService} from "../../services/products";
   templateUrl: 'grocery-modal.html',
 })
 export class GroceryModalPage implements OnInit{
+  @ViewChild(Content) content: Content;
 
   type_of_page: string;
-  id_sl: number;
+  id_sl: number;  // id_sl == -1 means that It's a new Shopping List aggregation, not a modify of a product.
   p_type: string = 'Unidades';
 
   /* For all the Products availables at the Store:  */
@@ -117,6 +119,7 @@ export class GroceryModalPage implements OnInit{
     this.product_q.quantity = 1;
     this.product = item;
     this.colored = item.name;
+    this.content.scrollToTop(600);
   }
 
   changeQuantity(band: string) {

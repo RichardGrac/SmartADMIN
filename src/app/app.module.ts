@@ -38,6 +38,8 @@ import { FirestoreProvider } from '../providers/firestore/firestore';
 
 import { StreamingMedia } from "@ionic-native/streaming-media";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
+import {TemperaturePage} from "../pages/temperature/temperature";
+import {TemperaturesService} from "../services/temperatures";
 
 export const config = {
   apiKey: "AIzaSyBe3wyrUzTphqwc4FfpaVmXeoPHVV4U8Vw",
@@ -63,7 +65,8 @@ export const config = {
     CameraPage,
     DataVerificationPage,
     SuccessfulPaymentPage,
-    ServicesPage
+    ServicesPage,
+    TemperaturePage
   ],
   imports: [
     BrowserModule,
@@ -90,7 +93,8 @@ export const config = {
     CameraPage,
     DataVerificationPage,
     SuccessfulPaymentPage,
-    ServicesPage
+    ServicesPage,
+    TemperaturePage
   ],
   providers: [
     StatusBar,
@@ -107,7 +111,8 @@ export const config = {
     ServicesApiProvider,
     FirestoreProvider,
     StreamingMedia,
-    BarcodeScanner
+    BarcodeScanner,
+    TemperaturesService
   ]
 })
 export class AppModule {}

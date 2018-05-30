@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Place} from "../../models/Place";
 import {HttpClient} from "@angular/common/http";
@@ -21,26 +21,37 @@ export class FirestoreProvider {
 
   setStatus(data) {
     console.log('providerFirestore --- ', data)
-    const { idplace, idlight } = data
-    this.http.get(`${this.API_URl}/api/lights/${idplace}/${idlight}`)
-      .subscribe(data => { console.log('complete')})
+    const {idplace, idlight} = data
+    return this.http.get(`${this.API_URl}/api/lights/${idplace}/${idlight}`)
   }
 
+  // Misma lógica que 'setStatus()' (Invertir booleano)
+  setAutoOn(data) {
+    const {idplace, idlight} = data;
+    return this.http.get(`http://localhost:5000/api/lights...`);
+  }
+
+  // Misma lógica que 'setStatus()' (Invertir booleano)
+  setAutoOff(data) {
+    const {idplace, idlight} = data;
+    return this.http.get(`http://localhost:5000/api/lights...`);
+  }
+
+  // Seteo de string
   setName(data) {
-    const { idplace, idlight, name } = data
-    this.http.patch(`http://localhost:5000/api/lights/${idplace}/${idlight}`, {name: name})
-      .subscribe(data => { console.log('complete') })
+    const {idplace, idlight, name} = data
+    return this.http.patch(`http://localhost:5000/api/lights/${idplace}/${idlight}`, {name: name});
   }
 
+  // Misma lógica de 'setName', es Update de string
   changeTimeStarts(data) {
-    const { idplace, idlight, timeStart } = data
-    this.http.patch(`http://localhost:5000/api/lights/${idplace}/${idlight}/timeStart`, {timeStart})
-      .subscribe(data => { console.log('complete') })
+    const {idplace, idlight, timeStart} = data
+    return this.http.patch(`http://localhost:5000/api/lights/${idplace}/${idlight}/timeStart`, {timeStart});
   }
 
+  // Misma lógica de 'setName', es Update de string
   changeTimeEnds(data) {
-    const { idplace, idlight, timeEnd } = data
-    this.http.patch(`http://localhost:5000/api/lights/${idplace}/${idlight}/timeEnd`, {timeEnd})
-      .subscribe(data => { console.log('complete') })
+    const {idplace, idlight, timeEnd} = data
+    return this.http.patch(`http://localhost:5000/api/lights/${idplace}/${idlight}/timeEnd`, {timeEnd});
   }
 }
