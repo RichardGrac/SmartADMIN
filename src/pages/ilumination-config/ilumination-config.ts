@@ -162,7 +162,7 @@ export class IluminationConfigPage implements OnInit {
     });
 
     loading1.present().then(()=> {
-      this.firestoreProvider.changeTimeEnds({idplace: this.id_place, idlight: this.id_light, timeStarts: this.event.timeEnds})
+      this.firestoreProvider.changeTimeEnds({idplace: this.id_place, idlight: this.id_light, timeEnd: this.event.timeEnds})
         .subscribe(() => {
           this.showToastMessage('¡Hora establecida exitosamente!');
           // No local change needed.
