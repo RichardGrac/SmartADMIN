@@ -2,7 +2,9 @@ import {Grades} from "../models/grades";
 
 export class TemperaturesService{
   temperatures: Array<Grades> = [];
-  warmth: number = 22;
+  established_temp: number = 15;
+  isOn: boolean;
+  currentlyTemp: number = 33;
 
   constructor(){
     this.temperatures.push(new Grades("fourT",14));
@@ -22,7 +24,23 @@ export class TemperaturesService{
     return this.temperatures.slice();
   }
 
+  getEstablishedTemp(){
+    return this.established_temp;
+  }
+
   getCurrentlyTemp(){
-    return this.warmth;
+    return this.currentlyTemp;
+  }
+
+  setEstablishedTemp(temp: number){
+    this.established_temp = temp;
+  }
+
+  getIsOn() {
+    return this.isOn;
+  }
+
+  setIsOn(state: boolean){
+    this.isOn = state;
   }
 }

@@ -6,6 +6,7 @@ import {VigilancePage} from "../vigilance/vigilance";
 import {GroceryStorePage} from "../grocery-store/grocery-store";
 import {ProductsService} from "../../services/products";
 import {ServicesPage} from "../services/services";
+import {TemperaturePage} from "../temperature/temperature";
 
 
 @Component({
@@ -95,11 +96,12 @@ export class HomePage {
   }
 
   pushPage(index: number) {
-    /* 0: Iluminación
-    *  3: Despensa */
     switch (index){
       case 0:
         this.navCtrl.push(IluminationPage);
+        break;
+      case 2:
+        this.navCtrl.push(TemperaturePage);
         break;
       case 3:
         this.navCtrl.push(GroceryStorePage);
