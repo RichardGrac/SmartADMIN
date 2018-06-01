@@ -8,20 +8,29 @@
 
 <ion-content class="outer-content" color="currently_temp">
 
-  <ion-list>
+  <ion-list class="less-margin-bottom">
     <ion-list-header>
       Ajuste de temperatura
     </ion-list-header>
 
     <ion-item>
 
-      <ion-range [pin]="true" min="14" max="24" step="1" snaps="true"
+      <ion-range *ngIf="isOn" [pin]="true" min="14" max="24" step="1"
                  [(ngModel)]="establishedTN" [color]="establishedTS"
                   (ionChange)="getTemperatureColor()">
         <ion-icon range-left large color="vanadylBlue" name="thermometer"></ion-icon>
         <ion-label range-left>14°</ion-label>
         <ion-label range-right>24°</ion-label>
-        <ion-icon range-right large color="alizarin" name="thermometer"></ion-icon>
+        <ion-icon range-right large color="tigerlily" name="thermometer"></ion-icon>
+      </ion-range>
+
+      <ion-range *ngIf="!isOn" [pin]="true" min="14" max="24" step="1"
+                 [(ngModel)]="establishedTN" [color]="establishedTS"
+                  disabled>
+        <ion-icon range-left large color="vanadylBlue" name="thermometer"></ion-icon>
+        <ion-label range-left>14°</ion-label>
+        <ion-label range-right>24°</ion-label>
+        <ion-icon range-right large color="tigerlily" name="thermometer"></ion-icon>
       </ion-range>
     </ion-item>
 
@@ -35,21 +44,21 @@
       <ion-grid>
 
         <ion-row text-center>
-          <ion-col col-6>
+          <ion-col>
             <h3>ACTUAL</h3>
           </ion-col>
-          <ion-col col-6>
+          <ion-col col-6 *ngIf="isOn">
             <h3>ESTABLECIDA</h3>
           </ion-col>
         </ion-row>
 
         <ion-row text-center>
-          <ion-col col-6>
+          <ion-col>
             <button ion-button class="temp-button" [color]="currentlyTS">
               <p>{{currentlyTN}}°</p>
             </button>
           </ion-col>
-          <ion-col col-6>
+          <ion-col col-6 *ngIf="isOn">
             <button ion-button class="temp-button" [color]="establishedTS">
               <p>{{establishedTN}}°</p>
             </button>
@@ -57,32 +66,28 @@
 
         </ion-row>
 
-        <!--<ion-row margin-top>-->
-          <!--<ion-col>-->
-            <!--<h2>Temperatura Establecida:</h2>-->
-          <!--</ion-col>-->
-        <!--</ion-row>-->
-        <!--<ion-row text-center>-->
-          <!--<ion-col>-->
-            <!--<button ion-button class="temp-button" [color]="currently_temp">-->
-              <!--<p>{{warmth}}°</p>-->
-            <!--</button>-->
-          <!--</ion-col>-->
-        <!--</ion-row>-->
-
-        <ion-row margin-top>
+        <ion-row margin-top *ngIf="isOn">
           <ion-col>
             <h2>Tiempo Estimado:</h2>
           </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="isOn">
           <ion-col>
-            <h1>23:12 mins</h1>
+            <h1>{{estimatedTime | number : '1.0'}} mins</h1>
           </ion-col>
         </ion-row>
 
       </ion-grid>
     </ion-item>
+
+    <form>
+      <ion-item>
+        <ion-label *ngIf="isOn">Encendido</ion-label>
+        <ion-label *ngIf="!isOn">Apagado</ion-label>
+        <ion-toggle *ngIf="isOn" (ionChange)="onChangeToggle()" [checked]="true" color="naval"></ion-toggle>
+        <ion-toggle *ngIf="!isOn" (ionChange)="onChangeToggle()" [checked]="false" color="naval"></ion-toggle>
+      </ion-item>
+    </form>
 
   </ion-list>
 

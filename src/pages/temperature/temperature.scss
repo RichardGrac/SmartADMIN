@@ -5,13 +5,18 @@ page-temperature {
 
   .temp-button{
     padding: 5px 5px 10px 5px;
-    height: 90px;
+    height: 100px;
     border-radius: 52px 52px 52px 52px;
+    width:100px;
 
     p{
       margin: 5px 5px 5px 5px;
       font-size: 50px;
       color: white;
     }
+  }
+
+  .less-margin-bottom{
+    margin-bottom: 5%;
   }
 }
