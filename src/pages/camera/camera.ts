@@ -13,7 +13,7 @@ export class CameraPage implements OnInit {
 
   place_name: string;
   camera: Camera;
-  url: string = 'rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov';
+  url: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -28,6 +28,7 @@ export class CameraPage implements OnInit {
   ngOnInit(): void {
     this.place_name = this.navParams.get('place');
     this.getCameraObject();
+    this.url = this.cameraService.getUrl();
   }
 
   editCameraName() {
@@ -97,6 +98,7 @@ export class CameraPage implements OnInit {
           text: 'Conectar',
           handler: (data) => {
             this.url = data.URL;
+            this.cameraService.setUrl(data.URL);
             console.log('Conectando a: ', this.url);
             this.onPlayingVideo();
           }

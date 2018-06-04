@@ -17,7 +17,7 @@
 
       <ion-range *ngIf="isOn" [pin]="true" min="14" max="24" step="1"
                  [(ngModel)]="establishedTN" [color]="establishedTS"
-                  (ionChange)="getTemperatureColor()">
+                  (ionChange)="onChangeSlide()">
         <ion-icon range-left large color="vanadylBlue" name="thermometer"></ion-icon>
         <ion-label range-left>14°</ion-label>
         <ion-label range-right>24°</ion-label>
@@ -37,7 +37,7 @@
   </ion-list>
   <ion-list>
     <ion-list-header>
-      Temperatura
+      Temperatura en casa
     </ion-list-header>
 
     <ion-item>
@@ -73,7 +73,7 @@
         </ion-row>
         <ion-row *ngIf="isOn">
           <ion-col>
-            <h1>{{estimatedTime | number : '1.0'}} mins</h1>
+            <h1>{{countDown | async | formatTime}}</h1>
           </ion-col>
         </ion-row>
 

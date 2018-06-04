@@ -6,14 +6,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from '../pages/tabs/tabs';
 import {AngularFireAuth} from "angularfire2/auth";
 
-import {timer} from 'rxjs/observable/timer';
+// import { timer } from 'rxjs/observable/timer';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = TabsPage;
-  showSplash = true;
+  // showSplash = true; // <-- show animation
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, fireAuth: AngularFireAuth) {
     platform.ready().then(() => {
@@ -21,10 +21,8 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       statusBar.backgroundColorByHexString("#0984e3");
-      splashScreen.hide();
-      timer(3000).subscribe(()=>
-        this.showSplash = false
-      );
+      splashScreen.hide(); // <-- hide static image
+      // timer(3000).subscribe(() => this.showSplash = false) // <-- hide animation after 3
     });
     fireAuth.auth.signInAnonymously()
       .then(() => { console.log('login success') })

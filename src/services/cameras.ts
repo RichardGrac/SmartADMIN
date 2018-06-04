@@ -2,6 +2,8 @@ import {Camera, Camera_Place} from "../models/camera_place";
 
 export class CamerasService{
 
+  url: string = 'rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov';
+
   out_cameras: Array<Camera> = [
     new Camera(0, 'Camara 1', true),
     new Camera(1, 'Camara 2', true),
@@ -34,5 +36,13 @@ export class CamerasService{
 
   setName(id_place: number, id_camera: number, name: string){
     this.vigilance[id_place].cameras[id_camera].name = name;
+  }
+
+  getUrl(){
+    return this.url;
+  }
+
+  setUrl(url: string){
+    this.url = url;
   }
 }

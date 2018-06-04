@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {IluminationPage} from "../ilumination/ilumination";
 import {VigilancePage} from "../vigilance/vigilance";
@@ -7,6 +7,8 @@ import {GroceryStorePage} from "../grocery-store/grocery-store";
 import {ProductsService} from "../../services/products";
 import {ServicesPage} from "../services/services";
 import {TemperaturePage} from "../temperature/temperature";
+import {IrrigationPage} from "../irrigation/irrigation";
+import {TemperaturesService} from "../../services/temperatures";
 
 
 @Component({
@@ -84,7 +86,8 @@ export class HomePage {
 
   /* I'm declaring productsService in order to start requesting the products from the API */
   constructor(public navCtrl: NavController,
-              public productsService:ProductsService
+              public productsService: ProductsService,
+              public temperaturesService: TemperaturesService
               // ,private screenOrientation: ScreenOrientation,
               // private platform: Platform
   ) {
@@ -96,9 +99,12 @@ export class HomePage {
   }
 
   pushPage(index: number) {
-    switch (index){
+    switch (index) {
       case 0:
         this.navCtrl.push(IluminationPage);
+        break;
+      case 1:
+        this.navCtrl.push(IrrigationPage);
         break;
       case 2:
         this.navCtrl.push(TemperaturePage);
