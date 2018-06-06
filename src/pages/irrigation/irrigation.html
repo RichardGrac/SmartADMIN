@@ -37,7 +37,7 @@
     </ion-list-header>
 
     <ion-item>
-      <ion-toggle checked="{{isAutoOn}}" (ionChange)="onSetAutoOn()"></ion-toggle>
+      <ion-toggle [(ngModel)]="isAutoOn" (ionChange)="onSetAutoOn()"></ion-toggle>
       <ion-label>
         Encendido automático
       </ion-label>
@@ -54,7 +54,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-toggle checked="{{isAutoOff}}" (ionChange)="onSetAutoOff()"></ion-toggle>
+      <ion-toggle [(ngModel)]="isAutoOff" (ionChange)="onSetAutoOff()"></ion-toggle>
       <ion-label>
         Apagado automático
       </ion-label>
