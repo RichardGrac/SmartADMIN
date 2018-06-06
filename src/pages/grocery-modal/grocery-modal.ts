@@ -80,7 +80,7 @@ export class GroceryModalPage implements OnInit{
   presentToast(message: string) {
     let toast = this.toastCtrl.create({
       message: message,
-      duration: 4000
+      duration: 1250
     });
     toast.present();
   }

@@ -42,6 +42,7 @@ import {TemperaturePage, FormatTimePipe} from "../pages/temperature/temperature"
 import {TemperaturesService} from "../services/temperatures";
 import {IrrigationPage} from "../pages/irrigation/irrigation";
 import { WeatherProvider } from '../providers/weather/weather';
+import { IrrigationProvider } from '../providers/irrigation/irrigation';
 
 export const config = {
   apiKey: "AIzaSyBe3wyrUzTphqwc4FfpaVmXeoPHVV4U8Vw",
@@ -118,7 +119,8 @@ export const config = {
     StreamingMedia,
     BarcodeScanner,
     TemperaturesService,
-    WeatherProvider
+    WeatherProvider,
+    IrrigationProvider
   ]
 })
 export class AppModule {}
