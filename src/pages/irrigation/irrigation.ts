@@ -13,8 +13,8 @@ export class IrrigationPage {
   idsystem: number = 0;
   name: string;
   isOn: boolean;
-  isAutoOn: boolean = false;
-  isAutoOff: boolean = false;
+  isAutoOn: boolean;
+  isAutoOff: boolean;
   // private API_URl: string = 'http://localhost:5000';
   private API_URl: string = 'https://smart-admin-master.herokuapp.com';
 
@@ -55,7 +55,6 @@ export class IrrigationPage {
     this.irrigationProvider.setAutoOn({idsystem: this.idsystem})
       .subscribe(()=>{
         console.log('Auto On applied');
-        this.isAutoOn = !(this.isAutoOn);
       });
   }
 
@@ -63,7 +62,6 @@ export class IrrigationPage {
     this.irrigationProvider.setAutoOff({idsystem: this.idsystem})
       .subscribe(() => {
         console.log('Auto Off applied');
-        this.isAutoOff = !(this.isAutoOff);
       });
   }
 
