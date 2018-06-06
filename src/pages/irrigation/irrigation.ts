@@ -15,7 +15,9 @@ export class IrrigationPage {
   isOn: boolean;
   isAutoOn: boolean = false;
   isAutoOff: boolean = false;
-  private API_URl: string = 'http://localhost:5000';
+  // private API_URl: string = 'http://localhost:5000';
+  private API_URl: string = 'https://smart-admin-master.herokuapp.com';
+
 
 
   public event = {
