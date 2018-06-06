@@ -1,20 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
-import {Light} from "../../models/Place";
 
 @Injectable()
 export class IrrigationProvider {
 
   private API_URl: string = 'https://smart-admin-master.herokuapp.com';
+  // private API_URl: string = 'http://localhost:5000';
 
-  constructor(public http: HttpClient, public firestore: AngularFirestore) {
+  constructor(public http: HttpClient) {
     console.log('Hello IrrigationProvider Provider');
   }
 
-  getIrrigationInfo(): AngularFirestoreCollection<Light> {
-    return this.firestore.collection(`irrigation`);
-  }
 
   setStatus(data) {
     console.log('providerFirestore --- ', data);

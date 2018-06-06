@@ -1,22 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
-import {Light} from "../../models/Place";
 import {IrrigationProvider} from "../../providers/irrigation/irrigation";
-import {Observable} from "rxjs/Rx";
+import { HttpClient } from '@angular/common/http';
 
 @IonicPage()
 @Component({
   selector: 'page-irrigation',
   templateUrl: 'irrigation.html',
 })
-export class IrrigationPage implements OnInit {
+export class IrrigationPage {
 
-  irrigation: Observable<Light[]>;
   idsystem: number = 0;
-  name: string = "Riego";
-  isOn: boolean = false;
+  name: string;
+  isOn: boolean;
   isAutoOn: boolean = false;
   isAutoOff: boolean = false;
+  // private API_URl: string = 'http://localhost:5000';
+  private API_URl: string = 'https://smart-admin-master.herokuapp.com';
+
+
 
   public event = {
     timeStarts: '00:00',
@@ -28,21 +30,17 @@ export class IrrigationPage implements OnInit {
               public irrigationProvider: IrrigationProvider,
               public toastCtrl: ToastController,
               public alertCtrl: AlertController,
-              public loadingCtrl: LoadingController) {
-  }
-
-  ngOnInit(): void {
-    this.irrigationProvider.getIrrigationInfo().valueChanges()
-      .subscribe(() => {
-        this.irrigation = this.irrigationProvider.getIrrigationInfo().valueChanges();
-
-        this.name = this.irrigation[0].name;
-        this.isOn = this.irrigation[0].isOn;
-        this.isAutoOn = this.irrigation[0].isAutoOn;
-        this.isAutoOff = this.irrigation[0].isAutoOff;
-        this.event.timeStarts = this.irrigation[0].timeStarts;
-        this.event.timeEnds = this.irrigation[0].timeEnds;
-      });
+              public loadingCtrl: LoadingController,
+              public http: HttpClient) {
+    this.http.get(`${this.API_URl}/api/irrigation`)
+      .subscribe(data => {
+        this.name = data[0].name;
+        this.isOn = data[0].isOn;
+        this.isAutoOn = data[0].isAutoOn;
+        this.isAutoOff = data[0].isAutoOff;
+        this.event.timeStarts = data[0].timeStarts;
+        this.event.timeEnds = data[0].timeEnds;
+      })
   }
 
   onChangeState() {
