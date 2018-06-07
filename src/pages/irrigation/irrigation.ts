@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {IrrigationProvider} from "../../providers/irrigation/irrigation";
-import { HttpClient } from '@angular/common/http';
+import {Irrigation} from "../../models/Irrigation";
 
 @IonicPage()
 @Component({
@@ -9,15 +9,13 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: 'irrigation.html',
 })
 export class IrrigationPage {
+  object: Irrigation[];
 
   idsystem: number = 0;
   name: string;
   isOn: boolean;
   isAutoOn: boolean;
   isAutoOff: boolean;
-  // private API_URl: string = 'http://localhost:5000';
-  private API_URl: string = 'https://smart-admin-master.herokuapp.com';
-
 
 
   public event = {
@@ -30,42 +28,80 @@ export class IrrigationPage {
               public irrigationProvider: IrrigationProvider,
               public toastCtrl: ToastController,
               public alertCtrl: AlertController,
-              public loadingCtrl: LoadingController,
-              public http: HttpClient) {
-    this.http.get(`${this.API_URl}/api/irrigation`)
-      .subscribe(data => {
-        this.name = data[0].name;
-        this.isOn = data[0].isOn;
-        this.isAutoOn = data[0].isAutoOn;
-        this.isAutoOff = data[0].isAutoOff;
-        this.event.timeStarts = data[0].timeStarts;
-        this.event.timeEnds = data[0].timeEnds;
-      })
+              public loadingCtrl: LoadingController) {
+  }
+
+  ionViewDidLoad() {
+    let loading1 = this.loadingCtrl.create({
+      content: 'Obteniendo información...',
+      enableBackdropDismiss: false,
+      spinner: 'dots'
+    });
+
+    loading1.present().then(() => {
+      this.irrigationProvider.getIrrigationList().valueChanges()
+        .subscribe(data => {
+          this.name = data[0].name;
+          this.isOn = data[0].isOn;
+          this.isAutoOn = data[0].isAutoOn;
+          this.isAutoOff = data[0].isAutoOff;
+          this.event.timeStarts = data[0].timeStarts;
+          this.event.timeEnds = data[0].timeEnds;
+          loading1.dismiss();
+        });
+    });
   }
 
   onChangeState() {
-    this.irrigationProvider.setStatus({idsystem: this.idsystem})
-      .subscribe(() => {
-        console.log('Status Changed');
-        this.isOn = !(this.isOn);
-      });
+    let loading1 = this.loadingCtrl.create({
+      content: 'Cambiando de estado...',
+      enableBackdropDismiss: false,
+      spinner: 'dots'
+    });
+
+    loading1.present().then(() => {
+      this.irrigationProvider.setStatus({idsystem: this.idsystem})
+        .subscribe(() => {
+          console.log('Status Changed');
+          this.isOn = !(this.isOn);
+          loading1.dismiss();
+        });
+    });
   }
 
   onSetAutoOn() {
-    this.irrigationProvider.setAutoOn({idsystem: this.idsystem})
-      .subscribe(()=>{
-        console.log('Auto On applied');
-      });
+    let loading1 = this.loadingCtrl.create({
+      content: 'Cambiando de estado...',
+      enableBackdropDismiss: false,
+      spinner: 'dots'
+    });
+
+    loading1.present().then(() => {
+      this.irrigationProvider.setAutoOn({idsystem: this.idsystem})
+        .subscribe(() => {
+          console.log('Auto On applied');
+          loading1.dismiss();
+        });
+    });
   }
 
-  onSetAutoOff(){
-    this.irrigationProvider.setAutoOff({idsystem: this.idsystem})
-      .subscribe(() => {
-        console.log('Auto Off applied');
-      });
+  onSetAutoOff() {
+    let loading1 = this.loadingCtrl.create({
+      content: 'Cambiando de estado...',
+      enableBackdropDismiss: false,
+      spinner: 'dots'
+    });
+
+    loading1.present().then(() => {
+      this.irrigationProvider.setAutoOff({idsystem: this.idsystem})
+        .subscribe(() => {
+          console.log('Auto Off applied');
+          loading1.dismiss();
+        });
+    });
   }
 
-  onChangeName(){
+  onChangeName() {
     let prompt = this.alertCtrl.create({
       title: 'Editar nombre',
       message: "Introduzca el nuevo nombre",
@@ -111,18 +147,36 @@ export class IrrigationPage {
     prompt.present();
   }
 
-  onChangeTimeStarts(){
-    this.irrigationProvider.changeTimeStarts({idsystem: this.idsystem, timeStarts: this.event.timeStarts})
-      .subscribe(() => {
-        console.log('TimeStarts changed');
-      });
+  onChangeTimeStarts() {
+    let loading1 = this.loadingCtrl.create({
+      content: 'Cambiando de hora...',
+      enableBackdropDismiss: false,
+      spinner: 'dots'
+    });
+
+    loading1.present().then(() => {
+      this.irrigationProvider.changeTimeStarts({idsystem: this.idsystem, timeStarts: this.event.timeStarts})
+        .subscribe(() => {
+          console.log('TimeStarts changed');
+          loading1.dismiss();
+        });
+    });
   }
 
-  onChangeTimeEnds(){
-    this.irrigationProvider.changeTimeEnds({idsystem: this.idsystem, timeEnd: this.event.timeEnds})
-      .subscribe(() => {
-        console.log('TimeEnds changed');
-      });
+  onChangeTimeEnds() {
+    let loading1 = this.loadingCtrl.create({
+      content: 'Cambiando de hora...',
+      enableBackdropDismiss: false,
+      spinner: 'dots'
+    });
+
+    loading1.present().then(() => {
+      this.irrigationProvider.changeTimeEnds({idsystem: this.idsystem, timeEnd: this.event.timeEnds})
+        .subscribe(() => {
+          console.log('TimeEnds changed');
+          loading1.dismiss();
+        });
+    });
   }
 
   showToastMessage(message: string) {
