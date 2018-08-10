@@ -5,7 +5,6 @@
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
-    "start": "ionic serve --lab",
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
@@ -47,7 +46,9 @@
     "rxjs": "^6.2.0",
     "rxjs-compat": "^6.2.0",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.26"
+    "zone.js": "0.8.26",
+    "@ionic/app-scripts": "latest",
+    "typescript": "latest"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.9",
