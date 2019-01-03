@@ -34,7 +34,6 @@ import { ServicesApiProvider } from '../providers/services-api/services-api';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from "angularfire2/auth";
-import { FirestoreProvider } from '../providers/firestore/firestore';
 
 import { StreamingMedia } from "@ionic-native/streaming-media";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
@@ -42,7 +41,21 @@ import {TemperaturePage, FormatTimePipe} from "../pages/temperature/temperature"
 import {TemperaturesService} from "../services/temperatures";
 import {IrrigationPage} from "../pages/irrigation/irrigation";
 import { WeatherProvider } from '../providers/weather/weather';
-import { IrrigationProvider } from '../providers/irrigation/irrigation';
+import {SignupPage} from "../pages/signup/signup";
+import {SigninPage} from "../pages/signin/signin";
+
+import { FirebaseAuthProvider } from '../providers/firebase-auth/firebase-auth';
+import { UserDataProvider } from '../providers/user-data/user-data';
+import { LightsDataProvider } from '../providers/lights-data/lights-data';
+import {TermsAndConditionsPage} from "../pages/terms-and-conditions/terms-and-conditions";
+import {AboutUsPage} from "../pages/about-us/about-us";
+import { GoogleTranslateProvider } from '../providers/google-translate/google-translate';
+import { SigningUpPage } from '../pages/signing-up/signing-up';
+import { IrrigationDataProvider } from '../providers/irrigation-data/irrigation-data';
+
+import { AddDevicePage } from '../pages/add-device/add-device';
+import { Hotspot } from '@ionic-native/hotspot'
+import {PaymentPlansPage} from '../pages/payment-plans/payment-plans';
 
 export const config = {
   apiKey: "AIzaSyBe3wyrUzTphqwc4FfpaVmXeoPHVV4U8Vw",
@@ -71,7 +84,14 @@ export const config = {
     ServicesPage,
     TemperaturePage,
     IrrigationPage,
-    FormatTimePipe
+    FormatTimePipe,
+    SigninPage,
+    SignupPage,
+    SigningUpPage,
+    TermsAndConditionsPage,
+    AboutUsPage,
+    AddDevicePage,
+    PaymentPlansPage
   ],
   imports: [
     BrowserModule,
@@ -80,7 +100,7 @@ export const config = {
       backButtonText: 'Atrás'
     }),
     AngularFireModule.initializeApp(config),
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
@@ -100,7 +120,14 @@ export const config = {
     SuccessfulPaymentPage,
     ServicesPage,
     TemperaturePage,
-    IrrigationPage
+    IrrigationPage,
+    SigninPage,
+    SignupPage,
+    SigningUpPage,
+    TermsAndConditionsPage,
+    AboutUsPage,
+    AddDevicePage,
+    PaymentPlansPage
   ],
   providers: [
     StatusBar,
@@ -115,12 +142,16 @@ export const config = {
     ProductsApiProvider,
     ServicePaymentsService,
     ServicesApiProvider,
-    FirestoreProvider,
     StreamingMedia,
     BarcodeScanner,
     TemperaturesService,
     WeatherProvider,
-    IrrigationProvider
+    FirebaseAuthProvider,
+    UserDataProvider,
+    LightsDataProvider,
+    GoogleTranslateProvider,
+    IrrigationDataProvider,
+    Hotspot
   ]
 })
 export class AppModule {}

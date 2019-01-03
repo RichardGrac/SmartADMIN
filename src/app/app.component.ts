@@ -1,30 +1,79 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {MenuController, ModalController, NavController, Platform} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
-import {AngularFireAuth} from "angularfire2/auth";
-
-// import { timer } from 'rxjs/observable/timer';
+import {SigninPage} from "../pages/signin/signin";
+import {SignupPage} from "../pages/signup/signup";
+import {FirebaseAuthProvider} from "../providers/firebase-auth/firebase-auth";
+import {UserDataProvider} from "../providers/user-data/user-data";
+import {TermsAndConditionsPage} from "../pages/terms-and-conditions/terms-and-conditions";
+import {AboutUsPage} from "../pages/about-us/about-us";
+import {PaymentPlansPage} from '../pages/payment-plans/payment-plans';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = TabsPage;
-  // showSplash = true; // <-- show animation
+  homePage:any = TabsPage;
+  signinPage:any = SigninPage;
+  signupPage:any = SignupPage;
+  termsAndConditionsPage:any = TermsAndConditionsPage;
+  aboutUsPage:any = AboutUsPage;
+  paymentPlansPage:any = PaymentPlansPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, fireAuth: AngularFireAuth) {
+  public isAuthenticated = false;
+
+  // We reference #nav from app.html
+  @ViewChild('nav') nav: NavController;
+
+  constructor(platform: Platform,
+              statusBar: StatusBar,
+              splashScreen: SplashScreen,
+              private menuCtrl: MenuController,
+              private authService: FirebaseAuthProvider,
+              private userDataProvider: UserDataProvider,
+              private modalCtrl: ModalController
+  ) {
+
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       statusBar.backgroundColorByHexString("#0984e3");
       splashScreen.hide(); // <-- hide static image
-      // timer(3000).subscribe(() => this.showSplash = false) // <-- hide animation after 3
     });
-    fireAuth.auth.signInAnonymously()
-      .then(() => { console.log('login success') })
+
+    try {
+      this.authService.onAuthStateChanged().onAuthStateChanged(user => {
+        if(user) {
+          this.userDataProvider.setUserId(user.uid);
+          this.isAuthenticated = true;
+          this.nav.setRoot(this.homePage);
+        } else {
+          this.isAuthenticated = false;
+        }
+      })
+    }catch (e) {
+      console.error(e);
+    }
+    // fireAuth.auth.signInAnonymously()
+    //   .then(() => { console.log('signInAnonymously success') })
   }
+
+  onLoadPage (pageToLoad: any) {
+    this.nav.setRoot(pageToLoad);
+    this.menuCtrl.close();
+  }
+
+  onLoadTaC() {
+    let modal = this.modalCtrl.create(this.termsAndConditionsPage);
+    modal.present();
+  }
+
+  onLogout() {
+    this.authService.logout();
+    this.menuCtrl.close();
+    this.nav.setRoot(this.signinPage);
+  }
+
 }

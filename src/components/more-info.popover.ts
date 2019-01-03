@@ -15,6 +15,9 @@ import {Component} from "@angular/core";
         Toque el botón de <i>Opciones</i> para configurar la hora de encedido / apagado
         automático de sus unidades.
       </p>
+      <p text-justify>
+        Al eliminar un contenedor, se eliminarán todas sus elementos dentro.
+      </p>
       
     </div>    
   `

@@ -1,104 +1,91 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
-import {IrrigationProvider} from "../../providers/irrigation/irrigation";
 import {Irrigation} from "../../models/Irrigation";
+import {UserDataProvider} from "../../providers/user-data/user-data";
+import {IrrigationDataProvider} from "../../providers/irrigation-data/irrigation-data";
+import {Subscription} from "rxjs";
 
 @IonicPage()
 @Component({
   selector: 'page-irrigation',
   templateUrl: 'irrigation.html',
 })
-export class IrrigationPage {
-  object: Irrigation[];
+export class IrrigationPage implements OnInit, OnDestroy {
 
-  idsystem: number = 0;
-  name: string;
-  isOn: boolean;
-  isAutoOn: boolean;
-  isAutoOff: boolean;
-
+  irrigationObj: Irrigation = null;
+  public irrigationSubscription: Subscription;
 
   public event = {
-    timeStarts: '00:00',
-    timeEnds: '23:59'
+    timeToAutoOff: '00:00',
+    timeToAutoOn: '23:59'
   };
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public irrigationProvider: IrrigationProvider,
               public toastCtrl: ToastController,
               public alertCtrl: AlertController,
-              public loadingCtrl: LoadingController) {
+              public loadingCtrl: LoadingController,
+              public userData: UserDataProvider,
+              public irrigationData: IrrigationDataProvider) {
   }
 
-  ionViewDidLoad() {
-    let loading1 = this.loadingCtrl.create({
+
+  ngOnInit(): void {
+    const loading1 = this.loadingCtrl.create({
       content: 'Obteniendo información...',
       enableBackdropDismiss: false,
       spinner: 'dots'
     });
 
     loading1.present().then(() => {
-      this.irrigationProvider.getIrrigationList().valueChanges()
+      this.irrigationData.setUserId(this.userData.currentUserUid);
+      this.irrigationSubscription = this.irrigationData.getIrrigationData()
+        .valueChanges()
         .subscribe(data => {
-          this.name = data[0].name;
-          this.isOn = data[0].isOn;
-          this.isAutoOn = data[0].isAutoOn;
-          this.isAutoOff = data[0].isAutoOff;
-          this.event.timeStarts = data[0].timeStarts;
-          this.event.timeEnds = data[0].timeEnds;
+          if(data === undefined){
+            this.irrigationData.createIrrigationProfile();
+          } else {
+            this.irrigationObj = data;
+            this.event.timeToAutoOff = data.timeToAutoOff;
+            this.event.timeToAutoOn = data.timeToAutoOn;
+            loading1.dismiss();
+          }
+        });
+    });
+  }
+
+  updateValue(loadingMessage = 'Cambiando estado...', errorMessage = '¡Ops! Ocurrió un error'){
+    let loading1 = this.loadingCtrl.create({
+      content: loadingMessage,
+      enableBackdropDismiss: false,
+      spinner: 'dots'
+    });
+
+    loading1.present().then(() => {
+      this.irrigationData.updateIrrigationValue(this.irrigationObj)
+        .then(() => {
+          loading1.dismiss();
+        })
+        .catch(() => {
+          this.showToastMessage(errorMessage);
           loading1.dismiss();
         });
     });
   }
 
   onChangeState() {
-    let loading1 = this.loadingCtrl.create({
-      content: 'Cambiando de estado...',
-      enableBackdropDismiss: false,
-      spinner: 'dots'
-    });
-
-    loading1.present().then(() => {
-      this.irrigationProvider.setStatus({idsystem: this.idsystem})
-        .subscribe(() => {
-          console.log('Status Changed');
-          this.isOn = !(this.isOn);
-          loading1.dismiss();
-        });
-    });
+    this.irrigationObj.on = !this.irrigationObj.on;
+    this.updateValue();
   }
 
   onSetAutoOn() {
-    let loading1 = this.loadingCtrl.create({
-      content: 'Cambiando de estado...',
-      enableBackdropDismiss: false,
-      spinner: 'dots'
-    });
-
-    loading1.present().then(() => {
-      this.irrigationProvider.setAutoOn({idsystem: this.idsystem})
-        .subscribe(() => {
-          console.log('Auto On applied');
-          loading1.dismiss();
-        });
-    });
+    this.irrigationObj.autoOn = !this.irrigationObj.autoOn;
+    this.updateValue();
   }
 
   onSetAutoOff() {
-    let loading1 = this.loadingCtrl.create({
-      content: 'Cambiando de estado...',
-      enableBackdropDismiss: false,
-      spinner: 'dots'
-    });
-
-    loading1.present().then(() => {
-      this.irrigationProvider.setAutoOff({idsystem: this.idsystem})
-        .subscribe(() => {
-          console.log('Auto Off applied');
-          loading1.dismiss();
-        });
-    });
+    this.irrigationObj.autoOff = !this.irrigationObj.autoOff;
+    this.updateValue();
   }
 
   onChangeName() {
@@ -121,25 +108,13 @@ export class IrrigationPage {
         {
           text: 'Guardar',
           handler: data => {
+
             if (data.name.trim() == '' || data.name == null) {
               this.showToastMessage('Por favor ingrese un valor valido');
             } else {
-              let loading1 = this.loadingCtrl.create({
-                content: 'Realizando cambio...',
-                enableBackdropDismiss: false,
-                spinner: 'dots'
-              });
-
-              loading1.present()
-                .then(() => {
-                  this.irrigationProvider.setName({idsystem: this.idsystem, name: data.name})
-                    .subscribe(() => {
-                      console.log('Nombre cambiado');
-                      loading1.dismiss();
-                      this.showToastMessage('Nombre cambiado exitosamente!');
-                      this.name = data.name;
-                    });
-                });
+              // @ts-ignore
+              this.irrigationObj.name = data.name;
+              this.updateValue('Realizando cambio...');
             }
           }
         }]
@@ -148,35 +123,13 @@ export class IrrigationPage {
   }
 
   onChangeTimeStarts() {
-    let loading1 = this.loadingCtrl.create({
-      content: 'Cambiando de hora...',
-      enableBackdropDismiss: false,
-      spinner: 'dots'
-    });
-
-    loading1.present().then(() => {
-      this.irrigationProvider.changeTimeStarts({idsystem: this.idsystem, timeStarts: this.event.timeStarts})
-        .subscribe(() => {
-          console.log('TimeStarts changed');
-          loading1.dismiss();
-        });
-    });
+    this.irrigationObj.timeToAutoOn = this.event.timeToAutoOn;
+    this.updateValue('Cambiando de hora...');
   }
 
   onChangeTimeEnds() {
-    let loading1 = this.loadingCtrl.create({
-      content: 'Cambiando de hora...',
-      enableBackdropDismiss: false,
-      spinner: 'dots'
-    });
-
-    loading1.present().then(() => {
-      this.irrigationProvider.changeTimeEnds({idsystem: this.idsystem, timeEnd: this.event.timeEnds})
-        .subscribe(() => {
-          console.log('TimeEnds changed');
-          loading1.dismiss();
-        });
-    });
+    this.irrigationObj.timeToAutoOff = this.event.timeToAutoOff;
+    this.updateValue('Cambiando de hora...');
   }
 
   showToastMessage(message: string) {
@@ -186,5 +139,9 @@ export class IrrigationPage {
       position: 'bottom',
       cssClass: 'font-black',
     }).present();
+  }
+
+  ngOnDestroy(): void {
+    this.irrigationSubscription.unsubscribe();
   }
 }

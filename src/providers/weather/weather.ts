@@ -13,12 +13,9 @@ export class WeatherProvider {
 
   apiKey= "07829459d3efbcd38fafc80cabf74d30";
 
-  constructor(public http: HttpClient) {
-    console.log('Hello WeatherProvider Provider');
-  }
+  constructor(public http: HttpClient) {}
 
   getWeather(){
-    console.log('--getWeather()');
     return this.http
       .get("http://api.openweathermap.org/data/2.5/weather?q=Aguascalientes,MEX&APPID=07829459d3efbcd38fafc80cabf74d30");
   }

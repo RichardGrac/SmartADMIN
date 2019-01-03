@@ -20,9 +20,7 @@ export class ServicesApiProvider {
     })
   };
 
-  constructor(public http: HttpClient) {
-    console.log('Hello ServicesApiProvider Provider');
-  }
+  constructor(public http: HttpClient) {}
 
   registerPayment(card_number: string, name: string, amount: number, operation_name: string, company: string){
     console.log("--METHOD: registerPayment()");

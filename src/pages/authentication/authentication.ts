@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AlertController, IonicPage, LoadingController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 
@@ -7,7 +7,7 @@ import {NgForm} from "@angular/forms";
   selector: 'page-authentication',
   templateUrl: 'authentication.html',
 })
-export class AuthenticationPage {
+export class AuthenticationPage implements OnInit{
 
   try_number: number = 0;
   error_code: boolean = false;
@@ -21,6 +21,9 @@ export class AuthenticationPage {
               public viewCtrl: ViewController,
               public loadingCtrl: LoadingController,
               public alertCtrl: AlertController) {
+  }
+
+  ngOnInit(): void {
   }
 
   closeModal() {

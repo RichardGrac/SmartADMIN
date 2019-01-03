@@ -6,14 +6,10 @@ export class ProductsApiProvider {
 
   data;
 
-  constructor(public http: HttpClient) {
-    console.log('Hello ProductsApiProvider Provider');
-  }
+  constructor(public http: HttpClient) {}
 
   getProducts(){
-    console.log('Requesting data of Firebase...');
     this.data = this.http.get('https://smart-admin-master.herokuapp.com/api/products');
-    console.log('Data received...');
     return this.data;
   }
 

@@ -1,35 +1,52 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons start>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
     <ion-title text-center>
       <img src="assets/imgs/logo3.png" alt="logo" height="75" width="185">
-      <!--<h3>Smart<b class="dark">ADMIN</b></h3>-->
     </ion-title>
 
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding class="back-color">
-  <button ion-button large block margin-bottom
-    color="primary3"
-    *ngFor="let option of options; let i = index"
-    class="rounded-borders button-height smaller text-downu"
-    (click)="pushPage(i)">
 
-    <ion-grid class="text-down">
-      <ion-row justify-content-center align-items-center>
-        <ion-col col-3>
-          <!-- Con iconos de color-->
-          <!--<ion-icon item-start [name]="option.icon" [ngStyle]="{'color': option.color}"></ion-icon>-->
-          <!--<ion-icon item-start [name]="option.icon"></ion-icon>-->
-          <img [src]="option.img" alt="image" class="icons"/>
-        </ion-col>
-        <ion-col text-left col-9>
-          <h5 class="text-down font-size" text-uppercase>
-            {{ option.name }}
-          </h5>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </button>
+  <span *ngIf="user">
+    <span
+    *ngFor="let option of options; let i = index">
+
+    <button ion-button large block margin-bottom
+            color="primary3"
+            *ngIf="(user.typeOfUser === 'CUSTOMIZABLE_USER' && user.customModules.indexOf(option.customModule) != -1) ||
+             (option.typeOfUser.indexOf(user.typeOfUser) != -1)"
+            class="rounded-borders button-height smaller text-downu"
+            (click)="pushPage(i)">
+
+      <!--<div *ngIf="option.typeOfUser.indexOf(user.typeOfUser)">-->
+      <ion-grid class="text-down">
+        <ion-row justify-content-center align-items-center>
+          <ion-col col-3>
+            <!-- Con iconos de color-->
+            <!--<ion-icon item-start [name]="option.icon" [ngStyle]="{'color': option.color}"></ion-icon>-->
+            <!--<ion-icon item-start [name]="option.icon"></ion-icon>-->
+            <img [src]="option.img" alt="image" class="icons"/>
+          </ion-col>
+          <ion-col text-left col-9>
+            <h5 class="text-down font-size" text-uppercase>
+              {{ option.name }}
+            </h5>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <!--</div>-->
+
+    </button>
+
+  </span>
+  </span>
 
 </ion-content>

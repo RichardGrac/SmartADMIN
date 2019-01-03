@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Configuración del dispositivo</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-slides pager paginationType="fraction" >
+      <ion-slide color="primary">
+        <h1>Escaneo de QR</h1>
+        <img src="assets/imgs/iot_a.png" height="80" width="90">
+        <p>
+          Escanea el código QR ubicado en el empaque de tu dispositivo o en tu sesión web
+          <span style='color: dodgerblue; word-wrap: break-word;'>smartadminprojectweb.herokuapp.com</span>
+        </p>
+        <ion-fab right bottom>
+          <button ion-fab color="light" (click)="openScanner()">
+            <ion-icon name="arrow-dropright"></ion-icon>
+          </button>
+        </ion-fab>
+      </ion-slide>
+
+      <ion-slide color="primary">
+        <h1>Asignacion de nombre</h1>
+        <img src="assets/imgs/pencil.png" height="80" width="90">
+        <p>Asigna el nombre de tu dispositivo</p>
+        <button ion-button round outline (click)="onAddNewLight()">Asignar</button>
+        <ion-fab left bottom>
+          <button ion-fab color="light" (click)="prevSlide()">
+            <ion-icon name="arrow-dropleft"></ion-icon>
+          </button>
+        </ion-fab>
+      </ion-slide>
+
+      <ion-slide color="primary">
+        <h1>Configuración de red del dispositivo</h1>
+        <img src="assets/imgs/network.png" height="80" width="90">
+        <p>Ingresa la contraseña de tu red actual</p>
+        <h5>Red actual: <span>{{connectionInfo.ssid}}</span></h5>
+        <button ion-button round outline (click)="onAddPassword()">Ingresar contraseña</button>
+        <ion-fab left bottom>
+          <button ion-fab color="light" (click)="prevSlide()">
+            <ion-icon name="arrow-dropleft"></ion-icon>
+          </button>
+        </ion-fab>
+      </ion-slide>
+
+      <ion-slide color="primary">
+        <h1>Verificacion de datos</h1>
+        <img src="assets/imgs/verify.png" height="80" width="90">
+        <p>Verifica que los datos sean correctos e inicia la configuración del dispositivo</p>
+        <h5>Id del Dispositivo: <span class="black">{{idDevice}}</span></h5>
+        <h5>Nombre: <span class="black">{{name}}</span></h5>
+        <h5>Red: <span class="black">{{connectionInfo.ssid}}</span></h5>
+        <h5>Contraseña: <span class="black">{{password}}</span></h5>
+        <button ion-button round outline large (click)="initSmartConfig()">Iniciar Configuración</button>
+
+        <ion-fab left bottom>
+          <button ion-fab color="light" (click)="prevSlide()">
+            <ion-icon name="arrow-dropleft"></ion-icon>
+          </button>
+        </ion-fab>
+      </ion-slide>
+
+      <ion-slide color="primary">
+        <h1>Configuracion Exitosa</h1>
+        <img src="assets/imgs/success.png" height="80" width="90">
+        <p>Tu dispositivo ha sido configurado correctamente</p>
+        <button ion-button round outline large (click)="finalize()">Finalizar</button>
+      </ion-slide>
+
+    </ion-slides>
+</ion-content>
+

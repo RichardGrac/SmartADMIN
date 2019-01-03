@@ -11,133 +11,144 @@
 </ion-header>
 
 <ion-content class="grey-backgnd global-bigger-font">
+  <div *ngIf='userData'>
 
-  <ion-list no-border>
+    <ion-list no-border>
 
-    <ion-list-header>
-      <p text-uppercase>Pago</p>
-    </ion-list-header>
+      <ion-list-header>
+        <p text-uppercase>Pago</p>
+      </ion-list-header>
 
-    <button ion-item no-border>
+      <button ion-item no-border>
 
-      <ion-grid>
-        <ion-row>
+        <ion-grid>
+          <ion-row>
 
-          <ion-col col-3 no-padding>
-            <img src="assets/imgs/user.png">
-          </ion-col>
+            <ion-col col-3 no-padding>
+              <img src="assets/imgs/user.png">
+            </ion-col>
 
-          <ion-col col-7>
-            <ion-row>
-              <h2><b>RICARDO GARCÍA N.</b></h2>
-            </ion-row>
+            <ion-col col-7>
+              <ion-row>
+                <h2><b>{{userData.name.split(' ')[0].toUpperCase()}} {{userData.lastname.toUpperCase()}}.</b></h2>
+              </ion-row>
 
-            <ion-row no-margin>
-              <ion-col col-4 class="no-margin-bottom">
-                <img src="assets/imgs/visa-logo.png">
-              </ion-col>
+              <ion-row no-margin *ngIf='!userData.payment'>
+                <ion-col col-4 class='no-margin-bottom'>
+                  <p>No hay información de pago registrada.</p>
+                </ion-col>
+              </ion-row>
 
-              <ion-col col-8 margin-top class="no-margin-bottom">
-                <p>Terminación *321</p>
-              </ion-col>
+              <ion-row no-margin *ngIf='userData.payment'>
+                <ion-col col-4 class="no-margin-bottom">
+                  <img *ngIf="userData.payment.typeOfCard === 'visa'" src="assets/imgs/visa-logo.png">
+                  <img *ngIf="userData.payment.typeOfCard === 'mastercard'" src="assets/imgs/mastercard-logo.png">
+                </ion-col>
 
-            </ion-row>
+                <ion-col col-8 margin-top class="no-margin-bottom">
+                  <p>Terminación *321</p>
+                </ion-col>
+              </ion-row>
 
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
 
-    </button>
-  </ion-list>
+      </button>
+    </ion-list>
 
-  <ion-list no-border>
+    <ion-list no-border>
 
-    <ion-list-header>
-      <p text-uppercase>Información de Envío</p>
-    </ion-list-header>
+      <ion-list-header>
+        <p text-uppercase>Información de Envío</p>
+      </ion-list-header>
 
-    <button ion-item no-border>
-      <ion-grid>
+      <button ion-item no-border>
+        <ion-grid>
 
-        <ion-row no-margin>
+          <ion-row no-margin>
 
-          <ion-col col-3>
-            <img src="assets/imgs/address.png">
-          </ion-col>
+            <ion-col col-3>
+              <img src="assets/imgs/address.png">
+            </ion-col>
 
-          <ion-col margin-vertical col-9>
-            <p>#204, Agustín R. Gonzáles.</p>
-            <p>Zona Centro. CP: 20000</p>
-            <p>Aguascalientes, Ags.</p>
-          </ion-col>
-        </ion-row>
+            <ion-col *ngIf='userData.addressInfo' margin-vertical col-9>
+              <p>#204, Agustín R. Gonzáles.</p>
+              <p>Zona Centro. CP: 20000</p>
+              <p>Aguascalientes, Ags.</p>
+            </ion-col>
+            <ion-col *ngIf='!userData.addressInfo' margin-vertical col-9>
+              <h5 style='color: grey; text-align: center;'>No hay domicilio registrado.</h5>
+            </ion-col>
+          </ion-row>
 
-      </ion-grid>
-    </button>
+        </ion-grid>
+      </button>
 
-  </ion-list>
+    </ion-list>
 
-  <ion-list no-border>
+    <ion-list no-border>
 
-    <ion-list-header>
-      <p text-uppercase>Accesibilidad</p>
-    </ion-list-header>
+      <ion-list-header>
+        <p text-uppercase>Accesibilidad</p>
+      </ion-list-header>
 
-    <button ion-item>
-      <ion-icon name='resize' color="deepRose" item-start></ion-icon>
-      Tamaño de letra
-      <ion-note item-end>
-        Estandar
-      </ion-note>
-    </button>
+      <button ion-item>
+        <ion-icon name='resize' color="deepRose" item-start></ion-icon>
+        Tamaño de letra
+        <ion-note item-end>
+          {{config.letterSize}}
+        </ion-note>
+      </button>
+
+      <ion-item>
+        <ion-toggle [(ngModel)]='config.alternativeBackground' (ionChange)='this.updateValue()'></ion-toggle>
+        <ion-label>
+          Fondo Secundario
+        </ion-label>
+        <ion-icon name='color-palette' color="greenSea" item-start></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-toggle [(ngModel)]='config.voiceGuide' (ionChange)='this.updateValue()'></ion-toggle>
+        <ion-label>
+          Guía por voz
+        </ion-label>
+        <ion-icon name='megaphone' color="devilBlue" item-start></ion-icon>
+      </ion-item>
 
     <ion-item>
-      <ion-toggle checked="false"></ion-toggle>
-      <ion-label>
-        Fondo Secundario
-      </ion-label>
-      <ion-icon name='color-palette' color="greenSea" item-start></ion-icon>
-    </ion-item>
-
-    <ion-item>
-      <ion-toggle checked="true"></ion-toggle>
-      <ion-label>
-        Guía por voz
-      </ion-label>
-      <ion-icon name='megaphone' color="devilBlue" item-start></ion-icon>
-    </ion-item>
-
-    <ion-item>
-      <ion-toggle checked="true"></ion-toggle>
+      <ion-toggle [(ngModel)]='config.notifications' (ionChange)='this.updateValue()'></ion-toggle>
       <ion-label>
         Notificaciones
       </ion-label>
       <ion-icon name='notifications' color="androidGreen" item-start></ion-icon>
     </ion-item>
 
-    <button ion-item>
-      <ion-icon name='text' color="tigerlily" item-start></ion-icon>
-      Idioma
-      <ion-note item-end>
-        Español
-      </ion-note>
-    </button>
+      <button ion-item>
+        <ion-icon name='text' color="tigerlily" item-start></ion-icon>
+        Idioma
+        <ion-note item-end>
+          {{config.language}}
+        </ion-note>
+      </button>
 
-  </ion-list>
+    </ion-list>
 
+    <ion-list no-border>
 
-  <ion-list no-border>
+      <ion-list-header>
+        <p text-uppercase>Código de acceso</p>
+      </ion-list-header>
 
-    <ion-list-header>
-      <p text-uppercase>Código de acceso</p>
-    </ion-list-header>
+      <button ion-item>
+        <ion-icon name='grid' color="dark2" item-start></ion-icon>
+        Cambiar código
+      </button>
 
-    <button ion-item>
-      <ion-icon name='grid' color="dark2" item-start></ion-icon>
-      Cambiar código
-    </button>
+    </ion-list>
 
-  </ion-list>
+  </div>
 
 
 </ion-content>

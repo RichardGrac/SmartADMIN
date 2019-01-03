@@ -1,5 +1,46 @@
-<div *ngIf="showSplash" class="splash">
-  <div class="sk-folding-cube"></div>
-</div>
+<ion-menu [content]="nav">
 
-<ion-nav [root]="rootPage"></ion-nav>
+  <ion-header>
+    <ion-toolbar color="blue01">
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class='back-color'>
+    <ion-list>
+      <button class="sidemenu-button" ion-item icon-left (click)="onLoadPage(homePage)" *ngIf="isAuthenticated">
+        <ion-icon name="home" style='color: #8B4900;'></ion-icon>
+        Home
+      </button>
+      <button class="sidemenu-button" ion-item icon-left (click)="onLoadPage(paymentPlansPage)" *ngIf="isAuthenticated">
+        <ion-icon name="pricetags" style='color: #EAB543;'></ion-icon>
+        Paquetes
+      </button>
+      <button class="sidemenu-button" ion-item icon-left (click)="onLoadPage(aboutUsPage)" *ngIf="isAuthenticated">
+        <ion-icon name="thumbs-up" color='primary'></ion-icon>
+        Acerca de SmartADMIN
+      </button>
+      <button class="sidemenu-button" ion-item icon-left (click)='onLoadTaC()' *ngIf="isAuthenticated">
+        <ion-icon name="megaphone"></ion-icon>
+        T&C
+      </button>
+      <button class="sidemenu-button" ion-item icon-left (click)="onLogout()" *ngIf="isAuthenticated">
+        <ion-icon name="log-out"></ion-icon>
+        Cerrar Sesión
+      </button>
+
+      <button class="sidemenu-button" ion-item icon-left (click)="onLoadPage(signinPage)" *ngIf="!isAuthenticated">
+        <ion-icon name="log-in"></ion-icon>
+        Iniciar Sesión
+      </button>
+
+      <button class="sidemenu-button" ion-item icon-left (click)="onLoadPage(signupPage)" *ngIf="!isAuthenticated">
+        <ion-icon name="person"></ion-icon>
+        Registrarse
+      </button>
+
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+<ion-nav [root]="signinPage" #nav></ion-nav>

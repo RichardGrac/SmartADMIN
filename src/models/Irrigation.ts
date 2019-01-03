@@ -1,9 +1,8 @@
 export interface Irrigation {
-  isOn: boolean,
+  on: boolean,
   name: string,
-  isAutoOff: boolean,
-  timeEnds: string,
-  isAutoOn: boolean,
-  idSystem: number,
-  timeStarts: string
+  autoOff: boolean,
+  timeToAutoOff: string,
+  autoOn: boolean,
+  timeToAutoOn: string
 }

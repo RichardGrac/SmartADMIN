@@ -27,7 +27,6 @@ export class ProductsService {
   }
 
   doingRequest(){
-    console.log('DoingRequest()');
     this.productsProvicer.getProducts()
       .subscribe(
         (data) => {this.convertDataToProducts(data);},
@@ -40,6 +39,5 @@ export class ProductsService {
     for (var i = 0; i < data.length; i++){
       this.products.push(new Product(data[i].id, data[i].category, data[i].price, data[i].name, data[i].type));
     }
-    console.log("Products added: " + this.products.length);
   }
 }

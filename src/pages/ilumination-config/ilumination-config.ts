@@ -8,8 +8,7 @@ import {
   ToastController,
   ViewController
 } from 'ionic-angular';
-import {Place} from "../../models/Place";
-import {FirestoreProvider} from "../../providers/firestore/firestore";
+import {LightsDataProvider} from "../../providers/lights-data/lights-data";
 
 @IonicPage()
 @Component({
@@ -18,34 +17,34 @@ import {FirestoreProvider} from "../../providers/firestore/firestore";
 })
 export class IluminationConfigPage implements OnInit {
 
-  place: Place;
-  id_place: number;
-  id_light: number;
+  idPlace: string;
+  placeName: string;
+  light: any;
 
   public event = {
-    timeStarts: '00:00',
-    timeEnds: '00:00'
+    timeToAutoOn: '00:00',
+    timeToAutoOff: '00:00'
   };
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
               public toastCtrl: ToastController,
-              public firestoreProvider: FirestoreProvider,
+              public lightsData: LightsDataProvider,
               public loadingCtrl: LoadingController,
               public alertCtrl: AlertController) {
   }
 
   ngOnInit(): void {
-    this.place = this.navParams.get('place');
-    this.id_place = this.navParams.get('id_place');
-    this.id_light = this.navParams.get('id_light');
+    this.light = this.navParams.get('light');
+    this.idPlace = this.navParams.get('idPlace');
+    this.placeName = this.navParams.get('placeName');
     this.getTimes();
   }
 
   private getTimes() {
-    this.event.timeStarts = this.place.lights[this.id_light].timeStarts;
-    this.event.timeEnds = this.place.lights[this.id_light].timeEnds;
+    this.event.timeToAutoOn = this.light.timeToAutoOn;
+    this.event.timeToAutoOff = this.light.timeToAutoOff;
   }
 
   closeModal() {
@@ -61,19 +60,17 @@ export class IluminationConfigPage implements OnInit {
 
     loading1.present().then(() => {
       if (band == 1) {
-        this.firestoreProvider.setAutoOn({idplace: this.id_place, idlight: this.id_light})
-          .subscribe(() => {
+        this.lightsData.updateLightValue(this.idPlace, this.light.idLight, {auto_on: !this.light.auto_on})
+          .then(() => {
             // Local Change
-            let aux = this.place.lights[this.id_light].auto_on;
-            this.place.lights[this.id_light].auto_on = !(aux);
+            this.light.auto_on = !this.light.auto_on;
             loading1.dismiss()
           })
       } else {
-        this.firestoreProvider.setAutoOff({idplace: this.id_place, idlight: this.id_light})
-          .subscribe(() => {
+        this.lightsData.updateLightValue(this.idPlace, this.light.idLight, {auto_off: !this.light.auto_off})
+          .then(() => {
             // Local Change
-            let aux = this.place.lights[this.id_light].auto_off;
-            this.place.lights[this.id_light].auto_off = !(aux);
+            this.light.auto_off = !this.light.auto_off;
             loading1.dismiss()
           })
       }
@@ -93,7 +90,7 @@ export class IluminationConfigPage implements OnInit {
       buttons: [
         {
           text: 'Cancelar',
-          handler: data => {
+          handler: () => {
             return;
           }
         },
@@ -111,11 +108,10 @@ export class IluminationConfigPage implements OnInit {
 
               loading1.present()
                 .then(() => {
-                  this.firestoreProvider.setName({idplace: this.id_place, idlight: this.id_light, name: data.name})
-                    .subscribe(() => {
-                      console.log('Nombre cambiado');
+                  this.lightsData.updateLightValue(this.idPlace, this.light.idLight, {name: data.name})
+                    .then(() => {
                       // Local Change
-                      this.place.lights[this.id_light].name = data.name;
+                      this.light.name = data.name;
                       loading1.dismiss();
                       this.showToastMessage('Nombre cambiado exitosamente!')
                     });
@@ -128,13 +124,17 @@ export class IluminationConfigPage implements OnInit {
   }
 
   onChangeStatus() {
-    this.firestoreProvider.setStatus({idplace: this.id_place, idlight: this.id_light})
-      .subscribe(() => {
-        var aux = this.place.lights[this.id_light].on;
-        // Local Change
-        this.place.lights[this.id_light].on = !(aux);
-        this.showToastMessage('¡Estado cambiado exitosamente!')
+    this.lightsData.updateStatusOnFirebaseRTDB(this.light.idLight, !this.light.on)
+      .then(() => {
+        // Do the same change but in Firestore
+        this.lightsData.updateLightValue(this.idPlace, this.light.idLight, { on: !this.light.on })
+          .then(() => {
+            // Local Change
+            this.light.on = !this.light.on;
+            this.showToastMessage('¡Estado cambiado exitosamente!')
+          })
       });
+
   }
 
   changeTimeStarts() {
@@ -145,8 +145,8 @@ export class IluminationConfigPage implements OnInit {
     });
 
     loading1.present().then(()=> {
-      this.firestoreProvider.changeTimeStarts({idplace: this.id_place, idlight: this.id_light, timeStarts: this.event.timeStarts})
-        .subscribe(() => {
+      this.lightsData.updateLightValue(this.idPlace, this.light.idLight, {timeToAutoOn: this.event.timeToAutoOn})
+        .then(() => {
           this.showToastMessage('¡Hora establecida exitosamente!');
           // No local change needed.
           loading1.dismiss();
@@ -162,13 +162,25 @@ export class IluminationConfigPage implements OnInit {
     });
 
     loading1.present().then(()=> {
-      this.firestoreProvider.changeTimeEnds({idplace: this.id_place, idlight: this.id_light, timeEnd: this.event.timeEnds})
-        .subscribe(() => {
+      this.lightsData.updateLightValue(this.idPlace, this.light.idLight, {timeToAutoOff: this.event.timeToAutoOff})
+        .then(() => {
           this.showToastMessage('¡Hora establecida exitosamente!');
           // No local change needed.
           loading1.dismiss();
         })
     });
+  }
+
+  onDeleteThisLight () {
+    this.lightsData.deleteALightFromRTDB(this.light.idLight)
+      .then(() => {
+        // The same but in Firestore
+        this.lightsData.deleteALight(this.idPlace, this.light.idLight)
+          .then(() => {
+            this.showToastMessage('Item eliminado correctamente');
+            this.navCtrl.pop();
+          })
+      });
   }
 
   showToastMessage(message: string) {

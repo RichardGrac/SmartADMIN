@@ -1,7 +1,8 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>{{name}}</ion-title>
+    <ion-title *ngIf='irrigationObj'>{{irrigationObj.name}}</ion-title>
+    <ion-title *ngIf='!irrigationObj'>Cargando...</ion-title>
 
     <ion-buttons end>
       <button ion-button icon-only (click)="onChangeName()">
@@ -13,16 +14,17 @@
 </ion-header>
 
 
-<ion-content class="grey-backgnd">
+<ion-content margin-top class="grey-backgnd" *ngIf='irrigationObj'>
+  <br />
   <h3 text-left margin-left>Sistema de Riego</h3>
   <p margin-left class="global-font-16px">Presione el botón para hacer un encendido del sistema de riego.</p>
   <ion-grid class="minus-padding-top">
     <ion-row>
       <ion-col text-center>
         <div>
-          <img *ngIf="isOn" src="assets\\imgs\\power-button.png" alt="power-button" width="60%"
+          <img *ngIf="irrigationObj.on" src="assets\\imgs\\power-button.png" alt="power-button" width="60%"
                (click)="onChangeState()"/>
-          <img *ngIf="!isOn" src="assets\\imgs\\power-button2.png" alt="power-button" width="60%"
+          <img *ngIf="!irrigationObj.on" src="assets\\imgs\\power-button2.png" alt="power-button" width="60%"
                (click)="onChangeState()"/>
 
         </div>
@@ -37,38 +39,38 @@
     </ion-list-header>
 
     <ion-item>
-      <ion-toggle *ngIf="isAutoOn" checked="true" (ionChange)="onSetAutoOn()"></ion-toggle>
-      <ion-toggle *ngIf="!isAutoOn" checked="false" (ionChange)="onSetAutoOn()"></ion-toggle>
+      <ion-toggle *ngIf="irrigationObj.autoOn" checked="true" (ionChange)="onSetAutoOn()"></ion-toggle>
+      <ion-toggle *ngIf="!irrigationObj.autoOn" checked="false" (ionChange)="onSetAutoOn()"></ion-toggle>
       <ion-label>
         Encendido automático
       </ion-label>
     </ion-item>
 
-    <ion-item class="background-greyish" *ngIf="isAutoOn" >
+    <ion-item class="background-greyish" *ngIf="irrigationObj.autoOn" >
       <ion-label>
         Hora de encendido
       </ion-label>
       <ion-note item-end>
-        <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="event.timeStarts"
+        <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="event.timeToAutoOn"
         (ionChange)="onChangeTimeStarts()"></ion-datetime>
       </ion-note>
     </ion-item>
 
     <ion-item>
-      <ion-toggle *ngIf="isAutoOff" checked="true" (ionChange)="onSetAutoOff()"></ion-toggle>
-      <ion-toggle *ngIf="!isAutoOff" checked="false" (ionChange)="onSetAutoOff()"></ion-toggle>
+      <ion-toggle *ngIf="irrigationObj.autoOff" checked="true" (ionChange)="onSetAutoOff()"></ion-toggle>
+      <ion-toggle *ngIf="!irrigationObj.autoOff" checked="false" (ionChange)="onSetAutoOff()"></ion-toggle>
       <ion-label>
         Apagado automático
       </ion-label>
     </ion-item>
 
 
-    <ion-item class="background-greyish" *ngIf="isAutoOff">
+    <ion-item class="background-greyish" *ngIf="irrigationObj.autoOff">
       <ion-label>
         Hora de apagado
       </ion-label>
       <ion-note item-end>
-        <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="event.timeEnds"
+        <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="event.timeToAutoOff"
         (ionChange)="onChangeTimeEnds()"></ion-datetime>
       </ion-note>
     </ion-item>
